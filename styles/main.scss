@@ -31,11 +31,6 @@ a:active {
   font-weight: 600;
 }
 
-h1 {
-  font-family: 'Nothing You Could Do', cursive;
-  color: #540b0e;
-}
-
 .header {
   display: flex;
   position: fixed;
@@ -48,11 +43,20 @@ h1 {
   padding: 1em;
   background-color: #e09f3e;
   color: #335c67;
-  z-index: 1;
+}
+
+.header-title a {
+  font-family: 'Nothing You Could Do', cursive;
+  color: #540b0e;
+  font-size: 4em;
 }
 
 .header-menu a {
   color: #335c67;
+}
+
+.header-menu {
+  font-size: 1.3em;
 }
 
 .header-user {
@@ -67,3 +71,11 @@ h1 {
 .profile-picture {
   margin-left: 10px;
 }
+
+.navbar-brand {
+    font-family: 'Nothing You Could Do', cursive;
+      color: #540b0e;
+      font-size: 4em;
+}
+
+

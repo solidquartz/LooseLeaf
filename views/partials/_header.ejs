@@ -1,15 +1,79 @@
-<div class="header-title">
-  <a href="/index">
-    <h1>LooseLeaf</h1>
-  </a>
-</div>
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/index">LooseLeaf</a>
 
-<nav class="header-menu">
-  <p><i class="bi bi-search"></i> | <a href="/create-resource">Create Leaf</a> | <a href="/my-resources">My
-      Leaves</a></p>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/my-resources">My Leaves</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/create-resource">Create Leaves</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Top🍀</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">New🌱</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Categories
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Administrative</a></li>
+            <li><a class="dropdown-item" href="#">Arts & Crafts</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+
+    </div>
+  </div>
 </nav>
 
+
 <div class="header-user">
-  <a href="/profile">Username</a> <a href="/profile"><img src="http://placekitten.com/50/50"
-      class="profile-picture"></a>
+
+<%# if (user.name ===null || user.name ===undefined) { %>
+  <!-- <div class="login-register">
+  <a href="/register">
+    <button type="button" class="btn btn-light">Register</button>
+  </a>
+  <a href="/login">
+    <button type="button" class="btn btn-outline-light">Log In</button>
+  </a>
+</div> -->
+  <%# } else { %>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    username
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">My Profile</a></li>
+    <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+    <li><a class="dropdown-item" href="#">My Leaves</a></li>
+    <li><a class="dropdown-item" href="#">Create Leaf</a></li>
+    <li>
+      <hr class="dropdown-divider">
+    </li>
+    <li><a class="dropdown-item" href="#">Log Out</a></li>
+  </ul>
+</div>
+
+<%# } %> 
+
 </div>
