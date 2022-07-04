@@ -10,32 +10,32 @@ app.get("/register", (req, res) => {
 });
 
 // Shows profile page
-app.get("/:profileID", (req, res) => {
+app.get("/profiles/:profile_id", (req, res) => {
   res.render("profile");
 });
 
 // Shows individual leaf page
-app.get("/:leafID", (req, res) => {
-  res.render("leaf");
+app.get("/resources/:resource_id", (req, res) => {
+  res.render("resource");
 });
 
 // Shows create individual leaf template page
-app.get("/:leafID/create", (req, res) => {
-  res.render("leaf_create");
+app.get("/resources/create", (req, res) => {
+  res.render("resource_create");
 });
 
-// Shows create individual leaf edit page  --> Do we need this page or can it just be the leaf page?
-app.get("/:leafID/edit", (req, res) => {
-  res.render("leaf_edit");
+// Shows create individual leaf edit page
+app.get("/resources/:resourceID/edit", (req, res) => {
+  res.render("resource_edit");
 });
 
 // Shows all resources (toggle b/w all, likes and created)
-app.get("/:leaves", (req, res) => {
-  res.render("leaves");
+app.get("/resources", (req, res) => {
+  res.render("resources");
 });
 
 // Redirect to external URL
-app.get("/external_url", (req, res) => {
+app.get("/external", (req, res) => {
   // get the long URL somehow (maybe from leaf object)
   res.redirect(externalURL);
 });
@@ -56,15 +56,9 @@ app.post("/logout", (req, res) => {
 });
 
 // Creates new leaf  --> do we need an ID for this one or just use a gerenic create page since its all the same?
-app.post("/:leafID/create", (req, res) => {
+app.post("/resources/create", (req, res) => {
   // After creating leaf redirect to leaf page
-  res.redirect('/leaf');
-});
-
-// Edits new leaf
-app.post("/:leafID/edit", (req, res) => {
-  // After editing leaf redirect to leaf page
-  res.redirect('/leaf');
+  res.redirect('/resource');
 });
 
 // Edits new leaf
@@ -74,7 +68,7 @@ app.post("/:profileID/edit", (req, res) => {
 });
 
 // Delete individual created resource
-app.post("/:leafID/delete", (req, res) => {
+app.post("/resources/:resourceID/delete", (req, res) => {
   // After deleting leaf redirect back to home
   res.redirect('/home');
 });
