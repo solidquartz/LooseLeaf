@@ -3,15 +3,37 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  font-family: 'Work Sans', sans-serif;
+  background: #ffffff;
+}
 
-  background: rgb(163, 208, 219);
-  background: linear-gradient(227deg,
-      rgba(163, 208, 219, 1) 0%,
-      rgba(163, 176, 219, 1) 20%,
-      rgba(163, 173, 219, 1) 34%,
-      rgba(163, 219, 208, 1) 59%,
-      rgba(163, 208, 219, 1) 74%,
-      rgba(163, 208, 219, 1) 100%);
+a:link {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+}
+
+a:visited {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+}
+
+a:active {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+}
+
+h1 {
+  font-family: 'Nothing You Could Do', cursive;
+  color: #540b0e;
 }
 
 .header {
@@ -24,12 +46,24 @@ body {
   height: 100px;
   width: 100%;
   padding: 1em;
-  background-color: white;
+  background-color: #e09f3e;
+  color: #335c67;
   z-index: 1;
+}
 
+.header-menu a {
+  color: #335c67;
 }
 
 .header-user {
   display: flex;
   align-items: center;
+}
+
+.header-user a {
+    color: #540b0e;
+}
+
+.profile-picture {
+  margin-left: 10px;
 }
