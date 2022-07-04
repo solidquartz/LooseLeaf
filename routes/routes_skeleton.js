@@ -3,10 +3,6 @@ app.get("/home", (req, res) => {
   res.render("home");
 });
 
-// Shows login page
-app.get("/login", (req, res) => {
-  res.render("login");
-});
 
 // Shows register page
 app.get("/register", (req, res) => {
@@ -44,10 +40,7 @@ app.get("/external_url", (req, res) => {
   res.redirect(externalURL);
 });
 
-// Logs in user
-app.post("/login", (req, res) => {
-  res.redirect('/home');
-});
+
 
 // Creates a new user
 app.post("/register", (req, res) => {
