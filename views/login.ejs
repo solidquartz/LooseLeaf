@@ -36,6 +36,34 @@
     <%- include('partials/_header') %>
   </nav>
 
+  <main style="margin: 1em;">
+    <h3>Login</h3>
+    <div>
+      <div>
+        <form class="form-inline" action="/login" method="POST">
+        <label for="email">Email address:</label>
+      </div>
+        <div class="justify-content-center">
+          <input class="d-inline-flex" type="email" name="email" placeholder="Enter email" style="width: 300px; margin: 1em">
+      </div>
+      <div>
+        <label for="longURL">Password</label>
+      </div>
+        <input class="form-inline" type="password" name="password" placeholder="Password" style="width: 300px; margin: 1em">
+        <div>
+          <button type="submit" class="btn btn-primary">login</button>
+        </div>
+      </div>
+    </form>
+    <% if (status === 404) { %>
+      <div class="alert alert-danger" role="alert">
+        <%= status %>
+        <%= ":" %>
+        <%= message %>
+       </div>
+    <% } %>
+  </main>
+
   <!-----------------------------Body----------------------------------->
 
 

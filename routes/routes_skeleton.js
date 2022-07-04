@@ -40,7 +40,10 @@ app.get("/external_url", (req, res) => {
   res.redirect(externalURL);
 });
 
-
+// Logs in user
+app.post("/login", (req, res) => {
+  res.redirect('/home');
+});
 
 // Creates a new user
 app.post("/register", (req, res) => {
