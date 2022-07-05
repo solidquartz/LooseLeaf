@@ -50,22 +50,8 @@ const profilesRoutes = require("./routes/profiles");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/resources", resourcesRoutes(db));
-<<<<<<< HEAD
-app.use("/profile", profilesRoutes(db));
-
-
-
-=======
-app.use("/profiles", profilesRoutes(db));
-app.use("/users", usersRoutes(db));
->>>>>>> 81a194fe8d71b7fdbb70ccfb916f0c8f9c1f539d
-
-// Note: mount other resources here, using the same pattern above
-
-// Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-
 app.get("/", (req, res) => {
   res.render("index");
 });

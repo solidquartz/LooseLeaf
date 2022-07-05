@@ -6,20 +6,20 @@
  */
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    const id = req.session.userID
+    const id = req.session.userID;
     db.query(`SELECT * FROM users;`)
-    .then(data => {
-      const users = data.rows;
-      res.json({ users });
-    })
+      .then(data => {
+        const users = data.rows;
+        res.json({ users });
+      })
       .catch(err => {
         res
           .status(500)
-          .send("SQL Error: " + err.message)
+          .send("SQL Error: " + err.message);
       });
   });
 
