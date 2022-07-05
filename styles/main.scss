@@ -118,153 +118,150 @@ a:active {
 }
 
 
-
 //////////Login Page //////////////
 
 
 .login-register-container {
   display: flex;
   flex-direction: row;
-  justify-items: auto;
-}
-
-/////////login container/////////
-
-.login-container {
-  display: flex;
-  flex-direction: column;
-  height: 300px;
-  width: 200px;
-  background-color: #e09f3e;
-  margin-right: 80px;
-  align-items: center;
-}
-
-header.login {
-  font-family: 'Work Sans', sans-serif;
-  color: #9e2a2b;
-  font-size: 20px;
-  font-weight: bold;
-  margin: 10px;
-
-}
-
-#login-email {
-  height: 25px;
-  width: 90%;
-  margin: auto;
-  font-family: 'Work Sans', sans-serif;
-  color: #540b0e;
-  margin-bottom: 25px;
-  white-space: nowrap;
-  overflow-x: hidden;
-}
-
-#login-password {
-  height: 25px;
-  width: 90%;
-  margin: auto;
-  font-family: 'Work Sans', sans-serif;
-  color: #540b0e;
-  white-space: nowrap;
-  overflow-x: hidden;
-}
-
-.login-button {
-  display: flex;
-  margin-left: auto;
-  margin-top: auto;
-  margin-right: 15px;
-  margin-bottom: 15px;
-  font-family: 'Work Sans', sans-serif;
-  background-color: #9e2a2b;
-  color: #e09f3e;
-  font-weight: bold;
-  border: none;
-
-}
-
-.login-text {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
-  margin: auto;
+  position: relative;
+  align-content: center;
+  top: 250px;
 }
 
+  /////////login container/////////
 
-// register container//
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 200px;
+    background-color: #e09f3e;
+    margin-right: 80px;
+    align-items: center;
+  }
 
-.register-container {
-  display: flex;
-  flex-direction: column;
-  height: 300px;
-  width: 200px;
-  background-color: #e09f3e;
-  align-items: center;
-}
+  header.login {
+    font-family: 'Work Sans', sans-serif;
+    color: #9e2a2b;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
 
-header.register {
-  font-family: 'Work Sans', sans-serif;
-  color: #9e2a2b;
-  font-size: 20px;
-  font-weight: bold;
-  margin: 10px;
+  }
 
-}
+  #login-email {
+    height: 25px;
+    width: 90%;
+    margin: auto;
+    font-family: 'Work Sans', sans-serif;
+    color: #540b0e;
+    margin-bottom: 25px;
+    white-space: nowrap;
+    overflow-x: hidden;
+  }
 
-#name {
-  height: 25px;
-  width: 90%;
-  margin: auto;
-  font-family: 'Work Sans', sans-serif;
-  color: #540b0e;
-  white-space: nowrap;
-  overflow-x: hidden;
-}
+  #login-password {
+    height: 25px;
+    width: 90%;
+    margin: auto;
+    font-family: 'Work Sans', sans-serif;
+    color: #540b0e;
+    white-space: nowrap;
+    overflow-x: hidden;
+  }
 
-#register-email {
-  height: 25px;
-  width: 90%;
-  margin: auto;
-  font-family: 'Work Sans', sans-serif;
-  color: #540b0e;
-  margin: 10px
+  .login-button {
+    display: flex;
+    margin-left: auto;
+    margin-top: auto;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    font-family: 'Work Sans', sans-serif;
+    background-color: #9e2a2b;
+    color: #e09f3e;
+    font-weight: bold;
+    border: none;
+  }
 
-}
+  .login-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+  }
 
-#register-password {
-  height: 25px;
-  width: 90%;
-  margin: auto;
-  font-family: 'Work Sans', sans-serif;
-  color: #540b0e;
-  white-space: nowrap;
-  overflow-x: hidden;
-}
 
-.register-button {
-  display: flex;
-  margin-left: auto;
-  margin-top: auto;
-  margin-right: 15px;
-  margin-bottom: 15px;
-  font-family: 'Work Sans', sans-serif;
-  background-color: #9e2a2b;
-  color: #e09f3e;
-  font-weight: bold;
-  border: none;
+  // register container//
 
-}
+  .register-container {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 200px;
+    background-color: #e09f3e;
+    align-items: center;
+  }
 
-.register-text {
-  display: flex;
-  flex-direction: column;
-  margin: auto;
+  header.register {
+    font-family: 'Work Sans', sans-serif;
+    color: #9e2a2b;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+  }
 
-}
+  #name {
+    height: 25px;
+    width: 90%;
+    margin: auto;
+    font-family: 'Work Sans', sans-serif;
+    color: #540b0e;
+    white-space: nowrap;
+    overflow-x: hidden;
+  }
 
-.navbar-brand {
-  font-family: 'Nothing You Could Do', cursive;
-  color: #540b0e;
-  font-size: 4em;
-}
+  #register-email {
+    height: 25px;
+    width: 90%;
+    margin: auto;
+    font-family: 'Work Sans', sans-serif;
+    color: #540b0e;
+    margin: 10px
+  }
+
+  #register-password {
+    height: 25px;
+    width: 90%;
+    margin: auto;
+    font-family: 'Work Sans', sans-serif;
+    color: #540b0e;
+    white-space: nowrap;
+    overflow-x: hidden;
+  }
+
+  .register-button {
+    display: flex;
+    margin-left: auto;
+    margin-top: auto;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    font-family: 'Work Sans', sans-serif;
+    background-color: #9e2a2b;
+    color: #e09f3e;
+    font-weight: bold;
+    border: none;
+  }
+
+  .register-text {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+
+  .navbar-brand {
+    font-family: 'Nothing You Could Do', cursive;
+    color: #540b0e;
+    font-size: 4em;
+  }
