@@ -9,21 +9,14 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = (db) => {
-  router.get("/", (req, res) => {
+  router.get("/:id", (req, res) => {
     const id = req.session.userID;
-    db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
-        res.json({ users });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .send("SQL Error: " + err.message);
-      });
+
+    const templateVars = {
+      id,
+    }
+    res.render('profiles', templateVars)
   });
-
-
 
   return router;
 };
