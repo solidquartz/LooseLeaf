@@ -6,31 +6,30 @@
  */
 
 const express = require('express');
-const router  = express.Router();
-const helperFunctions = require('./helper_functions')
+const router = express.Router();
+const helperFunctions = require('./helper_functions');
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
-        res.json({ users });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
+    helperFunctions.getAllResourcesAndCategories(db)
+      .then((all) => {
+        const resources = all[0];
+        const categories = all[1];
+        console.log(categories, resources);
+        const templateVars = { resources, categories };
+        res.render("resources", templateVars);
       });
   });
 
+  //change name to not objects
   router.get("/create", (req, res) => {
-      helperFunctions.getCategoriesObject()
-        .then((categories) => {
-          // console.log(categories);
-          const templateVars = {categories: categories}
-          // console.log(templateVars);
-          res.render("create-resource", templateVars);
-        })
+    helperFunctions.getAllCategories(db)
+      .then((categories) => {
+        console.log(categories);
+        const templateVars = { categories: categories };
+        console.log(templateVars);
+        res.render("create-resource", templateVars);
+      });
   });
 
   router.post("/create", (req, res) => {
@@ -41,7 +40,7 @@ module.exports = (db) => {
       const year = today.getFullYear();
       const date = `${year}-${month}-${day}`;
       return date;
-    }
+    };
 
     // STILL NEED TO GET userID/category somehow
     const userID = 1;
@@ -60,20 +59,20 @@ module.exports = (db) => {
     db.query(queryString, [userID, title, url, description, imgURL, date, category])
       .then(data => {
         res.redirect(`/`);
-      })
+      });
   });
 
   router.get("/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
-    console.log(resourceID)
+    console.log(resourceID);
     db.query(`SELECT * FROM resources WHERE id = ${resourceID};`)
-    .then(data => {
-      const resourceData = data.rows[0];
-      let templateVars = {resource: resourceData}
-      console.log(templateVars);
-      res.render("resource", templateVars);
-    })
-  })
+      .then(data => {
+        const resourceData = data.rows[0];
+        let templateVars = { resource: resourceData };
+        console.log(templateVars);
+        res.render("resource", templateVars);
+      });
+  });
 
   // need to also get likes, comments, ratings
   return router;

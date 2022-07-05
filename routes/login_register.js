@@ -57,7 +57,7 @@ module.exports = (db) => {
 
     getUserByEmail(email)
       .then(user => {
-        if(user.rows.length !== 0){
+        if (user.rows.length !== 0) {
           res.send({ error: "Email already in use" });
           return;
         }
@@ -69,7 +69,7 @@ module.exports = (db) => {
             return res.redirect("/profiles/:id");
           });
 
-      })
+      });
 
   });
 

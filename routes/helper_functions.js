@@ -1,8 +1,8 @@
-// PG database client/connection setup
-const { Pool } = require("pg");
-const dbParams = require("../lib/db.js");
-const db = new Pool(dbParams);
-db.connect();
+// // PG database client/connection setup
+// const { Pool } = require("pg");
+// const dbParams = require("../lib/db.js");
+// const db = new Pool(dbParams);
+// db.connect();
 
 
 const getDate = () => {
@@ -12,25 +12,39 @@ const getDate = () => {
   const year = today.getFullYear();
   const date = `${year}-${month}-${day}`;
   return date;
-}
+};
 
-const getCategories = () => {
-  return db.query(`SELECT * FROM categories;`)
-  .then(data => {
-    const categories = [];
-    for (const key in data.rows) {
-      categories.push(data.rows[key].name);
-    }
-    return categories;
-  })
-}
+// const getCategories = () => {
+//   return db.query(`SELECT * FROM categories;`)
+//     .then(data => {
+//       const categories = [];
+//       for (const key in data.rows) {
+//         categories.push(data.rows[key].name);
+//       }
+//       return categories;
+//     });
+// };
 
-const getCategoriesObject = () => {
+const getAllCategories = (db) => {
   return db.query(`SELECT * FROM categories ORDER BY name;`)
     .then(data => {
-      return data.rows
-    })
-}
+      return data.rows;
+    });
+};
+
+const getAllResources = (db) => {
+  return db.query(`SELECT * FROM resources;`)
+    .then(data => {
+      return data.rows;
+    });
+};
+
+const getAllResourcesAndCategories = (db) => {
+  const queries = [getAllResources(db), getAllCategories(db)];
+  return Promise.all(queries).catch(err =>
+    console.log("getAllResourcesAndCategories: ", err.message));
+};
 
 
-module.exports = {getDate, getCategories, getCategoriesObject};
+
+module.exports = { getDate, getAllCategories, getAllResources, getAllResourcesAndCategories };
