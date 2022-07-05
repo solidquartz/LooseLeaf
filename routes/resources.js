@@ -7,6 +7,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const helperFunctions = require('./helper_functions')
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -67,9 +68,22 @@ module.exports = (db) => {
 
     db.query(queryString, [userID, title, url, description, imgURL, date])
       .then(data => {
-        res.redirect('/');
+        res.redirect(`/`);
       })
   });
 
+  router.get("/:resourceID", (req, res) => {
+    const resourceID = req.params.resourceID;
+    console.log(resourceID)
+    db.query(`SELECT * FROM resources WHERE id = ${resourceID};`)
+    .then(data => {
+      const resourceData = data.rows[0];
+      let templateVars = {resource: resourceData}
+      console.log(templateVars);
+      res.render("resource", templateVars);
+    })
+  })
+
+  // need to also get likes, comments, ratings
   return router;
 };
