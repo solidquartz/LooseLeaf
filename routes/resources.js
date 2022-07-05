@@ -25,6 +25,6 @@ module.exports = (db) => {
   router.get("/potato", (req, res) => {
     res.send("potato");
   });
-  
+
   return router;
 };
