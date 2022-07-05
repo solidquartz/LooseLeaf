@@ -46,19 +46,19 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users");
 const resourcesRoutes = require("./routes/resources");
 const profilesRoutes = require("./routes/profiles");
+const loginRoutes = require("./routes/login_register")
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/resources", resourcesRoutes(db));
+app.use("/login_register", loginRoutes(db))
+
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/login_register", (req, res) => {
-  res.render("login_register")
-})
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

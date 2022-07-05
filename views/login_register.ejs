@@ -42,42 +42,23 @@
   </nav>
 
  <main class="login-register-container">
-   <form class="login-container">
+   <form class="login-container" action="/login_register/login" method="POST">
      <header class="login">Login</header>
      <div class="login-text">
-     <textarea name="text" id="login-email" placeholder="email"></textarea>
-     <textarea name="text" id="login-password" placeholder="password"></textarea>
+     <input name="email" type="email" id="login-email" placeholder="email"></input>
+     <input name="password" type="password" id="login-password" placeholder="password"></input>
     </div>
      <button class="login-button" type="submit">Login</button>
    </form>
-   <form class="register-container">
+   <form class="register-container" action="/login_register/register" method="POST">
     <header class="register">Register</header>
     <div class="register-text">
-    <textarea name="text" id="name" placeholder="Your name"></textarea>
-    <textarea name="text" id="register-email" placeholder="email"></textarea>
-    <textarea name="text" id="register-password" placeholder="password"></textarea>
+    <input name="name"  type="name" id="name" placeholder="Your name"></input>
+    <input name="email" type="email" id="register-email" placeholder="email"></input>
+    <input name="password" type="password" id="register-password" placeholder="password"></input>
     </div>
     <button class="register-button" type="submit">Register</button>
   </form>
-
-      <!-- <div>
-        <div>
-          <form class="form-inline" action="/login" method="POST">
-          <label for="email">Email address:</label>
-        </div>
-          <div class="justify-content-center">
-            <input class="d-inline-flex" type="email" name="email" placeholder="Enter email" style="width: 300px; margin: 1em">
-        </div>
-        <div>
-          <label for="longURL">Password</label>
-        </div>
-          <input class="form-inline" type="password" name="password" placeholder="Password" style="width: 300px; margin: 1em">
-          <div>
-            <button type="submit" class="btn btn-primary">login</button>
-          </div>
-        </div>
-      </form> -->
-
     </main>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
