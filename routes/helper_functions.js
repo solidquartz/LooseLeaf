@@ -5,7 +5,7 @@
 // db.connect();
 
 
-const getDate = (db) => {
+const getDate = () => {
   const today = new Date();
   const day = String(today.getDate()).padStart(2, '0');
   const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -14,18 +14,18 @@ const getDate = (db) => {
   return date;
 };
 
-const getCategories = (db) => {
-  return db.query(`SELECT * FROM categories;`)
-    .then(data => {
-      const categories = [];
-      for (const key in data.rows) {
-        categories.push(data.rows[key].name);
-      }
-      return categories;
-    });
-};
+// const getCategories = (db) => {
+//   return db.query(`SELECT * FROM categories;`)
+//     .then(data => {
+//       const categories = [];
+//       for (const key in data.rows) {
+//         categories.push(data.rows[key].name);
+//       }
+//       return categories;
+//     });
+// };
 
-const getCategoriesObject = (db) => {
+const getAllCategories = (db) => {
   return db.query(`SELECT * FROM categories ORDER BY name;`)
     .then(data => {
       return data.rows;
@@ -40,11 +40,11 @@ const getAllResources = (db) => {
 };
 
 const getAllResourcesAndCategories = (db) => {
-  const queries = [getAllResources(db), getCategories(db)];
+  const queries = [getAllResources(db), getAllCategories(db)];
   return Promise.all(queries).catch(err =>
     console.log("getAllResourcesAndCategories: ", err.message));
 };
 
 
 
-module.exports = { getDate, getCategories, getCategoriesObject, getAllResources, getAllResourcesAndCategories };
+module.exports = { getDate, getAllCategories, getAllResources, getAllResourcesAndCategories };

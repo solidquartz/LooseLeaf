@@ -31,12 +31,12 @@ module.exports = (db) => {
         console.log(categories, resources);
         const templateVars = { resources, categories };
         res.render("resources", templateVars);
-
       });
   });
 
+  //change name to not objects
   router.get("/create", (req, res) => {
-    helperFunctions.getCategoriesObject(db)
+    helperFunctions.getAllCategories(db)
       .then((categories) => {
         console.log(categories);
         const templateVars = { categories: categories };

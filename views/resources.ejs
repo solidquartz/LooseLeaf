@@ -47,12 +47,14 @@
   <main class="leaves-container">
 
     <!-- One Leaf -->
-    
+
+<% for (const resource of resources) { %>
+
     <div class="leaf-contents">
       <img src="http://placekitten.com/340/260">
       <div class="leaf-text">
         <header class="title">
-          <h2>Resource Title</h2>
+          <h2><%= resource.title %></h2>
         </header>
         <a href="/external"><i class="bi bi-box-arrow-up-right"></i> http://external-url.com</a>
         <div class="description">
@@ -69,6 +71,7 @@
       </div>
     </div>
 
+    <% } %>
     <!--Leaf end -->
 
 
