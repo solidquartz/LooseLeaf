@@ -125,7 +125,11 @@ a:active {
 .login-register-container {
   display: flex;
   flex-direction: row;
-  justify-items: auto;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 90%;
+  position: absolute;
+  top: 120px;
 }
 
 /////////login container/////////
