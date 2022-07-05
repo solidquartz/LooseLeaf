@@ -156,6 +156,8 @@ header.login {
   font-family: 'Work Sans', sans-serif;
   color: #540b0e;
   margin-bottom: 25px;
+  white-space: nowrap;
+  overflow-x: hidden;
 }
 
 #login-password {
@@ -164,6 +166,8 @@ header.login {
   margin: auto;
   font-family: 'Work Sans', sans-serif;
   color: #540b0e;
+  white-space: nowrap;
+  overflow-x: hidden;
 }
 
 .login-button {
@@ -214,6 +218,8 @@ header.register {
   margin: auto;
   font-family: 'Work Sans', sans-serif;
   color: #540b0e;
+  white-space: nowrap;
+  overflow-x: hidden;
 }
 
 #register-email {
@@ -223,6 +229,7 @@ header.register {
   font-family: 'Work Sans', sans-serif;
   color: #540b0e;
   margin: 10px
+
 }
 
 #register-password {
@@ -231,6 +238,8 @@ header.register {
   margin: auto;
   font-family: 'Work Sans', sans-serif;
   color: #540b0e;
+  white-space: nowrap;
+  overflow-x: hidden;
 }
 
 .register-button {
@@ -251,6 +260,7 @@ header.register {
   display: flex;
   flex-direction: column;
   margin: auto;
+
 }
 
 .navbar-brand {

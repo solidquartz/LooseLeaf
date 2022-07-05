@@ -57,11 +57,12 @@
       <label for="imageURL">Image URL</label>
       <input type="text" name="imageURL">
       <!-- Categories -->
-      <label for="categories">Categories</label>
-      <select name="categories">
+      <label for="category">Categories</label>
+      <select name="category">
         <option disabled selected value>Select An Option</option>
-        <option value="administrative">Administrative</option>
-        <option value="computer science">Computer Science</option>
+        <% for(let category in categories) { %>
+        <option value="<%= categories[category].id %>"><%= categories[category].name %></option>
+        <% } %>
       </select>
       <!-- Create Button -->
       <button type="submit">Submit</button>
