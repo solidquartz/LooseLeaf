@@ -266,3 +266,14 @@ a:active {
     color: #540b0e;
     font-size: 4em;
   }
+
+  // resource page
+  .resource-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // flex-wrap: wrap;
+    width: 90%;
+    position: absolute;
+    top: 120px;
+  }

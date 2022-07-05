@@ -10,19 +10,6 @@ const router = express.Router();
 const helperFunctions = require('./helper_functions');
 
 module.exports = (db) => {
-  // router.get("/", (req, res) => {
-  //   db.query(`SELECT * FROM users;`)
-  //     .then(data => {
-  //       const users = data.rows;
-  //       res.json({ users });
-  //     })
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  // });
-
   router.get("/", (req, res) => {
     helperFunctions.getAllResourcesAndCategories(db)
       .then((all) => {
@@ -62,7 +49,6 @@ module.exports = (db) => {
     const description = req.body.description;
     const imgURL = req.body.imageURL;
     const date = getDate();
-    // How does category/userID work since they are FK??
     const category = req.body.category;
 
     const queryString = `
