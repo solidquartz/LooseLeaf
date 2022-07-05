@@ -72,7 +72,13 @@ a:active {
   margin-left: 10px;
 }
 
-//////////Login Page //////////////
+.navbar-brand {
+  font-family: 'Nothing You Could Do', cursive;
+  color: #540b0e;
+  font-size: 4em;
+}
+
+//////////////////////////////Login Page ///////////////////////////////
 
 
 .login-register-container {
@@ -94,7 +100,6 @@ a:active {
 }
 
 header.login {
-  font-family: 'Work Sans', sans-serif;
   color: #9e2a2b;
   font-size: 20px;
   font-weight: bold;
@@ -157,7 +162,6 @@ header.login {
 }
 
 header.register {
-  font-family: 'Work Sans', sans-serif;
   color: #9e2a2b;
   font-size: 20px;
   font-weight: bold;
@@ -216,8 +220,6 @@ header.register {
 
 }
 
-.navbar-brand {
-  font-family: 'Nothing You Could Do', cursive;
-  color: #540b0e;
-  font-size: 4em;
-}
+
+////////////////////////////////////////////////////////////////////////
+
