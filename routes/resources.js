@@ -23,7 +23,21 @@ module.exports = (db) => {
   });
 
   router.get("/create", (req, res) => {
-    res.render("create-resource");
+    db.query(`SELECT * FROM categories;`)
+      .then(data => {
+        const getCategories = () => {
+          const categories = [];
+          for (const key in data.rows) {
+            categories.push(data.rows[key].name);
+          }
+          return categories;
+        }
+        const categories = getCategories();
+        // console.log(categories);
+        const templateVars = {categories: categories}
+        // console.log(templateVars);
+        res.render("create-resource", templateVars);
+      })
   });
 
   router.post("/create", (req, res) => {
