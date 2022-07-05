@@ -49,13 +49,26 @@ module.exports = (db) => {
       const date = `${year}-${month}-${day}`;
       return date;
     }
-    const date = getDate();
+
+    // STILL NEED TO GET userID/category somehow
+    const userID = 1;
     const title = req.body.title;
     const url = req.body.urlLink;
     const description = req.body.description;
     const imgURL = req.body.imageURL;
-    console.log(date, title, url, description, imgURL);
-    res.redirect('/');
+    const date = getDate();
+    // How does category/userID work since they are FK??
+    // const category = req.body.category;
+
+    const queryString = `
+    INSERT INTO resources (user_id, title, url, description, image_url, date_created)
+    VALUES ($1, $2, $3, $4, $5, $6);
+    `;
+
+    db.query(queryString, [userID, title, url, description, imgURL, date])
+      .then(data => {
+        res.redirect('/');
+      })
   });
 
   return router;
