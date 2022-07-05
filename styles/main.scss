@@ -1,5 +1,4 @@
 body {
-  display: flex;
   min-height: 100vh;
   font-family: 'Work Sans', sans-serif;
   background: #ffffff;
@@ -75,7 +74,11 @@ a:active {
 .leaves-container {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
+  width: 90%;
+  position: absolute;
+  top: 120px;
 }
 
 .leaf-contents {
@@ -91,7 +94,7 @@ a:active {
 .leaf-footer {
   display: flex;
   justify-content: space-around;
-  border
+  border-top: #335c67 solid 2px;
 }
 
 //////////Login Page //////////////
