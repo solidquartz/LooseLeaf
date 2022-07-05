@@ -24,21 +24,13 @@ module.exports = (db) => {
   });
 
   router.get("/create", (req, res) => {
-    db.query(`SELECT * FROM categories;`)
-      .then(data => {
-        const getCategories = () => {
-          const categories = [];
-          for (const key in data.rows) {
-            categories.push(data.rows[key].name);
-          }
-          return categories;
-        }
-        const categories = getCategories();
-        // console.log(categories);
-        const templateVars = {categories: categories}
-        // console.log(templateVars);
-        res.render("create-resource", templateVars);
-      })
+      helperFunctions.getCategories()
+        .then((categories) => {
+          console.log(categories);
+          const templateVars = {categories: categories}
+          // console.log(templateVars);
+          res.render("create-resource", templateVars);
+        })
   });
 
   router.post("/create", (req, res) => {
@@ -59,14 +51,14 @@ module.exports = (db) => {
     const imgURL = req.body.imageURL;
     const date = getDate();
     // How does category/userID work since they are FK??
-    // const category = req.body.category;
+    const category = req.body.category;
 
     const queryString = `
-    INSERT INTO resources (user_id, title, url, description, image_url, date_created)
-    VALUES ($1, $2, $3, $4, $5, $6);
+    INSERT INTO resources (user_id, title, url, description, image_url, date_created, category_id)
+    VALUES ($1, $2, $3, $4, $5, $6, $7);
     `;
 
-    db.query(queryString, [userID, title, url, description, imgURL, date])
+    db.query(queryString, [userID, title, url, description, imgURL, date, category])
       .then(data => {
         res.redirect(`/`);
       })
