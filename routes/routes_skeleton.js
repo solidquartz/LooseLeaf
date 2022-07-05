@@ -3,10 +3,6 @@ app.get("/index", (req, res) => {
   res.render("index");
 });
 
-// Shows login page
-app.get("/login", (req, res) => {
-  res.render("login");
-});
 
 // Shows register page
 app.get("/register", (req, res) => {

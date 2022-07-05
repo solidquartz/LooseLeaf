@@ -9,24 +9,17 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-
-  const fetchAllUsers = () => {
-    return db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
-        return users;
-      });
-  };
-
   router.get("/", (req, res) => {
-    fetchAllUsers()
-      .then(users => {
-        res.json({ users });
-      })
+    const id = req.session.userID
+    db.query(`SELECT * FROM users;`)
+    .then(data => {
+      const users = data.rows;
+      res.json({ users });
+    })
       .catch(err => {
         res
           .status(500)
-          .json({ error: err.message });
+          .send("SQL Error: " + err.message)
       });
   });
 
