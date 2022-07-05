@@ -1,24 +1,68 @@
 const express = require('express');
-const router  = express.Router();
+const { user } = require('pg/lib/defaults');
+const router = express.Router();
 
 module.exports = (db) => {
-  router.get("/", (req, res) => {
-      .then (data => {
-        res.render('/login_register')
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .send("Error: " + err.message)
-      });
-  });
+  router.get("/login_register", (req, res))
+}
 
 
 
-  return router;
-};
 
 
+// Helper function to find user by email
+const getUserByEmail = (email) => {
+  return db.query(`SELECT * FROM users`)
+  .then(res => {
+    let currentUser = null;
+    for(const user of res.rows) {
+      if(user.email.toLowerCase() === email.toLowerCase)
+      currentUser = user
+      break;
+    }
+    return user
+  })
+  .catch(err => {
+    return err.message
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+//   router.get("/login_register", (req, res) => {
+//     // const id = req.session.userID;
+//     // console.log("id", id)
+//     db.query(`SELECT * FROM users WHERE id = $1`, [id])
+//       .then(data => {
+//         console.log("data", data)
+//       res.render('/login_register');
+//     })
+//       .catch(err => {
+//         res
+//           .status(500)
+//           .send("Error: " + err.message);
+//       });
+//   });
+//   return router;
+// };
+
+// const login = function(email, password) {
+
+// }
+
+// router.post("/login_register", (req, res) => {
+//   const { email, password } = req.body;
+//   .then {
+
+//   }
 // const id = req.session.userID
 //     db.query(`SELECT * FROM users WHERE id = $1`, [id])
 //       .then(data => {
