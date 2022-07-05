@@ -1,6 +1,6 @@
 // Show home page
-app.get("/home", (req, res) => {
-  res.render("home");
+app.get("/index", (req, res) => {
+  res.render("index");
 });
 
 
