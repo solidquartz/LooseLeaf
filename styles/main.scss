@@ -72,6 +72,143 @@ a:active {
   margin-left: 10px;
 }
 
+<<<<<<< HEAD
+
+
+///////////Login Page //////////////
+
+
+.login-register-container {
+  display: flex;
+  flex-direction: row;
+  justify-items: auto;
+}
+
+//login container//
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 200px;
+  background-color: #e09f3e;
+  margin-right: 80px;
+  align-items: center;
+}
+
+header.login{
+  font-family: 'Work Sans', sans-serif;
+  color: #9e2a2b;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
+
+}
+
+#login-email {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+  margin-bottom: 25px;
+}
+
+#login-password {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+}
+
+.login-button {
+  display: flex;
+  margin-left: auto;
+  margin-top: auto;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  font-family: 'Work Sans', sans-serif;
+  background-color: #9e2a2b;
+  color: #e09f3e;
+  font-weight: bold;
+  border: none;
+
+}
+
+.login-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+}
+
+
+// register container//
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 200px;
+  background-color: #e09f3e;
+  align-items: center;
+}
+
+header.register{
+  font-family: 'Work Sans', sans-serif;
+  color: #9e2a2b;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
+
+}
+
+#name {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+}
+
+#register-email {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+  margin: 10px
+}
+
+#register-password {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+}
+
+.register-button {
+  display: flex;
+  margin-left: auto;
+  margin-top: auto;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  font-family: 'Work Sans', sans-serif;
+  background-color:  #9e2a2b;
+  color: #e09f3e;
+  font-weight: bold;
+  border: none;
+
+}
+
+.register-text {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+=======
 .navbar-brand {
     font-family: 'Nothing You Could Do', cursive;
       color: #540b0e;
@@ -79,3 +216,4 @@ a:active {
 }
 
 
+>>>>>>> 81a194fe8d71b7fdbb70ccfb916f0c8f9c1f539d
