@@ -51,6 +51,7 @@ const loginRoutes = require("./routes/login_register")
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/resources", resourcesRoutes(db));
+app.use("/profiles", profilesRoutes(db))
 app.use("/login_register", loginRoutes(db));
 
 // Warning: avoid creating more routes in this file!
