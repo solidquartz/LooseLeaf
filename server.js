@@ -1,5 +1,6 @@
 // load .env data into process.env
 require("dotenv").config();
+const cookieSession = require('cookie-session');
 
 // Web server config
 const PORT = process.env.PORT || 8080;
@@ -22,6 +23,11 @@ app.use(morgan("dev"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
+app.use(cookieSession({
+  name: 'session',
+  keys: ['asdf09safl', 'll2k34j3lk324j'],
+}));
+
 app.use(
   "/styles",
   sassMiddleware({
@@ -32,6 +38,8 @@ app.use(
 );
 
 app.use(express.static("public"));
+
+
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -45,7 +53,11 @@ const profilesRoutes = require("./routes/profiles");
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 app.use("/resources", resourcesRoutes(db));
-app.use("/profiles", profilesRoutes(db));
+app.use("/profile", profilesRoutes(db));
+
+
+
+
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -55,6 +67,10 @@ app.use("/profiles", profilesRoutes(db));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+app.get("/login_register", (req, res) => {
+  res.render("login_register")
+})
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
