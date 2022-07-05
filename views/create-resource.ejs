@@ -36,6 +36,28 @@
     <%- include('partials/_header') %>
   </nav>
 
+
+  <div>
+    <form action="/resources/create", method="POST">
+      <!-- Title -->
+      <label for="title">Title</label>
+      <input type="text" name="title">
+      <!-- URL link -->
+      <label for="urlLink">URL link</label>
+      <input type="text" name="urlLink">
+      <!-- Description -->
+      <label for="description">Description</label>
+      <input type="text" name="description">
+      <!-- Categories -->
+      <label for="categories">Categories</label>
+      <select name="categories">
+        <option disabled selected value>Select An Option</option>
+        <option value="administrative">Administrative</option>
+        <option value="computer science">Computer Science</option>
+      </select>
+    </form>
+  </div>
+
   <!-----------------------------Body----------------------------------->
 
 

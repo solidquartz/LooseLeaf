@@ -22,9 +22,13 @@ module.exports = (db) => {
       });
   });
 
-  router.get("/potato", (req, res) => {
-    res.send("potato");
+  router.get("/create", (req, res) => {
+    res.render("create-resource");
   });
-  
+
+  router.post("/create", (req, res) => {
+    res.render("create-resource");
+  });
+
   return router;
 };
