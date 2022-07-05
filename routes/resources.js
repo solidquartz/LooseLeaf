@@ -24,14 +24,19 @@ module.exports = (db) => {
   // });
 
   router.get("/", (req, res) => {
-    helperFunctions.getCategoriesObject()
-      .then((data) => {
-        console.log(data);
+    helperFunctions.getAllResourcesAndCategories(db)
+      .then((all) => {
+        const resources = all[0];
+        const categories = all[1];
+        console.log(categories, resources);
+        const templateVars = { resources, categories };
+        res.render("resources", templateVars);
       });
   });
 
+  //change name to not objects
   router.get("/create", (req, res) => {
-    helperFunctions.getCategoriesObject()
+    helperFunctions.getAllCategories(db)
       .then((categories) => {
         console.log(categories);
         const templateVars = { categories: categories };
