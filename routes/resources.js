@@ -33,9 +33,14 @@ module.exports = (db) => {
       const month = String(today.getMonth() + 1).padStart(2, '0');
       const year = today.getFullYear();
       const date = `${year}-${month}-${day}`;
-      console.log(date);
+      return date;
     }
-    getDate();
+    const date = getDate();
+    const title = req.body.title;
+    const url = req.body.urlLink;
+    const description = req.body.description;
+    const imgURL = req.body.imageURL;
+    console.log(date, title, url, description, imgURL);
     res.redirect('/');
   });
 
