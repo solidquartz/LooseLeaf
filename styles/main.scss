@@ -268,3 +268,14 @@ header.register {
 
 ////////////////////////////////////////////////////////////////////////
 
+// Resource Page
+
+.resource-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // flex-wrap: wrap;
+  width: 90%;
+  position: absolute;
+  top: 120px;
+}
