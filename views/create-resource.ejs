@@ -60,8 +60,8 @@
       <label for="category">Categories</label>
       <select name="category">
         <option disabled selected value>Select An Option</option>
-        <% for(let category of categories) { %>
-        <option value="<%= category %>"><%= category %></option>
+        <% for(let category in categories) { %>
+        <option value="<%= categories[category].id %>"><%= categories[category].name %></option>
         <% } %>
       </select>
       <!-- Create Button -->

@@ -10,25 +10,32 @@ const router  = express.Router();
 const helperFunctions = require('./helper_functions')
 
 module.exports = (db) => {
+  // router.get("/", (req, res) => {
+  //   db.query(`SELECT * FROM users;`)
+  //     .then(data => {
+  //       const users = data.rows;
+  //       res.json({ users });
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // });
+
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
-        res.json({ users });
+    helperFunctions.getCategoriesObject()
+      .then((data) => {
+        console.log(data)
       })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
   });
 
   router.get("/create", (req, res) => {
-      helperFunctions.getCategories()
+      helperFunctions.getCategoriesObject()
         .then((categories) => {
           console.log(categories);
           const templateVars = {categories: categories}
-          // console.log(templateVars);
+          console.log(templateVars);
           res.render("create-resource", templateVars);
         })
   });

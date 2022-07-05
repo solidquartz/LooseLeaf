@@ -25,5 +25,12 @@ const getCategories = () => {
   })
 }
 
+const getCategoriesObject = () => {
+  return db.query(`SELECT * FROM categories ORDER BY name;`)
+    .then(data => {
+      return data.rows
+    })
+}
 
-module.exports = {getDate, getCategories};
+
+module.exports = {getDate, getCategories, getCategoriesObject};
