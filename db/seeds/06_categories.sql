@@ -1,4 +1,4 @@
-INSERT INTO categories (name
+INSERT INTO categories (name)
 VALUES ('Other');
 
 INSERT INTO categories (name)
