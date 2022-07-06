@@ -44,6 +44,7 @@
   <!-----------------------------Body----------------------------------->
 
   <div class="resource-container">
+    <div>ResourceID: <%= resourceID %></div><br>
     <div>TITLE: <%= title %></div><br>
     <div>URL: <%= url %></div><br>
     <div>Description: <%= description %></div><br>
@@ -57,7 +58,12 @@
     <% } %>
 
     <!-- Likes Icon -->
-    <i class="bi bi-hand-thumbs-up-fill"></i>
+    <button type="submit">
+      <i class="bi bi-hand-thumbs-up-fill"></i>
+    </button>
+
+
+
 
     <!-- Ratings Icon -->
     <div class="star-ratings">
@@ -67,10 +73,8 @@
       <i class="bi bi-star-fill"></i>
       <i class="bi bi-star-fill"></i>
     </div>
+
   </div>
-
-
-
 </body>
 
 </html>
