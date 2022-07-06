@@ -6,6 +6,7 @@
 */
 
 const express = require('express');
+const res = require('express/lib/response');
 const router = express.Router();
 const helperFunctions = require('./helper_functions');
 
@@ -141,6 +142,11 @@ module.exports = (db) => {
 
       });
   });
+
+
+  router.post("/comment", (req, res) => {
+
+  })
 
 
   // need to also get likes, comments, ratings
