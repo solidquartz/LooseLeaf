@@ -21,7 +21,7 @@ module.exports = (db) => {
       return;
     }
 
-    getUserByEmail(email)
+    helperFunctions.getUserByEmail(email)
       .then(user => {
         let userData = user.rows[0];
         if (userData.password === password) {
@@ -42,14 +42,14 @@ module.exports = (db) => {
       return;
     }
 
-    getUserByEmail(email)
+    helperFunctions.getUserByEmail(email)
       .then(user => {
         if (user.rows.length !== 0) {
           res.send({ error: "Email already in use" });
           return;
         }
 
-        addUser(name, email, password)
+        helperFunctions.addUser(name, email, password)
           .then(user => {
             let userData = user.rows[0];
             req.session.userId = userData.id;

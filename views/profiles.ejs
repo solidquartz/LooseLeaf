@@ -42,7 +42,7 @@
     <%- include('partials/_header') %>
   </nav>
 
-  <form class="account-container" action="/profiles" method="POST">
+  <form class="account-container" action="/resources/my_resources/<%= id %>" method="POST">
     <header class="account">Update Account</header>
     <div class="account-text">
     <input name="name"  type="name" id="update-name" placeholder="your name"></input>

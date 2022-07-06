@@ -1,9 +1,9 @@
 /*
- * All routes for Users are defined here
- * Since this file is loaded in server.js into api/users,
- *   these routes are mounted onto /users
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
+* All routes for Users are defined here
+* Since this file is loaded in server.js into api/users,
+*   these routes are mounted onto /users
+* See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
+*/
 
 const express = require('express');
 const router = express.Router();
@@ -18,13 +18,23 @@ module.exports = (db) => {
     .then((all) => {
       const resources = all[0];
       const categories = all[1];
-      const id = req.body
-      console.log("id", id)
-        const templateVars = { resources, categories, id };
-        res.render("resources", templateVars);
-      });
+      const id = req.session.userId
+      const templateVars = { resources, categories, id };
+      res.render("resources", templateVars);
+    });
   });
 
+  router.get("/my_resources/:id", (req, res) => {
+    helperFunctions.getAllResourcesAndCategories(db)
+    .then((all) => {
+      const resources = all[0];
+      const categories = all[1];
+      const id = req.session.userId
+        const templateVars = { resources, categories, id };
+    res.render('my_resources', templateVars)
+    return;
+    });
+  })
   //change name to not objects
   router.get("/create", (req, res) => {
     helperFunctions.getAllCategories(db)
@@ -60,32 +70,8 @@ module.exports = (db) => {
 
   router.get("/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
-    console.log(resourceID);
-    db.query(`SELECT * FROM resources WHERE id = ${resourceID};`)
-      .then(data => {
-        const resourceData = data.rows[0];
-        const id = req.session.userId
-        let templateVars = { resource: resourceData, id };
-        console.log("id",templateVars)
-        res.render("resource", templateVars);
-      });
-
-  router.get("/my_resources/:id", (req, res) => {
-    console.log(req.params)
-    const id = req.params.userId
-      const templateVars = {
-        id,
-        categories,
-      }
-    res.render('my_resources', templateVars)
-  });
-
-  return router;
-
-
-
-    // console.log('ResourceID', resourceID);
-    helperFunctions.getAllResourceInfo(db, resourceID)
+    const id = req.session.userId
+     helperFunctions.getAllResourceInfo(db, resourceID)
     .then((data) => {
       // console.log(data)
       const resourceInfoObj = data[0][0];
@@ -112,7 +98,8 @@ module.exports = (db) => {
                             date,
                             numOfLikes,
                             avgRating,
-                            commentsArr
+                            commentsArr,
+                            id
                            };
       console.log(templateVars)
       res.render("resource", templateVars);

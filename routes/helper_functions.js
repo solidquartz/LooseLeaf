@@ -64,7 +64,7 @@ const getAllResourcesAndCategories = (db) => {
     console.log("getAllResourcesAndCategories: ", err.message));
 };
 
-const updateUserInfo = (name, email, password, id) => {
+const updateUserInfo = (db, name, email, password, id) => {
   return db.query(`UPDATE users
   SET name = $1, email = $2, password = $3
   WHERE id = $4
@@ -72,7 +72,7 @@ const updateUserInfo = (name, email, password, id) => {
     .catch((err) => err.message);
 };
 
-const getUserByEmail = (email) => {
+const getUserByEmail = (db, email) => {
   return db.query(`SELECT * FROM users WHERE email = $1`, [email])
     .then(user => {
       return user;
@@ -80,7 +80,7 @@ const getUserByEmail = (email) => {
     .catch((err) => err.message);
 };
 
-const addUser = (name, email, password) => {
+const addUser = (db, name, email, password) => {
   return db.query(`INSERT INTO users (name, email, password)
   VALUES ($1, $2, $3)
   RETURNING *;`, [name, email, password])
