@@ -12,36 +12,36 @@ const helperFunctions = require('./helper_functions');
 
 module.exports = (db) => {
 
-
   router.get("/", (req, res) => {
     helperFunctions.getAllResourcesAndCategories(db)
-    .then((all) => {
-      const resources = all[0];
-      const categories = all[1];
-      const id = req.session.userId
-      let name = null;
+      .then((all) => {
+        const resources = all[0];
+        const categories = all[1];
+        const id = req.session.userId;
+        let name = null;
 
-      helperFunctions.getUserNameById(db, id)
-      .then(data => {
-        if(data.rows.length !== 0) {
-          name = data.rows[0].name
-        }
-        const templateVars = { resources, categories, id, name };
-        return res.render("resources", templateVars);
+        helperFunctions.getUserNameById(db, id)
+          .then(data => {
+            if (data.rows.length !== 0) {
+              name = data.rows[0].name;
+            }
+            const templateVars = { resources, categories, id, name };
+            return res.render("resources", templateVars);
+          });
+      });
+
+    //needs fixing to include id (addTemplateVars)
+    router.get("/category/:id", (req, res) => {
+      const promises = [helperFunctions.getFilteredResourcesByCategory(db, req.params.id), helperFunctions.getAllCategories(db)];
+      Promise.all(promises)
+        .then((data => {
+          const resources = data[0];
+          const categories = data[1];
+          const templateVars = { resources, categories };
+          res.render("resources", templateVars);
+        }));
     });
   });
-
-  router.get("/category/:id", (req, res) => {
-    const promises = [helperFunctions.getFilteredResourcesByCategory(db, req.params.id), helperFunctions.getAllCategories(db)];
-    Promise.all(promises)
-      .then((data => {
-        const resources = data[0];
-        const categories = data[1];
-        const templateVars = { resources, categories };
-        res.render("resources", templateVars);
-      }));
-  });
-})
 
 
   router.get("/my_resources/:id", (req, res) => {
@@ -49,39 +49,39 @@ module.exports = (db) => {
     let name = null;
 
     helperFunctions.getAllResourcesAndCategories(db)
-    .then((all) => {
-      const resources = all[0];
-      const categories = all[1];
+      .then((all) => {
+        const resources = all[0];
+        const categories = all[1];
 
-      helperFunctions.getUserNameById(db, id)
-      .then(data => {
-        if(data.rows.length !== 0) {
-          name = data.rows[0].name
-        }
-        const templateVars = { resources, categories, id, name };
-        res.render('my_resources', templateVars)
-        return;
-      })
-    });
-  })
+        helperFunctions.getUserNameById(db, id)
+          .then(data => {
+            if (data.rows.length !== 0) {
+              name = data.rows[0].name;
+            }
+            const templateVars = { resources, categories, id, name };
+            res.render('my_resources', templateVars);
+            return;
+          });
+      });
+  });
 
   //change name to not objects
   router.get("/create", (req, res) => {
     helperFunctions.getAllCategories(db)
       .then((categories) => {
-        const id = req.session.userId
-        let name = null
+        const id = req.session.userId;
+        let name = null;
 
-      helperFunctions.getUserNameById(db, id)
-      .then(data => {
-        if(data.rows.length !== 0) {
-          name = data.rows[0].name
-        }
-        const templateVars = { categories, id, name };
-        return res.render("create-resource", templateVars);
+        helperFunctions.getUserNameById(db, id)
+          .then(data => {
+            if (data.rows.length !== 0) {
+              name = data.rows[0].name;
+            }
+            const templateVars = { categories, id, name };
+            return res.render("create-resource", templateVars);
+          });
       });
   });
-});
 
   router.post("/create", (req, res) => {
     // STILL NEED TO GET userID/category somehow
@@ -111,7 +111,7 @@ module.exports = (db) => {
     const id = req.session.userId;
     helperFunctions.getAllResourceInfo(db, resourceID)
       .then((data) => {
-        console.log(data)
+        console.log(data);
         const resourceInfoObj = data[0][0];
         const ratingsObjArr = data[1];
         const likesObjArr = data[2];
