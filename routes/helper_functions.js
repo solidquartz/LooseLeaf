@@ -104,16 +104,17 @@ const getUserNameById = (db, id) => {
 };
 
 const getTemplateVars = (db, userId) => {
-  const promises = [ getAllCategories(db), getUserNameById(db, userId)]
+  const promises = [getAllCategories(db), getUserNameById(db, userId)];
   return Promise.all(promises)
-  .then(data => {
-    let name = null
-    if(data[1].rows.length !== 0) {
-        name = data[1].rows[0].name
+    .then(data => {
+      let name = null;
+      if (data[1].rows.length !== 0) {
+        name = data[1].rows[0].name;
       }
-      return { categories: data[0], name }
-   })
-}
+      return { categories: data[0], name };
+    });
+
+};
 
 const getMyResources = (db, userId) => {
   return db.query(`
