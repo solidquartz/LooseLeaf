@@ -9,8 +9,14 @@ module.exports = (db) => {
   // login/register page get
   router.get("/", (req, res) => {
     const id = req.session.userId
-    const templateVars = { id }
-    res.render("login_register", templateVars);
+    const name = null
+
+    helperFunctions.getAllCategories(db)
+      .then((categories) => {
+        const templateVars = { categories, id, name };
+        res.render("login_register", templateVars);
+        return;
+      });
   });
 
   // login post
@@ -21,7 +27,7 @@ module.exports = (db) => {
       return;
     }
 
-    helperFunctions.getUserByEmail(email)
+    helperFunctions.getUserByEmail(db, email)
       .then(user => {
         let userData = user.rows[0];
         if (userData.password === password) {
@@ -42,14 +48,14 @@ module.exports = (db) => {
       return;
     }
 
-    helperFunctions.getUserByEmail(email)
+    helperFunctions.getUserByEmail(db, email)
       .then(user => {
         if (user.rows.length !== 0) {
           res.send({ error: "Email already in use" });
           return;
         }
 
-        helperFunctions.addUser(name, email, password)
+        helperFunctions.addUser(db, name, email, password)
           .then(user => {
             let userData = user.rows[0];
             req.session.userId = userData.id;
