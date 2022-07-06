@@ -45,12 +45,13 @@ module.exports = (db) => {
 
 
   router.get("/my_resources/:id", (req, res) => {
+    const id = req.session.userId;
+    let name = null;
+
     helperFunctions.getAllResourcesAndCategories(db)
     .then((all) => {
       const resources = all[0];
       const categories = all[1];
-      const id = req.session.userId
-      let name = null
 
       helperFunctions.getUserNameById(db, id)
       .then(data => {
