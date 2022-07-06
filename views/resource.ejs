@@ -51,10 +51,25 @@
     <div>Date: <%= date %></div><br>
     <div>Likes: <%= numOfLikes %></div><br>
     <div>Rating: <%= avgRating %></div><br>
+    <div>Number of Comments: <%= numOfComments %></div><br>
     <% for(const comment of commentsArr) { %>
       <p>Comment: <%= comment %></p>
     <% } %>
+
+    <!-- Likes Icon -->
+    <i class="bi bi-hand-thumbs-up-fill"></i>
+
+    <!-- Ratings Icon -->
+    <div class="star-ratings">
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+    </div>
   </div>
+
+
 
 </body>
 

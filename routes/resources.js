@@ -70,6 +70,7 @@ module.exports = (db) => {
 
   router.get("/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
+    // User id
     const id = req.session.userId
      helperFunctions.getAllResourceInfo(db, resourceID)
     .then((data) => {
@@ -88,6 +89,7 @@ module.exports = (db) => {
       const numOfLikes = likesObjArr.length;
       const avgRating = getAvgRating(ratingsObjArr);
       const commentsArr = getCommentsArr(commentsObjArr);
+      const numOfComments = commentsArr.length;
 
       const templateVars = {
                             title,
@@ -98,6 +100,7 @@ module.exports = (db) => {
                             numOfLikes,
                             avgRating,
                             commentsArr,
+                            numOfComments,
                             id,
                             categories
                            };
