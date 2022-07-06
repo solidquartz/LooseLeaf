@@ -20,20 +20,12 @@ module.exports = (db) => {
 
     const id = req.session.userId;
     let name = null;
-
-    helperFunctions.getAllCategories(db)
-      .then((categories) => {
-
-      helperFunctions.getUserNameById(db, id)
-        .then(data => {
-          if(data.rows.length !== 0) {
-            name = data.rows[0].name
-          }
-          const templateVars = { categories, id, name };
-          return res.render('profiles', templateVars);
-      });
+    helperFunctions.getTemplateVars(db, id)
+      .then(results => {
+        const templateVars = { ...results, id };
+        return res.render('profiles', templateVars);
+      })
     });
-  });
 
     // When update account is saved redirect to the users resources page
     router.post("/", (req, res) => {
