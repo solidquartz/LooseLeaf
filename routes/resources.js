@@ -25,10 +25,12 @@ module.exports = (db) => {
   });
 
   router.get("/category/:id", (req, res) => {
-    helperFunctions.getFilteredResourcesByCategory(db, req.id)
+    const promises = [helperFunctions.getFilteredResourcesByCategory(db, req.params.id), helperFunctions.getAllCategories(db)];
+    Promise.all(promises)
       .then((data => {
         const resources = data[0];
-        const templateVars = { resources };
+        const categories = data[1];
+        const templateVars = { resources, categories };
         res.render("resources", templateVars);
       }));
   });

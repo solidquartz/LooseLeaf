@@ -16,9 +16,10 @@ const getFilteredResourcesByCategory = (db, id) => {
   return db.query(`
   SELECT * FROM resources
   JOIN categories ON category_id = categories.id
-  WHERE categories.id = $1
+  WHERE category_id = $1
 `, [id])
     .then(data => {
+      console.log(id);
       return data.rows;
     });
 };
