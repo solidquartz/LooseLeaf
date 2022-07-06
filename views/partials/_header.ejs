@@ -23,25 +23,13 @@
             Categories
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Administrative</a></li>
-            <li><a class="dropdown-item" href="#">Arts & Crafts</a></li>
-            <li><a class="dropdown-item" href="#">Computer Science</a></li>
-            <li><a class="dropdown-item" href="#">Culinary & Nutrition</a></li>
-            <li><a class="dropdown-item" href="#">Education Resources</a></li>
-            <li><a class="dropdown-item" href="#">Engineering</a></li>
-            <li><a class="dropdown-item" href="#">Games</a></li>
-            <li><a class="dropdown-item" href="#">History</a></li>
-            <li><a class="dropdown-item" href="#">Language</a></li>
-            <li><a class="dropdown-item" href="#">Literature</a></li>
-            <li><a class="dropdown-item" href="#">Math</a></li>
-            <li><a class="dropdown-item" href="#">Medicine</a></li>
-            <li><a class="dropdown-item" href="#">Mental Health</a></li>
-            <li><a class="dropdown-item" href="#">Personal</a></li>
-            <li><a class="dropdown-item" href="#">Political Science</a></li>
-            <li><a class="dropdown-item" href="#">Science</a></li>
-            <li><a class="dropdown-item" href="#">Sports & Fitness</a></li>
-            <li><a class="dropdown-item" href="#">Technology</a></li>
-            <li><a class="dropdown-item" href="#">Other</a></li>
+
+            <% for (const category of categories) { %>
+              <li><a class="dropdown-item" href="#">
+                  <%= category.name %>
+                </a></li>
+              <% } %>
+
           </ul>
         </li>
       </ul>
@@ -58,32 +46,29 @@
 
 <div class="header-user">
 
-<%# if (user.name ===null || user.name ===undefined) { %>
-<div class="login-register">
-  <a href="/login_register">
-    <button type="button" class="btn btn-light">Register</button>
-  </a>
-  <a href="/login_register">
-    <button type="button" class="btn btn-outline-light">Log In</button>
-  </a>
-</div>
-  <%# } else { %>
+  <%# if (user.name===null || user.name===undefined) { %>
+    <div class="login-register">
+      <a href="/login_register">
+        <button type="button" class="btn btn-light">Register</button>
+      </a>
+      <a href="/login_register">
+        <button type="button" class="btn btn-outline-light">Log In</button>
+      </a>
+    </div>
+    <%# } else { %>
 
-<!-- <div class="btn-group">
-  <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-    username
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="profiles/:profile_id/edit">Edit Account</a></li>
-    <li><a class="dropdown-item" href="/my-resources">My Leaves</a></li>
-    <li><a class="dropdown-item" href="/resources/create">Create Leaf</a></li>
-    <li>
-      <hr class="dropdown-divider">
-    </li>
-    <li><a class="dropdown-item" href="/logout">Log Out</a></li>
-  </ul>
-</div> -->
+      <!-- <div class="btn-group">
+      <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        username
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="profiles/:profile_id/edit">Edit Account</a></li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+      </ul>
+    </div> -->
 
-<%# } %>
+      <%# } %>
 
 </div>

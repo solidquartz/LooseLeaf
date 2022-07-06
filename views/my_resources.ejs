@@ -46,33 +46,43 @@
 
   <main class="leaves-container">
 
-<% for (const resource of resources) { %>
+    <% for (const resource of resources) { %>
 
-    <div class="leaf-contents">
-      <a href="/resources/<%= resource.id %>"><img src="<%= resource.image_url %>" width="390" height="260">
-      <div class="leaf-text">
-        <header class="title">
-          <h2><%= resource.title %></h2>
-        </header></a>
+      <div class="leaf-contents">
+        <a href="/resources/<%= resource.id %>"><img src="<%= resource.image_url %>" width="390" height="260">
+          <div class="leaf-text">
+            <header class="title">
+              <h2>
+                <%= resource.title %>
+              </h2>
+            </header>
+        </a>
         <div class="resource-url">
-        <a href="/external"><i class="bi bi-box-arrow-up-right"></i> <%= resource.url %></a>
+          <a href="/external"><i class="bi bi-box-arrow-up-right"></i>
+            <%= resource.url %>
+          </a>
         </div>
         <div class="description">
-          <p><%= resource.description %></p>
+          <p>
+            <%= resource.description %>
+          </p>
         </div>
         <div class="leaf-footer">
-          <a href="/resources/<%= resources.id %>"><span class="comments"><i class="bi bi-chat-text"></i> 23</span></a>
+          <a href="/resources/<%= resource.id %>"><span class="comments"><i class="bi bi-chat-text"></i> 23</span></a>
           <span class="likes"><i class="bi bi-heart-fill"></i> 130</span>
           <span class="rating"><i class="bi bi-star-fill"></i> 4.5</span>
 
         </div>
       </div>
-    </div>
+      </div>
 
-    <% } %>
+      <% } %>
 
 
   </main>
+
+
+
 </body>
 
 
