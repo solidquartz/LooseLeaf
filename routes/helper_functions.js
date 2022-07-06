@@ -87,6 +87,11 @@ const addUser = (db, name, email, password) => {
     .catch((err) => err.message);
 };
 
+const getUserNameById = (db, id) => {
+  return db.query(`SELECT name FROM users WHERE id = $1`, [id])
+    .catch((err) => err.message);
+};
+
 
 module.exports = {
   getAllCategories,
@@ -95,5 +100,6 @@ module.exports = {
   getAllResourceInfo,
   updateUserInfo,
   getUserByEmail,
-  addUser
+  addUser,
+  getUserNameById
 };
