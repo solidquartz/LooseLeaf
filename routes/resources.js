@@ -85,7 +85,7 @@ module.exports = (db) => {
 
   router.post("/create", (req, res) => {
     // STILL NEED TO GET userID/category somehow
-    const userID = 1;
+    const id = req.session.userId;
     const title = req.body.title;
     const url = req.body.urlLink;
     const description = req.body.description;
@@ -99,7 +99,7 @@ module.exports = (db) => {
     RETURNING id;
     `;
 
-    db.query(queryString, [userID, title, url, description, imgURL, date, category])
+    db.query(queryString, [id, title, url, description, imgURL, date, category])
       .then(data => {
         const resourceID = data.rows[0].id;
         return res.redirect(`/resources/${resourceID}`);
@@ -120,13 +120,12 @@ module.exports = (db) => {
       helperFunctions.getAllResourceInfo(db, resourceID)
       .then((info) => {
 
-
         // console.log(info)
         const resourceInfo = makeTemplateVarsforResource(info, resourceID)
 
         const templateVars = {...data, resourceInfo, id};
 
-        // console.log(resourceID);
+        console.log(resourceID);
         console.log('templateVars-----------------', templateVars)
         res.render("resource", templateVars);
       })
@@ -136,16 +135,16 @@ module.exports = (db) => {
 
   router.post("/like/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
-    // User id
-    // const userID = req.session.userId
-    const userID = 1;
-    helperFunctions.getAllResourceInfo(db, resourceID)
-    .then((data) => {
+    const id = req.session.userId;
 
-      res.send('worked')
-
-
-    })
+    // helperFunctions.getAllResourceInfo(db, resourceID)
+    // .then((data) => {
+    //   res.send('worked')
+    // })
+    helperFunctions.addLike(db, id, resourceID)
+     .then((data) => {
+      res.send("Add Like");
+     })
   });
 
 

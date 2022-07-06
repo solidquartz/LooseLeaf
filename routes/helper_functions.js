@@ -117,6 +117,11 @@ const getTemplateVars = (db, userId) => {
 
 }
 
+const addLike = (db, userID, resourceID) => {
+  return db.query(`INSERT INTO likes (user_id, resource_id) VALUES ($1, $2);`, [userID, resourceID])
+    .catch((err) => err.message);
+}
+
 module.exports = {
   getAllCategories,
   getFilteredResourcesByCategory,
@@ -127,5 +132,6 @@ module.exports = {
   getUserByEmail,
   addUser,
   getUserNameById,
-  getTemplateVars
+  getTemplateVars,
+  addLike
 };

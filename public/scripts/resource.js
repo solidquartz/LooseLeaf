@@ -1,6 +1,7 @@
 $(document).ready(() => {
   let userLikes = 0;
 
+
   $('.like').on('click', function() {
     const resourceID = $(this).attr('data-resource-id');
     // console.log(this, resourceID)

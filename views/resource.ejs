@@ -55,7 +55,7 @@
     <div>Likes:</div><div class="likes"><%= resourceInfo.numOfLikes %></div>
     <div>Rating: <%= resourceInfo.avgRating %></div><br>
     <div>Number of Comments: <%= resourceInfo.numOfComments %></div><br>
-    <div>UserID: <%= id %></div><br>
+    <div class="user" data-user-id="<%= id %>">Created By: <%= name %></div><br>
     <% for(const comment of resourceInfo.commentsArr) { %>
       <p>Comment: <%= comment %></p>
     <% } %>
