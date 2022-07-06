@@ -45,23 +45,23 @@
   <!-----------------------------Body----------------------------------->
 
   <div class="resource-container">
-    <div>ResourceID: <%= resourceID %></div><br>
-    <div>TITLE: <%= title %></div><br>
-    <div>URL: <%= url %></div><br>
-    <div>Description: <%= description %></div><br>
-    <div>imgURL: <%= imgURL %></div><br>
-    <div>Date: <%= date %></div><br>
+    <div>ResourceID: <%= resourceInfo.resourceID %></div><br>
+    <div>TITLE: <%= resourceInfo.title %></div><br>
+    <div>URL: <%= resourceInfo.url %></div><br>
+    <div>Description: <%= resourceInfo.description %></div><br>
+    <div>imgURL: <%= resourceInfo.imgURL %></div><br>
+    <div>Date: <%= resourceInfo.date %></div><br>
     <!-- Likes -->
-    <div>Likes:</div><div class="likes"><%= numOfLikes %></div>
-    <div>Rating: <%= avgRating %></div><br>
-    <div>Number of Comments: <%= numOfComments %></div><br>
+    <div>Likes:</div><div class="likes"><%= resourceInfo.numOfLikes %></div>
+    <div>Rating: <%= resourceInfo.avgRating %></div><br>
+    <div>Number of Comments: <%= resourceInfo.numOfComments %></div><br>
     <div>UserID: <%= id %></div><br>
-    <% for(const comment of commentsArr) { %>
+    <% for(const comment of resourceInfo.commentsArr) { %>
       <p>Comment: <%= comment %></p>
     <% } %>
 
     <!-- Likes Icon -->
-    <button type="submit" class="like" data-resource-id="<%= resourceID %>">
+    <button type="submit" class="like" data-resource-id="<%= resourceInfo.resourceID %>">
       <i class="bi bi-hand-thumbs-up-fill"></i>
     </button>
 

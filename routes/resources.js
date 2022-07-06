@@ -109,16 +109,27 @@ module.exports = (db) => {
   router.get("/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
     // User id
-    // const userID = req.session.userId
-    const userID = 1;
-    helperFunctions.getAllResourceInfo(db, resourceID)
-    .then((data) => {
-      console.log(data)
+    const id = req.session.userId;
+    // const userID = 1;
 
-      const templateVars = makeTemplateVarsforResource(data, userID, resourceID);
+    helperFunctions.getTemplateVars(db, id)
+    .then(data => {
+      // const categories = data[0][0];
+      // const name = data[1];
 
-      console.log(templateVars)
-      res.render("resource", templateVars);
+      helperFunctions.getAllResourceInfo(db, resourceID)
+      .then((info) => {
+
+
+        // console.log(info)
+        const resourceInfo = makeTemplateVarsforResource(info, resourceID)
+
+        const templateVars = {...data, resourceInfo, id};
+
+        // console.log(resourceID);
+        console.log('templateVars-----------------', templateVars)
+        res.render("resource", templateVars);
+      })
     })
   });
 
@@ -167,12 +178,11 @@ const getDate = () => {
   return date;
 };
 
-const makeTemplateVarsforResource = (data, id, resourceID ) => {
+const makeTemplateVarsforResource = (data, resourceID) => {
   const resourceInfoObj = data[0][0];
   const ratingsObjArr = data[1];
   const likesObjArr = data[2];
   const commentsObjArr = data[3];
-  const categories = data[4];
 
   const title = resourceInfoObj.title;
   const url = resourceInfoObj.url;
@@ -194,9 +204,7 @@ const makeTemplateVarsforResource = (data, id, resourceID ) => {
                         avgRating,
                         commentsArr,
                         numOfComments,
-                        id,
                         resourceID,
-                        categories
                        };
   return templateVars;
 }
