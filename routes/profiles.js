@@ -29,9 +29,7 @@ module.exports = (db) => {
 
       helperFunctions.updateUserInfo(db, name, email, password, id)
         .then;
-        const templateVars = { id };
-        console.log(templateVars)
-        res.redirect(`/resources/my_resources/${id}`, templateVars);
+        res.redirect(`/resources/my_resources/${id}`)
         return;
     });
 
