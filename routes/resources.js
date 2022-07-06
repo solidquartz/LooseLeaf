@@ -45,12 +45,13 @@ module.exports = (db) => {
 
 
   router.get("/my_resources/:id", (req, res) => {
+    const id = req.session.userId;
+    let name = null;
+    
     helperFunctions.getAllResourcesAndCategories(db)
     .then((all) => {
       const resources = all[0];
       const categories = all[1];
-      const id = req.session.userId
-      let name = null
 
       helperFunctions.getUserNameById(db, id)
       .then(data => {
@@ -105,51 +106,51 @@ module.exports = (db) => {
       });
   });
 
-  router.get("/:resourceID", (req, res) => {
-    const resourceID = req.params.resourceID;
-    const id = req.session.userId;
-    helperFunctions.getAllResourceInfo(db, resourceID)
-      .then((data) => {
-        // console.log(data)
-        const resourceInfoObj = data[0][0];
-        const ratingsObjArr = data[1];
-        const likesObjArr = data[2];
-        const commentsObjArr = data[3];
+  // router.get("/:resourceID", (req, res) => {
+  //   const resourceID = req.params.resourceID;
+  //   const id = req.session.userId;
+  //   helperFunctions.getAllResourceInfo(db, resourceID)
+  //     .then((data) => {
+  //       // console.log(data)
+  //       // const resourceInfoObj = data[0][0];
+  //       const ratingsObjArr = data[1];
+  //       const likesObjArr = data[2];
+  //       const commentsObjArr = data[3];
 
 
 
-        const title = resourceInfoObj.title;
-        const url = resourceInfoObj.url;
-        const description = resourceInfoObj.description;
-        const imgURL = resourceInfoObj.image_url;
-        const date = resourceInfoObj.date_created;
-        const numOfLikes = likesObjArr.length;
-        const avgRating = getAvgRating(ratingsObjArr);
-        const commentsArr = getCommentsArr(commentsObjArr);
+  //       const title = resourceInfoObj.title;
+  //       const url = resourceInfoObj.url;
+  //       const description = resourceInfoObj.description;
+  //       const imgURL = resourceInfoObj.image_url;
+  //       const date = resourceInfoObj.date_created;
+  //       const numOfLikes = likesObjArr.length;
+  //       const avgRating = getAvgRating(ratingsObjArr);
+  //       const commentsArr = getCommentsArr(commentsObjArr);
 
-        const templateVars = {
-          title,
-          url,
-          description,
-          imgURL,
-          date,
-          numOfLikes,
-          avgRating,
-          commentsArr,
-          id
-        };
-        console.log(templateVars);
-        res.render("resource", templateVars);
+  //       const templateVars = {
+  //         title,
+  //         url,
+  //         description,
+  //         imgURL,
+  //         date,
+  //         numOfLikes,
+  //         avgRating,
+  //         commentsArr,
+  //         id
+  //       };
+  //       console.log(templateVars);
+  //       res.render("resource", templateVars);
 
-        // console.log("Old info", resourceInfoObj)
-        // console.log("Ratings", ratingsObjArr)
-        // console.log("Likes", likesObjArr)
-        // console.log("Comments", commentsObjArr)
-        // console.log('avg rating', avgRating);
-        // console.log('numOfLikes', numOfLikes)
-        // console.log('commentsArr', commentsArr);
-      });
-  });
+  //       // console.log("Old info", resourceInfoObj)
+  //       // console.log("Ratings", ratingsObjArr)
+  //       // console.log("Likes", likesObjArr)
+  //       // console.log("Comments", commentsObjArr)
+  //       // console.log('avg rating', avgRating);
+  //       // console.log('numOfLikes', numOfLikes)
+  //       // console.log('commentsArr', commentsArr);
+  //     });
+  // });
 
   // need to also get likes, comments, ratings
   return router;
