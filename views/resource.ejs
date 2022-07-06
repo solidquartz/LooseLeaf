@@ -90,12 +90,6 @@
 
         <!-- Comments -->
         <!-- This is a dead button that does nothing -->
-        <button>Add comment <i class="bi bi-chat-text"></i> </button>
-
-        <% for(const comment of resourceInfo.commentsArr) { %>
-          <p>Comment: <%= comment %>
-          </p>
-          <% } %>
 
             <!-- Add Like -->
             <button type="submit" class="like" data-resource-id="<%= resourceInfo.resourceID %>">
@@ -112,8 +106,17 @@
               <i class="bi bi-star-fill"></i>
             </div>
 
+            <section>
+              <form class="comment-container"action="/resources/comment" method="POST">
+                <textarea type="submit" placeholder="comment"></textarea>
+                <button class="comment-button" type="submit">comment</button>
+              </form>
+            </section>
+
       </div>
     </div>
+
+
     <!-- End Leaf -->
 
   </div>
