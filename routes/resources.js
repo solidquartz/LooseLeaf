@@ -13,31 +13,32 @@ const helperFunctions = require('./helper_functions');
 module.exports = (db) => {
 
   router.get("/", (req, res) => {
-    helperFunctions.getAllResourcesAndCategories(db)
-      .then((all) => {
-        const resources = all[0];
-        const categories = all[1];
+    helperFunctions.getAllResources(db)
+      .then((resources) => {
+
         const id = req.session.userId;
         let name = null;
 
-        helperFunctions.getUserNameById(db, id)
+        helperFunctions.getTemplateVars(db, id)
           .then(data => {
-            if (data.rows.length !== 0) {
-              name = data.rows[0].name;
-            }
-            const templateVars = { resources, categories, id, name };
+
+            const templateVars = { resources, ...data, id };
             return res.render("resources", templateVars);
           });
       });
 
     //needs fixing to include id (addTemplateVars)
     router.get("/category/:id", (req, res) => {
-      const promises = [helperFunctions.getFilteredResourcesByCategory(db, req.params.id), helperFunctions.getAllCategories(db)];
+      const id = req.session.userId;
+      const name = null
+
+      const promises = [helperFunctions.getFilteredResourcesByCategory(db, req.params.id), helperFunctions.getTemplateVars(db, id)];
       Promise.all(promises)
         .then((data => {
-          const resources = data[0];
-          const categories = data[1];
-          const templateVars = { resources, categories };
+          const resources = data[0]
+          const categories = data[1].categories
+          const name = data[2]
+          const templateVars = { categories, resources, name, id};
           res.render("resources", templateVars);
         }));
     });

@@ -19,7 +19,6 @@ const getFilteredResourcesByCategory = (db, id) => {
   WHERE category_id = $1
 `, [id])
     .then(data => {
-      console.log(id);
       return data.rows;
     });
 };
