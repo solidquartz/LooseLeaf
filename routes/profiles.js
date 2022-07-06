@@ -7,17 +7,11 @@
 
 const express = require('express');
 const router = express.Router();
+const helperFunctions = require('./helper_functions');
 
 module.exports = (db) => {
 
-  const updateUserInfo = (name, email, password, id) => {
-    return db.query(`UPDATE users
-    SET name = $1, email = $2, password = $3
-    WHERE id = $4
-    RETURNING *;`, [name, email, password, id])
-      .catch((err) => err.message);
-  };
-
+  // get update profile page
   router.get("/:id", (req, res) => {
     const id = req.params.id
     const templateVars = { id }
@@ -25,6 +19,7 @@ module.exports = (db) => {
     return;
   });
 
+  // When update account is saved redirect to the users resources page
   router.post("/", (req, res) => {
     const { name, email, password } = req.body
     const id = req.session.userId
