@@ -44,12 +44,16 @@
   <!-----------------------------Body----------------------------------->
 
   <div class="resource-container">
-    <div>ID <%= resource.id %>--</div><br>
-    <div>TITLE <%= resource.title %>--</div><br>
-    <div>URL <%= resource.url %>--</div><br>
-    <div>DESCRIPTION <%= resource.description %>--</div><br>
-    <div>IMG URL <%= resource.image_url %>--</div><br>
-    <div>DATE <%= resource.date_created%>--</div><br>
+    <div>TITLE: <%= title %></div><br>
+    <div>URL: <%= url %></div><br>
+    <div>Description: <%= description %></div><br>
+    <div>imgURL: <%= imgURL %></div><br>
+    <div>Date: <%= date %></div><br>
+    <div>Likes: <%= numOfLikes %></div><br>
+    <div>Rating: <%= avgRating %></div><br>
+    <% for(const comment of commentsArr) { %>
+      <p>Comment: <%= comment %></p>
+    <% } %>
   </div>
 
 </body>
