@@ -341,3 +341,26 @@ a:active {
     font-weight: bold;
     border: none;
   }
+
+
+
+
+
+
+
+  //////////// comments ////////////
+
+.comment-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: auto
+}
+
+.comment-button {
+  display: flex;
+  width: 20%;
+  font-size: small;
+  margin-left: auto;
+  margin-top: 20px;
+}
