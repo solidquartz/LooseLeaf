@@ -45,24 +45,26 @@
   <!-----------------------------Body----------------------------------->
 
   <div class="resource-container">
-    <div>ResourceID: <%= resourceInfo.resourceID %></div><br>
-    <div>TITLE: <%= resourceInfo.title %></div><br>
-    <div>URL: <%= resourceInfo.url %></div><br>
-    <div>Description: <%= resourceInfo.description %></div><br>
-    <div>imgURL: <%= resourceInfo.imgURL %></div><br>
-    <div>Date: <%= resourceInfo.date %></div><br>
+    <div>TITLE: <%= resourceInfo.title %></div>
+    <div>URL: <%= resourceInfo.url %></div>
+    <div>Description: <%= resourceInfo.description %></div>
+    <div>imgURL: <%= resourceInfo.imgURL %></div>
+    <div>Date: <%= resourceInfo.date %></div>
     <!-- Likes -->
     <div>Likes:</div><div class="likes"><%= resourceInfo.numOfLikes %></div>
-    <div>Rating: <%= resourceInfo.avgRating %></div><br>
-    <div>Number of Comments: <%= resourceInfo.numOfComments %></div><br>
-    <div>UserID: <%= id %></div><br>
+    <div><i class="bi bi-star-fill"></i> <%= resourceInfo.avgRating %></div>
+
+    <div>Created by: <%= name %></div>
+
+        <div><i class="bi bi-chat-text"></i> <%= resourceInfo.numOfComments %>
+        </div>
     <% for(const comment of resourceInfo.commentsArr) { %>
       <p>Comment: <%= comment %></p>
     <% } %>
 
     <!-- Likes Icon -->
     <button type="submit" class="like" data-resource-id="<%= resourceInfo.resourceID %>">
-      <i class="bi bi-hand-thumbs-up-fill"></i>
+      <i class="bi bi-heart-fill"></i>
     </button>
 
     <!-- Ratings Icon -->
