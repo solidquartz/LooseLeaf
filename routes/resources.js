@@ -85,6 +85,21 @@ module.exports = (db) => {
   });
 
 
+  router.post("/like/:resourceID", (req, res) => {
+    const resourceID = req.params.resourceID;
+    // User id
+    // const userID = req.session.userId
+    const userID = 1;
+    helperFunctions.getAllResourceInfo(db, resourceID)
+    .then((data) => {
+
+      res.send('worked')
+
+
+    })
+  });
+
+
   // need to also get likes, comments, ratings
   return router;
 };
