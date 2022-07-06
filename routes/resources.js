@@ -30,7 +30,19 @@ module.exports = (db) => {
         return res.render("resources", templateVars);
     });
   });
+
+  router.get("/category/:id", (req, res) => {
+    const promises = [helperFunctions.getFilteredResourcesByCategory(db, req.params.id), helperFunctions.getAllCategories(db)];
+    Promise.all(promises)
+      .then((data => {
+        const resources = data[0];
+        const categories = data[1];
+        const templateVars = { resources, categories };
+        res.render("resources", templateVars);
+      }));
+  });
 })
+
 
   router.get("/my_resources/:id", (req, res) => {
     helperFunctions.getAllResourcesAndCategories(db)
@@ -95,48 +107,48 @@ module.exports = (db) => {
 
   router.get("/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
-    const id = req.session.userId
-     helperFunctions.getAllResourceInfo(db, resourceID)
-    .then((data) => {
-      // console.log(data)
-      const resourceInfoObj = data[0][0];
-      const ratingsObjArr = data[1];
-      const likesObjArr = data[2];
-      const commentsObjArr = data[3];
+    const id = req.session.userId;
+    helperFunctions.getAllResourceInfo(db, resourceID)
+      .then((data) => {
+        // console.log(data)
+        const resourceInfoObj = data[0][0];
+        const ratingsObjArr = data[1];
+        const likesObjArr = data[2];
+        const commentsObjArr = data[3];
 
 
 
-      const title = resourceInfoObj.title;
-      const url = resourceInfoObj.url;
-      const description = resourceInfoObj.description;
-      const imgURL = resourceInfoObj.image_url;
-      const date = resourceInfoObj.date_created;
-      const numOfLikes = likesObjArr.length;
-      const avgRating = getAvgRating(ratingsObjArr);
-      const commentsArr = getCommentsArr(commentsObjArr);
+        const title = resourceInfoObj.title;
+        const url = resourceInfoObj.url;
+        const description = resourceInfoObj.description;
+        const imgURL = resourceInfoObj.image_url;
+        const date = resourceInfoObj.date_created;
+        const numOfLikes = likesObjArr.length;
+        const avgRating = getAvgRating(ratingsObjArr);
+        const commentsArr = getCommentsArr(commentsObjArr);
 
-      const templateVars = {
-                            title,
-                            url,
-                            description,
-                            imgURL,
-                            date,
-                            numOfLikes,
-                            avgRating,
-                            commentsArr,
-                            id
-                           };
-      console.log(templateVars)
-      res.render("resource", templateVars);
+        const templateVars = {
+          title,
+          url,
+          description,
+          imgURL,
+          date,
+          numOfLikes,
+          avgRating,
+          commentsArr,
+          id
+        };
+        console.log(templateVars);
+        res.render("resource", templateVars);
 
-      // console.log("Old info", resourceInfoObj)
-      // console.log("Ratings", ratingsObjArr)
-      // console.log("Likes", likesObjArr)
-      // console.log("Comments", commentsObjArr)
-      // console.log('avg rating', avgRating);
-      // console.log('numOfLikes', numOfLikes)
-      // console.log('commentsArr', commentsArr);
-    })
+        // console.log("Old info", resourceInfoObj)
+        // console.log("Ratings", ratingsObjArr)
+        // console.log("Likes", likesObjArr)
+        // console.log("Comments", commentsObjArr)
+        // console.log('avg rating', avgRating);
+        // console.log('numOfLikes', numOfLikes)
+        // console.log('commentsArr', commentsArr);
+      });
   });
 
   // need to also get likes, comments, ratings
@@ -148,16 +160,16 @@ const getAvgRating = (ratingsArr) => {
   for (const ratingObj of ratingsArr) {
     sum += ratingObj.rating;
   }
-  return sum/ratingsArr.length;
-}
+  return sum / ratingsArr.length;
+};
 
 const getCommentsArr = (commentsArr) => {
-  let arr = []
+  let arr = [];
   for (const commentObj of commentsArr) {
     arr.push(commentObj.comment);
   }
   return arr;
-}
+};
 
 const getDate = () => {
   const today = new Date();

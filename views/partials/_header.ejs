@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/resources/my_resources/<%= id%>">My Leaves</a>
+          <a class="nav-link active" aria-current="page" href="/resources/my_resources/<%# %>">My Leaves</a>
         </li>
 
         <li class="nav-item">
@@ -25,7 +25,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
             <% for (const category of categories) { %>
-              <li><a class="dropdown-item" href="#">
+              <li><a class="dropdown-item" href="/resources/category/<%= category.id %>">
                   <%= category.name %>
                 </a></li>
               <% } %>
@@ -44,9 +44,9 @@
 </nav>
 
 
-<div class="header-user">
+ <div class="header-user">
 
-<% if (id) { %>
+<%# if (id) { %>
   <div class="btn-group">
     <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
       <%= name %>
