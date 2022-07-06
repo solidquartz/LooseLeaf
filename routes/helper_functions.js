@@ -88,6 +88,7 @@ const addUser = (name, email, password) => {
 };
 
 
+
 module.exports = {
   getAllCategories,
   getAllResources,
