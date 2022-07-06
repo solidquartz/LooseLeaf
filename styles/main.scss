@@ -87,7 +87,7 @@ a:active {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 350px;
+  width: 400px;
   height: 650px;
   border: #335c67 solid 5px;
   padding-left: 1em;
@@ -96,19 +96,33 @@ a:active {
   margin: 1em;
 }
 
-.title {
-  font-family: 'Work Sans', sans-serif;
-  font-size: .5em;
-  font-weight: 600;
-  color: #9e2a2b;
-  margin-top: .5em;
+.leaf-text {
+  overflow: ellipsis;
 }
 
-.description {
+.title h2 {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 400;
+  color: #9e2a2b;
+  font-size: 1.9em;
+  margin-top: .5em;
+  width: 350px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resource-url a {
+  font-size: .7em;
+  height: 1em;
+}
+
+.description p {
   margin-top: 1em;
   margin-bottom: 1em;
-  height: 14em;
-  overflow: clip;
+  height: 13em;
+  width: 350px;
+  overflow: hidden;
 }
 
 .leaf-footer {
@@ -131,149 +145,149 @@ a:active {
   top: 250px;
 }
 
-  /////////login container/////////
+/////////login container/////////
 
-  .login-container {
-    display: flex;
-    flex-direction: column;
-    height: 300px;
-    width: 200px;
-    background-color: #e09f3e;
-    margin-right: 80px;
-    align-items: center;
-  }
+.login-container {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 200px;
+  background-color: #e09f3e;
+  margin-right: 80px;
+  align-items: center;
+}
 
-  header.login {
-    font-family: 'Work Sans', sans-serif;
-    color: #9e2a2b;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 10px;
+header.login {
+  font-family: 'Work Sans', sans-serif;
+  color: #9e2a2b;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
 
-  }
+}
 
-  #login-email {
-    height: 25px;
-    width: 90%;
-    margin: auto;
-    font-family: 'Work Sans', sans-serif;
-    color: #540b0e;
-    margin-bottom: 25px;
-    white-space: nowrap;
-    overflow-x: hidden;
-  }
+#login-email {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+  margin-bottom: 25px;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
 
-  #login-password {
-    height: 25px;
-    width: 90%;
-    margin: auto;
-    font-family: 'Work Sans', sans-serif;
-    color: #540b0e;
-    white-space: nowrap;
-    overflow-x: hidden;
-  }
+#login-password {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
 
-  .login-button {
-    display: flex;
-    margin-left: auto;
-    margin-top: auto;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    font-family: 'Work Sans', sans-serif;
-    background-color: #9e2a2b;
-    color: #e09f3e;
-    font-weight: bold;
-    border: none;
-  }
+.login-button {
+  display: flex;
+  margin-left: auto;
+  margin-top: auto;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  font-family: 'Work Sans', sans-serif;
+  background-color: #9e2a2b;
+  color: #e09f3e;
+  font-weight: bold;
+  border: none;
+}
 
-  .login-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-  }
+.login-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+}
 
 
-  // register container//
+// register container//
 
-  .register-container {
-    display: flex;
-    flex-direction: column;
-    height: 300px;
-    width: 200px;
-    background-color: #e09f3e;
-    align-items: center;
-  }
+.register-container {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 200px;
+  background-color: #e09f3e;
+  align-items: center;
+}
 
-  header.register {
-    font-family: 'Work Sans', sans-serif;
-    color: #9e2a2b;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 10px;
-  }
+header.register {
+  font-family: 'Work Sans', sans-serif;
+  color: #9e2a2b;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
+}
 
-  #name {
-    height: 25px;
-    width: 90%;
-    margin: auto;
-    font-family: 'Work Sans', sans-serif;
-    color: #540b0e;
-    white-space: nowrap;
-    overflow-x: hidden;
-  }
+#name {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
 
-  #register-email {
-    height: 25px;
-    width: 90%;
-    margin: auto;
-    font-family: 'Work Sans', sans-serif;
-    color: #540b0e;
-    margin: 10px
-  }
+#register-email {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+  margin: 10px
+}
 
-  #register-password {
-    height: 25px;
-    width: 90%;
-    margin: auto;
-    font-family: 'Work Sans', sans-serif;
-    color: #540b0e;
-    white-space: nowrap;
-    overflow-x: hidden;
-  }
+#register-password {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
 
-  .register-button {
-    display: flex;
-    margin-left: auto;
-    margin-top: auto;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    font-family: 'Work Sans', sans-serif;
-    background-color: #9e2a2b;
-    color: #e09f3e;
-    font-weight: bold;
-    border: none;
-  }
+.register-button {
+  display: flex;
+  margin-left: auto;
+  margin-top: auto;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  font-family: 'Work Sans', sans-serif;
+  background-color: #9e2a2b;
+  color: #e09f3e;
+  font-weight: bold;
+  border: none;
+}
 
-  .register-text {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-  }
+.register-text {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
 
-  .navbar-brand {
-    font-family: 'Nothing You Could Do', cursive;
-    color: #540b0e;
-    font-size: 4em;
-  }
+.navbar-brand {
+  font-family: 'Nothing You Could Do', cursive;
+  color: #540b0e;
+  font-size: 4em;
+}
 
-  // resource page
-  .resource-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    // flex-wrap: wrap;
-    width: 90%;
-    position: absolute;
-    top: 120px;
-  }
+// resource page
+.resource-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // flex-wrap: wrap;
+  width: 90%;
+  position: absolute;
+  top: 120px;
+}
