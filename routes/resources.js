@@ -9,13 +9,14 @@ const express = require('express');
 const router = express.Router();
 const helperFunctions = require('./helper_functions');
 
+
 module.exports = (db) => {
   router.get("/", (req, res) => {
     helperFunctions.getAllResourcesAndCategories(db)
       .then((all) => {
         const resources = all[0];
         const categories = all[1];
-        console.log(categories, resources);
+        // console.log(categories, resources);
         const templateVars = { resources, categories };
         res.render("resources", templateVars);
       });
@@ -67,22 +68,29 @@ module.exports = (db) => {
   router.get("/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
     console.log(resourceID);
-    db.query(`
-    SELECT *
-    FROM resources
-    JOIN categories ON category_id = categories.id
-    JOIN users ON user_id = users.id
-    WHERE resources.id = ${resourceID};`)
-      .then(data => {
-        const resourceData = data.rows[0];
-        let templateVars = { resource: resourceData };
-        console.log(templateVars);
-        res.render("resource", templateVars);
-      });
+    // db.query(`
+    // SELECT *
+    // FROM resources
+    // JOIN categories ON category_id = categories.id
+    // JOIN users ON user_id = users.id
+    // WHERE resources.id = ${resourceID};`)
+    //   .then(data => {
+    //     // console.log(data.rows)
+    //     const resourceData = data.rows[0];
+    //     let templateVars = { resource: resourceData };
+    //     console.log(templateVars);
+    //     res.render("resource", templateVars);
+    //   });
+    helperFunctions.getAllResourceInfo(db, resourceID)
+    .then((data) => {
+      // console.log(data)
+      console.log("Old info", data[0])
+      console.log("Ratings", data[1])
+      console.log("Likes", data[2])
+      console.log("Comments", data[3])
+    })
   });
 
   // need to also get likes, comments, ratings
   return router;
 };
-
-
