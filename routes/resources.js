@@ -71,7 +71,8 @@ module.exports = (db) => {
   router.get("/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
     // User id
-    const userID = req.session.userId
+    // const userID = req.session.userId
+    const userID = 1;
     helperFunctions.getAllResourceInfo(db, resourceID)
     .then((data) => {
       console.log(data)

@@ -26,6 +26,7 @@
 <!-- Scripts -->
 <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
 <script type="text/javascript" src="/scripts/app.js"></script>
+<script type="text/javascript" src="/scripts/resource.js"></script>
 <script src="https://unpkg.com/@popperjs/core@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
@@ -50,20 +51,19 @@
     <div>Description: <%= description %></div><br>
     <div>imgURL: <%= imgURL %></div><br>
     <div>Date: <%= date %></div><br>
-    <div>Likes: <%= numOfLikes %></div><br>
+    <!-- Likes -->
+    <div>Likes:</div><div class="likes"><%= numOfLikes %></div>
     <div>Rating: <%= avgRating %></div><br>
     <div>Number of Comments: <%= numOfComments %></div><br>
+    <div>UserID: <%= id %></div><br>
     <% for(const comment of commentsArr) { %>
       <p>Comment: <%= comment %></p>
     <% } %>
 
     <!-- Likes Icon -->
-    <button type="submit">
+    <button type="submit" class="like">
       <i class="bi bi-hand-thumbs-up-fill"></i>
     </button>
-
-
-
 
     <!-- Ratings Icon -->
     <div class="star-ratings">
