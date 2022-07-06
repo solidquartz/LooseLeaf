@@ -127,6 +127,16 @@ const getMyResources = (db, userId) => {
     });
 };
 
+const getMyLikedResources = (db, userId) => {
+  return db.quuery(`
+  SELECT * FROM resources
+  JOIN users ON user_id = users.id
+  WHERE user_id = $1`, [userId])
+  .then(data => {
+    return data.rows
+  })
+}
+
 module.exports = {
   getAllCategories,
   getFilteredResourcesByCategory,
@@ -138,5 +148,6 @@ module.exports = {
   addUser,
   getUserNameById,
   getTemplateVars,
-  getMyResources
+  getMyResources,
+  getMyLikedResources
 };
