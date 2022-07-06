@@ -113,8 +113,18 @@ const getTemplateVars = (db, userId) => {
       }
       return { categories: data[0], name }
    })
-
 }
+
+const getMyResources = (db, userId) => {
+  return db.query(`
+  SELECT * FROM resources
+  JOIN users ON user_id = users.id
+  WHERE user_id = $1
+  `, [userId])
+    .then(data => {
+      return data.rows;
+    });
+};
 
 module.exports = {
   getAllCategories,
@@ -126,5 +136,6 @@ module.exports = {
   getUserByEmail,
   addUser,
   getUserNameById,
-  getTemplateVars
+  getTemplateVars,
+  getMyResources
 };
