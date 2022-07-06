@@ -12,6 +12,17 @@ const getAllCategories = (db) => {
     });
 };
 
+const getFilteredResourcesByCategory = (db, id) => {
+  return db.query(`
+  SELECT * FROM resources
+  JOIN categories ON category_id = categories.id
+  WHERE categories.id = $1
+`, [id])
+    .then(data => {
+      return data.rows;
+    });
+};
+
 const getAllResources = (db) => {
   return db.query(`SELECT * FROM resources;`)
     .then(data => {
@@ -22,22 +33,22 @@ const getAllResources = (db) => {
 const getRatings = (db, resourceID) => {
   return db.query(`SELECT * FROM ratings WHERE resource_id = ${resourceID};`)
     .then(data => {
-      return data.rows
-    })
+      return data.rows;
+    });
 };
 
 const getLikes = (db, resourceID) => {
   return db.query(`SELECT * FROM likes WHERE resource_id = ${resourceID};`)
     .then(data => {
-      return data.rows
-    })
+      return data.rows;
+    });
 };
 
 const getComments = (db, resourceID) => {
   return db.query(`SELECT * FROM comments WHERE resource_id = ${resourceID};`)
     .then(data => {
-      return data.rows
-    })
+      return data.rows;
+    });
 };
 
 const getResourceInfo = (db, resourceID) => {
@@ -48,15 +59,15 @@ const getResourceInfo = (db, resourceID) => {
   JOIN users ON user_id = users.id
   WHERE resources.id = ${resourceID};`)
     .then(data => {
-      return data.rows
-    })
+      return data.rows;
+    });
 };
 
 const getAllResourceInfo = (db, resourceID) => {
   const queries = [getResourceInfo(db, resourceID), getRatings(db, resourceID), getLikes(db, resourceID), getComments(db, resourceID)];
   return Promise.all(queries).catch(err =>
     console.log("getAllResourceInfo: ", err.message));
-}
+};
 
 const getAllResourcesAndCategories = (db) => {
   const queries = [getAllResources(db), getAllCategories(db)];
@@ -91,6 +102,7 @@ const addUser = (db, name, email, password) => {
 
 module.exports = {
   getAllCategories,
+  getFilteredResourcesByCategory,
   getAllResources,
   getAllResourcesAndCategories,
   getAllResourceInfo,
