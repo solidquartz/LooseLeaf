@@ -112,9 +112,13 @@ a:active {
   text-overflow: ellipsis;
 }
 
-.resource-url a {
+.resource-url {
   font-size: .7em;
-  height: 1em;
+  height: 1.5em;
+  width: 350px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .description p {
