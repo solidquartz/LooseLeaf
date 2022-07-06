@@ -34,15 +34,6 @@ module.exports = (db) => {
   });
 
   router.post("/create", (req, res) => {
-    const getDate = () => {
-      const today = new Date();
-      const day = String(today.getDate()).padStart(2, '0');
-      const month = String(today.getMonth() + 1).padStart(2, '0');
-      const year = today.getFullYear();
-      const date = `${year}-${month}-${day}`;
-      return date;
-    };
-
     // STILL NEED TO GET userID/category somehow
     const userID = 1;
     const title = req.body.title;
@@ -67,42 +58,46 @@ module.exports = (db) => {
 
   router.get("/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
-    console.log('ResourceID', resourceID);
-    // db.query(`
-    // SELECT *
-    // FROM resources
-    // JOIN categories ON category_id = categories.id
-    // JOIN users ON user_id = users.id
-    // WHERE resources.id = ${resourceID};`)
-    //   .then(data => {
-    //     // console.log(data.rows)
-    //     const resourceData = data.rows[0];
-    //     let templateVars = { resource: resourceData };
-    //     console.log(templateVars);
-    //     res.render("resource", templateVars);
-    //   });
+    // console.log('ResourceID', resourceID);
     helperFunctions.getAllResourceInfo(db, resourceID)
     .then((data) => {
       // console.log(data)
-      const oldResInfo = data[0];
-      const ratingsArr = data[1];
-      const likesArr = data[2];
-      const commentsArr = data[3];
-      console.log("Old info", oldResInfo)
-      console.log("Ratings", ratingsArr)
-      console.log("Likes", likesArr)
-      console.log("Comments", commentsArr)
-
-      // const numOfLikes = likesArr.length;
-      // console.log(numOfLikes)
-
-      const avgRating = getAvgRating(ratingsArr);
-      console.log(avgRating);
+      const resourceInfoObj = data[0][0];
+      const ratingsObjArr = data[1];
+      const likesObjArr = data[2];
+      const commentsObjArr = data[3];
 
 
 
-      console.log(getCommentsArr(commentsArr));
+      const title = resourceInfoObj.title;
+      const url = resourceInfoObj.url;
+      const description = resourceInfoObj.description;
+      const imgURL = resourceInfoObj.image_url;
+      const date = resourceInfoObj.date_created;
+      const numOfLikes = likesObjArr.length;
+      const avgRating = getAvgRating(ratingsObjArr);
+      const commentsArr = getCommentsArr(commentsObjArr);
 
+      const templateVars = {
+                            title,
+                            url,
+                            description,
+                            imgURL,
+                            date,
+                            numOfLikes,
+                            avgRating,
+                            commentsArr
+                           };
+      console.log(templateVars)
+      res.render("resource", templateVars);
+
+      // console.log("Old info", resourceInfoObj)
+      // console.log("Ratings", ratingsObjArr)
+      // console.log("Likes", likesObjArr)
+      // console.log("Comments", commentsObjArr)
+      // console.log('avg rating', avgRating);
+      // console.log('numOfLikes', numOfLikes)
+      // console.log('commentsArr', commentsArr);
     })
   });
 
@@ -125,3 +120,12 @@ const getCommentsArr = (commentsArr) => {
   }
   return arr;
 }
+
+const getDate = () => {
+  const today = new Date();
+  const day = String(today.getDate()).padStart(2, '0');
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const year = today.getFullYear();
+  const date = `${year}-${month}-${day}`;
+  return date;
+};
