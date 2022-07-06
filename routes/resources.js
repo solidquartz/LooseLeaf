@@ -19,10 +19,18 @@ module.exports = (db) => {
       const resources = all[0];
       const categories = all[1];
       const id = req.session.userId
-      const templateVars = { resources, categories, id };
-      res.render("resources", templateVars);
+      let name = null;
+
+      helperFunctions.getUserNameById(db, id)
+      .then(data => {
+        if(data.rows.length !== 0) {
+          name = data.rows[0].name
+        }
+        const templateVars = { resources, categories, id, name };
+        return res.render("resources", templateVars);
     });
   });
+})
 
   router.get("/my_resources/:id", (req, res) => {
     helperFunctions.getAllResourcesAndCategories(db)
@@ -30,20 +38,37 @@ module.exports = (db) => {
       const resources = all[0];
       const categories = all[1];
       const id = req.session.userId
-        const templateVars = { resources, categories, id };
-    res.render('my_resources', templateVars)
-    return;
+      let name = null
+
+      helperFunctions.getUserNameById(db, id)
+      .then(data => {
+        if(data.rows.length !== 0) {
+          name = data.rows[0].name
+        }
+        const templateVars = { resources, categories, id, name };
+        res.render('my_resources', templateVars)
+        return;
+      })
     });
   })
+
   //change name to not objects
   router.get("/create", (req, res) => {
     helperFunctions.getAllCategories(db)
       .then((categories) => {
         const id = req.session.userId
-        const templateVars = { categories, id };
-        res.render("create-resource", templateVars);
+        let name = null
+
+      helperFunctions.getUserNameById(db, id)
+      .then(data => {
+        if(data.rows.length !== 0) {
+          name = data.rows[0].name
+        }
+        const templateVars = { categories, id, name };
+        return res.render("create-resource", templateVars);
       });
   });
+});
 
   router.post("/create", (req, res) => {
     // STILL NEED TO GET userID/category somehow
@@ -64,7 +89,7 @@ module.exports = (db) => {
     db.query(queryString, [userID, title, url, description, imgURL, date, category])
       .then(data => {
         const resourceID = data.rows[0].id;
-        res.redirect(`/resources/${resourceID}`);
+        return res.redirect(`/resources/${resourceID}`);
       });
   });
 

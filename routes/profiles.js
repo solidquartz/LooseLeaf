@@ -13,14 +13,27 @@ module.exports = (db) => {
 
   // get update profile page
   router.get("/:id", (req, res) => {
+    const { userId } = req.session;
+    if(!userId) {
+      return res.status(300).redirect('/resources')
+    }
+
     const id = req.session.userId;
+    let name = null;
+
     helperFunctions.getAllCategories(db)
       .then((categories) => {
-        const templateVars = { categories, id };
-        res.render('profiles', templateVars);
-        return;
+
+      helperFunctions.getUserNameById(db, id)
+        .then(data => {
+          if(data.rows.length !== 0) {
+            name = data.rows[0].name
+          }
+          const templateVars = { categories, id, name };
+          return res.render('profiles', templateVars);
       });
     });
+  });
 
     // When update account is saved redirect to the users resources page
     router.post("/", (req, res) => {
@@ -32,6 +45,11 @@ module.exports = (db) => {
         res.redirect(`/resources/my_resources/${id}`)
         return;
     });
+
+    router.post('/logout', (req, res) => {
+      req.session = null;
+      res.redirect('/resources')
+    })
 
     return router;
 
