@@ -73,13 +73,12 @@ module.exports = (db) => {
     const id = req.session.userId
      helperFunctions.getAllResourceInfo(db, resourceID)
     .then((data) => {
-      // console.log(data)
+      console.log(data)
       const resourceInfoObj = data[0][0];
       const ratingsObjArr = data[1];
       const likesObjArr = data[2];
       const commentsObjArr = data[3];
-
-
+      const categories = data[4];
 
       const title = resourceInfoObj.title;
       const url = resourceInfoObj.url;
@@ -99,7 +98,8 @@ module.exports = (db) => {
                             numOfLikes,
                             avgRating,
                             commentsArr,
-                            id
+                            id,
+                            categories
                            };
       console.log(templateVars)
       res.render("resource", templateVars);
