@@ -11,6 +11,8 @@ const helperFunctions = require('./helper_functions');
 
 
 module.exports = (db) => {
+
+  
   router.get("/", (req, res) => {
     helperFunctions.getAllResourcesAndCategories(db)
       .then((all) => {
