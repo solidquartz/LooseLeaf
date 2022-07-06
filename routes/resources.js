@@ -15,10 +15,7 @@ module.exports = (db) => {
   router.get("/", (req, res) => {
     helperFunctions.getAllResources(db)
       .then((resources) => {
-
         const id = req.session.userId;
-        let name = null;
-
         helperFunctions.getTemplateVars(db, id)
           .then(data => {
 
@@ -26,62 +23,45 @@ module.exports = (db) => {
             return res.render("resources", templateVars);
           });
       });
+  });
 
     //needs fixing to include id (addTemplateVars)
     router.get("/category/:id", (req, res) => {
       const id = req.session.userId;
-      const name = null
-
       const promises = [helperFunctions.getFilteredResourcesByCategory(db, req.params.id), helperFunctions.getTemplateVars(db, id)];
       Promise.all(promises)
         .then((data => {
           const resources = data[0]
           const categories = data[1].categories
-          const name = data[2]
+          const name = data[1].name
           const templateVars = { categories, resources, name, id};
           res.render("resources", templateVars);
         }));
     });
-  });
 
 
   router.get("/my_resources/:id", (req, res) => {
     const id = req.session.userId;
-    let name = null;
-
-    helperFunctions.getAllResourcesAndCategories(db)
-      .then((all) => {
-        const resources = all[0];
-        const categories = all[1];
-
-        helperFunctions.getUserNameById(db, id)
-          .then(data => {
-            if (data.rows.length !== 0) {
-              name = data.rows[0].name;
-            }
-            const templateVars = { resources, categories, id, name };
-            res.render('my_resources', templateVars);
-            return;
-          });
-      });
+    helperFunctions.getMyResources(db, id)
+    .then(resources => {
+      helperFunctions.getTemplateVars(db, id)
+      .then(data => {
+        const templateVars = {resources, ...data, id}
+        return res.render('my_resources', templateVars);
+      })
+    })
   });
 
   //change name to not objects
   router.get("/create", (req, res) => {
-    helperFunctions.getAllCategories(db)
-      .then((categories) => {
-        const id = req.session.userId;
-        let name = null;
+    const id = req.session.userId;
+    let name = null;
 
-        helperFunctions.getUserNameById(db, id)
-          .then(data => {
-            if (data.rows.length !== 0) {
-              name = data.rows[0].name;
-            }
-            const templateVars = { categories, id, name };
-            return res.render("create-resource", templateVars);
-          });
-      });
+    helperFunctions.getTemplateVars(db, id)
+      .then(results => {
+        const templateVars = { ...results, id };
+        return res.render('create-resource', templateVars);
+    })
   });
 
   router.post("/create", (req, res) => {
