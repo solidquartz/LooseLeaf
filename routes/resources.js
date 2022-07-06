@@ -53,12 +53,15 @@ module.exports = (db) => {
 
     const queryString = `
     INSERT INTO resources (user_id, title, url, description, image_url, date_created, category_id)
-    VALUES ($1, $2, $3, $4, $5, $6, $7);
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    RETURNING id;
     `;
 
     db.query(queryString, [userID, title, url, description, imgURL, date, category])
       .then(data => {
-        res.redirect(`/`);
+        console.log('SQL DATA--------------', data);
+        const resourceID = data.rows[0].id;
+        res.redirect(`/resources/${resourceID}`);
       });
   });
 
