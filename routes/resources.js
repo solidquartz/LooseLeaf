@@ -12,11 +12,12 @@ const helperFunctions = require('./helper_functions');
 module.exports = (db) => {
   router.get("/", (req, res) => {
     helperFunctions.getAllResourcesAndCategories(db)
-      .then((all) => {
-        const resources = all[0];
-        const categories = all[1];
-        console.log(categories, resources);
-        const templateVars = { resources, categories };
+    .then((all) => {
+      const resources = all[0];
+      const categories = all[1];
+      const id = req.body
+      console.log("id", id)
+        const templateVars = { resources, categories, id };
         res.render("resources", templateVars);
       });
   });
@@ -25,9 +26,8 @@ module.exports = (db) => {
   router.get("/create", (req, res) => {
     helperFunctions.getAllCategories(db)
       .then((categories) => {
-        console.log(categories);
-        const templateVars = { categories: categories };
-        console.log(templateVars);
+        const id = req.session.userId
+        const templateVars = { categories, id };
         res.render("create-resource", templateVars);
       });
   });
@@ -68,10 +68,26 @@ module.exports = (db) => {
     db.query(`SELECT * FROM resources WHERE id = ${resourceID};`)
       .then(data => {
         const resourceData = data.rows[0];
-        let templateVars = { resource: resourceData };
-        console.log(templateVars);
+        const id = req.session.userId
+        let templateVars = { resource: resourceData, id };
+        console.log("id",templateVars)
         res.render("resource", templateVars);
       });
+
+  router.get("/my_resources/:id", (req, res) => {
+    console.log(req.params)
+    const id = req.params.userId
+      const templateVars = {
+        id,
+        categories,
+      }
+    res.render('my_resources', templateVars)
+  });
+
+  return router;
+
+
+
   });
 
   // need to also get likes, comments, ratings
