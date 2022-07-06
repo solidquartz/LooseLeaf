@@ -25,9 +25,9 @@ module.exports = (db) => {
   router.get("/create", (req, res) => {
     helperFunctions.getAllCategories(db)
       .then((categories) => {
-        console.log(categories);
+        // console.log(categories);
         const templateVars = { categories: categories };
-        console.log(templateVars);
+        // console.log(templateVars);
         res.render("create-resource", templateVars);
       });
   });
@@ -59,7 +59,6 @@ module.exports = (db) => {
 
     db.query(queryString, [userID, title, url, description, imgURL, date, category])
       .then(data => {
-        console.log('SQL DATA--------------', data);
         const resourceID = data.rows[0].id;
         res.redirect(`/resources/${resourceID}`);
       });
@@ -68,7 +67,12 @@ module.exports = (db) => {
   router.get("/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
     console.log(resourceID);
-    db.query(`SELECT * FROM resources WHERE id = ${resourceID};`)
+    db.query(`
+    SELECT *
+    FROM resources
+    JOIN categories ON category_id = categories.id
+    JOIN users ON user_id = users.id
+    WHERE resources.id = ${resourceID};`)
       .then(data => {
         const resourceData = data.rows[0];
         let templateVars = { resource: resourceData };
@@ -80,3 +84,5 @@ module.exports = (db) => {
   // need to also get likes, comments, ratings
   return router;
 };
+
+

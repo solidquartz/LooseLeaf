@@ -14,17 +14,6 @@ const getDate = () => {
   return date;
 };
 
-// const getCategories = () => {
-//   return db.query(`SELECT * FROM categories;`)
-//     .then(data => {
-//       const categories = [];
-//       for (const key in data.rows) {
-//         categories.push(data.rows[key].name);
-//       }
-//       return categories;
-//     });
-// };
-
 const getAllCategories = (db) => {
   return db.query(`SELECT * FROM categories ORDER BY name;`)
     .then(data => {
