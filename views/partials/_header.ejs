@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/my-resources">My Leaves</a>
+          <a class="nav-link active" aria-current="page" href="/resources/my_resources/<%= id%>">My Leaves</a>
         </li>
 
         <li class="nav-item">
@@ -58,6 +58,42 @@
 
 <div class="header-user">
 
+<% if (id) { %>
+  <div class="btn-group">
+    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      username
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="/profiles/:profile_id">My Profile</a></li>
+      <li><a class="dropdown-item" href="profiles/:id">Edit Profile</a></li>
+      <li><a class="dropdown-item" href="/resourcesmy-resources/<%= id %>">My Leaves</a></li>
+      <li><a class="dropdown-item" href="/resources/create">Create Leaf</a></li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+    </ul>
+  </div>
+
+<% } %>
+<!-- <% if (!id) { %>
+
+  <div class="login-register">
+    <a href="/login_register">
+      <button type="button" class="btn btn-light">Register</button>
+    </a>
+    <a href="/login_register">
+      <button type="button" class="btn btn-outline-light">Log In</button>
+    </a>
+  </div> -->
+
+<!-- <%} else { %> -->
+
+
+<!-- <% } %> -->
+
+
+<!--
 <%# if (user.name ===null || user.name ===undefined) { %>
 <div class="login-register">
   <a href="/login_register">
@@ -69,22 +105,8 @@
 </div>
   <%# } else { %>
 
-<!-- <div class="btn-group">
-  <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-    username
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="/profiles/:profile_id">My Profile</a></li>
-    <li><a class="dropdown-item" href="profiles/:profile_id/edit">Edit Profile</a></li>
-    <li><a class="dropdown-item" href="/resources">My Leaves</a></li>
-    <li><a class="dropdown-item" href="/resources/create">Create Leaf</a></li>
-    <li>
-      <hr class="dropdown-divider">
-    </li>
-    <li><a class="dropdown-item" href="/logout">Log Out</a></li>
-  </ul>
-</div> -->
 
-<%# } %>
+
+<%# } %> -->
 
 </div>
