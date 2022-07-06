@@ -23,8 +23,9 @@ module.exports = (db) => {
 
   // login/register page get
   router.get("/", (req, res) => {
-    const id = req.session.userID;
-    res.render("login_register");
+    const id = req.session.userId
+    const templateVars = { id }
+    res.render("login_register", templateVars);
   });
 
   // login post
@@ -40,7 +41,8 @@ module.exports = (db) => {
         let userData = user.rows[0];
         if (userData.password === password) {
           req.session.userId = userData.id;
-          return res.redirect("/profiles/:id");
+          const id = req.session.userId
+          return res.redirect(`/resources/my_resources/${id}`);
         }
         res.send({ error: "Invalid email or password" });
         return;
@@ -66,7 +68,8 @@ module.exports = (db) => {
           .then(user => {
             let userData = user.rows[0];
             req.session.userId = userData.id;
-            return res.redirect("/profiles/:id");
+            const id = req.session.userId
+            return res.redirect(`/resources/my_resources/${id}`);
           });
 
       });

@@ -277,3 +277,51 @@ a:active {
     position: absolute;
     top: 120px;
   }
+
+
+
+  //// update account/////////
+
+  .account-container {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 300px;
+    background-color: #e09f3e;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-top: 200px
+  }
+
+  .account-text {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+
+.account {
+    font-family: 'Work Sans', sans-serif;
+    color: #9e2a2b;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 40px;
+  }
+
+  #update-email {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .update-button {
+    display: flex;
+    margin-left: auto;
+    margin-top: auto;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    font-family: 'Work Sans', sans-serif;
+    background-color: #9e2a2b;
+    color: #e09f3e;
+    font-weight: bold;
+    border: none;
+  }
