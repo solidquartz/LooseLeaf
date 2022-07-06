@@ -31,21 +31,21 @@ const getAllResources = (db) => {
 };
 
 const getRatings = (db, resourceID) => {
-  return db.query(`SELECT * FROM ratings WHERE resource_id = ${resourceID};`)
+  return db.query(`SELECT * FROM ratings WHERE resource_id = $1;`, [resourceID])
     .then(data => {
       return data.rows;
     });
 };
 
 const getLikes = (db, resourceID) => {
-  return db.query(`SELECT * FROM likes WHERE resource_id = ${resourceID};`)
+  return db.query(`SELECT * FROM likes WHERE resource_id = $1;`, [resourceID])
     .then(data => {
       return data.rows;
     });
 };
 
 const getComments = (db, resourceID) => {
-  return db.query(`SELECT * FROM comments WHERE resource_id = ${resourceID};`)
+  return db.query(`SELECT * FROM comments WHERE resource_id = $1;`, [resourceID])
     .then(data => {
       return data.rows;
     });
@@ -57,7 +57,7 @@ const getResourceInfo = (db, resourceID) => {
   FROM resources
   JOIN categories ON category_id = categories.id
   JOIN users ON user_id = users.id
-  WHERE resources.id = ${resourceID};`)
+  WHERE resources.id = $1;`, [resourceID])
     .then(data => {
       return data.rows;
     });

@@ -26,6 +26,7 @@
 <!-- Scripts -->
 <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
 <script type="text/javascript" src="/scripts/app.js"></script>
+<script type="text/javascript" src="/scripts/resource.js"></script>
 <script src="https://unpkg.com/@popperjs/core@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
@@ -44,18 +45,36 @@
   <!-----------------------------Body----------------------------------->
 
   <div class="resource-container">
-    <div>TITLE: <%= title %></div><br>
-    <div>URL: <%= url %></div><br>
-    <div>Description: <%= description %></div><br>
-    <div>imgURL: <%= imgURL %></div><br>
-    <div>Date: <%= date %></div><br>
-    <div>Likes: <%= numOfLikes %></div><br>
-    <div>Rating: <%= avgRating %></div><br>
-    <% for(const comment of commentsArr) { %>
+    <div>ResourceID: <%= resourceInfo.resourceID %></div><br>
+    <div>TITLE: <%= resourceInfo.title %></div><br>
+    <div>URL: <%= resourceInfo.url %></div><br>
+    <div>Description: <%= resourceInfo.description %></div><br>
+    <div>imgURL: <%= resourceInfo.imgURL %></div><br>
+    <div>Date: <%= resourceInfo.date %></div><br>
+    <!-- Likes -->
+    <div>Likes:</div><div class="likes"><%= resourceInfo.numOfLikes %></div>
+    <div>Rating: <%= resourceInfo.avgRating %></div><br>
+    <div>Number of Comments: <%= resourceInfo.numOfComments %></div><br>
+    <div>UserID: <%= id %></div><br>
+    <% for(const comment of resourceInfo.commentsArr) { %>
       <p>Comment: <%= comment %></p>
     <% } %>
-  </div>
 
+    <!-- Likes Icon -->
+    <button type="submit" class="like" data-resource-id="<%= resourceInfo.resourceID %>">
+      <i class="bi bi-hand-thumbs-up-fill"></i>
+    </button>
+
+    <!-- Ratings Icon -->
+    <div class="star-ratings">
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+    </div>
+
+  </div>
 </body>
 
 </html>

@@ -109,49 +109,46 @@ module.exports = (db) => {
 
   router.get("/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
+    // User id
     const id = req.session.userId;
-    helperFunctions.getAllResourceInfo(db, resourceID)
-      .then((data) => {
-        console.log(data);
-        const resourceInfoObj = data[0][0];
-        const ratingsObjArr = data[1];
-        const likesObjArr = data[2];
-        const commentsObjArr = data[3];
+    // const userID = 1;
+
+    helperFunctions.getTemplateVars(db, id)
+    .then(data => {
+      // const categories = data[0][0];
+      // const name = data[1];
+
+      helperFunctions.getAllResourceInfo(db, resourceID)
+      .then((info) => {
 
 
+        // console.log(info)
+        const resourceInfo = makeTemplateVarsforResource(info, resourceID)
 
-        const title = resourceInfoObj.title;
-        const url = resourceInfoObj.url;
-        const description = resourceInfoObj.description;
-        const imgURL = resourceInfoObj.image_url;
-        const date = resourceInfoObj.date_created;
-        const numOfLikes = likesObjArr.length;
-        const avgRating = getAvgRating(ratingsObjArr);
-        const commentsArr = getCommentsArr(commentsObjArr);
+        const templateVars = {...data, resourceInfo, id};
 
-        const templateVars = {
-          title,
-          url,
-          description,
-          imgURL,
-          date,
-          numOfLikes,
-          avgRating,
-          commentsArr,
-          id
-        };
-        console.log(templateVars);
+        // console.log(resourceID);
+        console.log('templateVars-----------------', templateVars)
         res.render("resource", templateVars);
-
-        // console.log("Old info", resourceInfoObj)
-        // console.log("Ratings", ratingsObjArr)
-        // console.log("Likes", likesObjArr)
-        // console.log("Comments", commentsObjArr)
-        // console.log('avg rating', avgRating);
-        // console.log('numOfLikes', numOfLikes)
-        // console.log('commentsArr', commentsArr);
-      });
+      })
+    })
   });
+
+
+  router.post("/like/:resourceID", (req, res) => {
+    const resourceID = req.params.resourceID;
+    // User id
+    // const userID = req.session.userId
+    const userID = 1;
+    helperFunctions.getAllResourceInfo(db, resourceID)
+    .then((data) => {
+
+      res.send('worked')
+
+
+    })
+  });
+
 
   // need to also get likes, comments, ratings
   return router;
@@ -181,3 +178,42 @@ const getDate = () => {
   const date = `${year}-${month}-${day}`;
   return date;
 };
+
+const makeTemplateVarsforResource = (data, resourceID) => {
+  const resourceInfoObj = data[0][0];
+  const ratingsObjArr = data[1];
+  const likesObjArr = data[2];
+  const commentsObjArr = data[3];
+
+  const title = resourceInfoObj.title;
+  const url = resourceInfoObj.url;
+  const description = resourceInfoObj.description;
+  const imgURL = resourceInfoObj.image_url;
+  const date = resourceInfoObj.date_created;
+  const numOfLikes = likesObjArr.length;
+  const avgRating = getAvgRating(ratingsObjArr);
+  const commentsArr = getCommentsArr(commentsObjArr);
+  const numOfComments = commentsArr.length;
+
+  const templateVars = {
+                        title,
+                        url,
+                        description,
+                        imgURL,
+                        date,
+                        numOfLikes,
+                        avgRating,
+                        commentsArr,
+                        numOfComments,
+                        resourceID,
+                       };
+  return templateVars;
+}
+
+      // console.log("Old info", resourceInfoObj)
+      // console.log("Ratings", ratingsObjArr)
+      // console.log("Likes", likesObjArr)
+      // console.log("Comments", commentsObjArr)
+      // console.log('avg rating', avgRating);
+      // console.log('numOfLikes', numOfLikes)
+      // console.log('commentsArr', commentsArr);
