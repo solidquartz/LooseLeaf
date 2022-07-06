@@ -67,7 +67,7 @@ module.exports = (db) => {
 
   router.get("/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
-    console.log(resourceID);
+    console.log('ResourceID', resourceID);
     // db.query(`
     // SELECT *
     // FROM resources
@@ -84,13 +84,44 @@ module.exports = (db) => {
     helperFunctions.getAllResourceInfo(db, resourceID)
     .then((data) => {
       // console.log(data)
-      console.log("Old info", data[0])
-      console.log("Ratings", data[1])
-      console.log("Likes", data[2])
-      console.log("Comments", data[3])
+      const oldResInfo = data[0];
+      const ratingsArr = data[1];
+      const likesArr = data[2];
+      const commentsArr = data[3];
+      console.log("Old info", oldResInfo)
+      console.log("Ratings", ratingsArr)
+      console.log("Likes", likesArr)
+      console.log("Comments", commentsArr)
+
+      // const numOfLikes = likesArr.length;
+      // console.log(numOfLikes)
+
+      const avgRating = getAvgRating(ratingsArr);
+      console.log(avgRating);
+
+
+
+      console.log(getCommentsArr(commentsArr));
+
     })
   });
 
   // need to also get likes, comments, ratings
   return router;
 };
+
+const getAvgRating = (ratingsArr) => {
+  let sum = 0;
+  for (const ratingObj of ratingsArr) {
+    sum += ratingObj.rating;
+  }
+  return sum/ratingsArr.length;
+}
+
+const getCommentsArr = (commentsArr) => {
+  let arr = []
+  for (const commentObj of commentsArr) {
+    arr.push(commentObj.comment);
+  }
+  return arr;
+}
