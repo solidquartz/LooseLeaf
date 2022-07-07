@@ -48,10 +48,17 @@ const getAllMyResources = (db, userId) => {
   const promises = [getMyCreatedResources(db, userId), getMyLikedResources(db, userId)];
   return Promise.all(promises)
     .then(data => {
+      if(data[0] && data[1]) {
+        return { resources: [] };
+      }
+
       let resources = [];
       for (const resourceInfo of data) {
         resources.push(resourceInfo);
       }
+
+
+
       return { resources };
     });
 
