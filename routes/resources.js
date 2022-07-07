@@ -118,31 +118,49 @@ module.exports = (db) => {
         // console.log(info)
         const resourceInfo = makeTemplateVarsforResource(info, resourceID)
 
-            const templateVars = { ...data, resourceInfo, id };
+            const templateVars = { ...data, resourceInfo, id, userLiked: false };
 
-        console.log(resourceID);
-        console.log('templateVars-----------------', templateVars)
+        // console.log(resourceID);
+        // console.log('templateVars-----------------', templateVars)
         res.render("resource", templateVars);
       })
     })
   });
 
+  // check to see if user has liked it by using a helper fucntion and sql query where you count the rows based userID and resoruceID
+  // if they liked it (rows.length > 0)
+    // removed that like
+    // else add the like
+  // count the number of like that this resoruce has and send it back as json
 
   router.post("/like/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
     const id = req.session.userId;
-    helperFunctions.addLike(db, id, resourceID)
+    helperFunctions.hasLiked(db, id, resourceID)
      .then((data) => {
-      res.send("Add Like");
-     })
-  });
-
-  router.post("/like/:resourceID/delete", (req, res) => {
-    const resourceID = req.params.resourceID;
-    const id = req.session.userId;
-    helperFunctions.addLike(db, id, resourceID)
-     .then((data) => {
-      res.send("Delete Like");
+        console.log(data);
+        // if user has liked
+        if(data.rows.length > 0) {
+          helperFunctions.removeLike(db, id, resourceID)
+           .then((data) => {
+            // console.log('removeLike');
+              helperFunctions.getLikes(db, resourceID)
+                .then((likesData) => {
+                  // console.log('getLike');
+                  console.log('likesdata', likesData);
+                  res.json({likesData})
+                })
+           })
+        } else {
+          helperFunctions.addLike(db, id, resourceID)
+           .then((data) => {
+            helperFunctions.getLikes(db, resourceID)
+            .then((likesData) => {
+              // console.log(likesData);
+              res.json({likesData})
+            })
+           })
+        }
      })
   });
 
@@ -186,6 +204,8 @@ const makeTemplateVarsforResource = (data, resourceID) => {
   const ratingsObjArr = data[1];
   const likesObjArr = data[2];
   const commentsObjArr = data[3];
+
+  // console.log("Old info", resourceInfoObj);
 
   const title = resourceInfoObj.title;
   const url = resourceInfoObj.url;

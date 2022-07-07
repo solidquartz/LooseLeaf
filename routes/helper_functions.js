@@ -137,6 +137,11 @@ const getMyLikedResources = (db, userId) => {
   })
 }
 
+const hasLiked = (db, userID, resourceID) => {
+  return db.query(`SELECT * FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
+    .catch((err) => err.message);
+}
+
 const addLike = (db, userID, resourceID) => {
   return db.query(`INSERT INTO likes (user_id, resource_id) VALUES ($1, $2);`, [userID, resourceID])
     .catch((err) => err.message);
@@ -146,6 +151,8 @@ const removeLike = (db, userID, resourceID) => {
   return db.query(`DELETE FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
     .catch((err) => err.message);
 }
+
+
 
 module.exports = {
   getAllCategories,
@@ -161,5 +168,7 @@ module.exports = {
   addLike,
   removeLike,
   getMyResources,
-  getMyLikedResources
+  getMyLikedResources,
+  hasLiked,
+  getLikes
 };

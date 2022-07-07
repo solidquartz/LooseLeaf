@@ -45,36 +45,6 @@
 
   <!-----------------------------Body----------------------------------->
 
-<<<<<<< HEAD
-  <div class="resource-container">
-    <div>ResourceID: <%= resourceInfo.resourceID %></div><br>
-    <div>TITLE: <%= resourceInfo.title %></div><br>
-    <div>URL: <%= resourceInfo.url %></div><br>
-    <div>Description: <%= resourceInfo.description %></div><br>
-    <div>imgURL: <%= resourceInfo.imgURL %></div><br>
-    <div>Date: <%= resourceInfo.date %></div><br>
-    <!-- Likes -->
-    <div>Likes:</div><div class="likes"><%= resourceInfo.numOfLikes %></div>
-    <div>Rating: <%= resourceInfo.avgRating %></div><br>
-    <div>Number of Comments: <%= resourceInfo.numOfComments %></div><br>
-    <div class="user" data-user-id="<%= id %>">Created By: <%= name %></div><br>
-    <% for(const comment of resourceInfo.commentsArr) { %>
-      <p>Comment: <%= comment %></p>
-    <% } %>
-
-    <!-- Likes Icon -->
-    <button type="submit" class="like" data-resource-id="<%= resourceInfo.resourceID %>">
-      <i class="bi bi-hand-thumbs-up-fill"></i>
-    </button>
-
-    <!-- Ratings Icon -->
-    <div class="star-ratings">
-      <i class="bi bi-star-fill"></i>
-      <i class="bi bi-star-fill"></i>
-      <i class="bi bi-star-fill"></i>
-      <i class="bi bi-star-fill"></i>
-      <i class="bi bi-star-fill"></i>
-=======
   <div class="leaves-container">
 
     <!-- Leaf -->
@@ -122,7 +92,7 @@
         <!-- This is a dead button that does nothing -->
 
             <!-- Add Like -->
-            <button type="submit" class="like" data-resource-id="<%= resourceInfo.resourceID %>">
+            <button type="submit" class="like"  data-liked="<%= userLiked %>" data-resource-id="<%= resourceInfo.resourceID %>">
               <i class="bi bi-heart-fill"></i>
             </button>
 
@@ -144,7 +114,6 @@
             </section>
 
       </div>
->>>>>>> 1334368e197ee0b541227009033f6059a09b7e64
     </div>
 
 
