@@ -170,6 +170,34 @@ module.exports = (db) => {
       });
   });
 
+  router.post("/rating/:resourceID", (req, res) => {
+    const resourceID = req.params.resourceID;
+    const id = req.session.userId;
+    const newRating = Number(req.body.newRating);
+
+    helperFunctions.hasRated(db, id, resourceID)
+    .then((data) => {
+      if (data.rows.length > 0) {
+        helperFunctions.removeRating(db, id, resourceID)
+          .then((data) => {
+            helperFunctions.getRatings(db, resourceID)
+              .then((ratingsData) => {
+                const avgRating = getAvgRating(ratingsData)
+                return res.json({ avgRating });
+              });
+          });
+      } else {
+        helperFunctions.addRating(db, id, resourceID, newRating)
+          .then((data) => {
+            helperFunctions.getRatings(db, resourceID)
+              .then((ratingsData) => {
+                const avgRating = getAvgRating(ratingsData)
+                return res.json({ avgRating });
+              });
+          });
+      }
+    });
+  })
 
   router.post("/comment/:resourceID", (req, res) => {
     const id = req.session.userId
@@ -188,6 +216,10 @@ module.exports = (db) => {
 };
 
 const getAvgRating = (ratingsArr) => {
+  if(ratingsArr.length === 0) {
+    return 0;
+  }
+
   let sum = 0;
   for (const ratingObj of ratingsArr) {
     sum += ratingObj.rating;
@@ -218,7 +250,7 @@ const makeTemplateVarsforResource = (data, resourceID) => {
   const likesObjArr = data[2];
   const commentsObjArr = data[3];
 
-  // console.log("Old info", resourceInfoObj);
+
 
   const title = resourceInfoObj.title;
   const url = resourceInfoObj.url;
@@ -227,8 +259,12 @@ const makeTemplateVarsforResource = (data, resourceID) => {
   const date = resourceInfoObj.date_created;
   const numOfLikes = likesObjArr.length;
   const avgRating = getAvgRating(ratingsObjArr);
+  const numOfRatings = ratingsObjArr.length;
   const commentsArr = getCommentsArr(commentsObjArr);
   const numOfComments = commentsArr.length;
+  const name = resourceInfoObj.name;
+
+
 
   const templateVars = {
     title,
@@ -238,9 +274,11 @@ const makeTemplateVarsforResource = (data, resourceID) => {
     date,
     numOfLikes,
     avgRating,
+    numOfRatings,
     commentsArr,
     numOfComments,
     resourceID,
+    name
   };
   return templateVars;
 };

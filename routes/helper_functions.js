@@ -66,6 +66,21 @@ const getRatings = (db, resourceID) => {
     });
 };
 
+const hasRated = (db, userID, resourceID) => {
+  return db.query(`SELECT * FROM ratings WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
+    .catch((err) => err.message);
+};
+
+const addRating = (db, userID, resourceID, rating) => {
+  return db.query(`INSERT INTO ratings (user_id, rating, resource_id) VALUES ($1, $2, $3);`, [userID, rating, resourceID])
+    .catch((err) => err.message);
+};
+
+const removeRating = (db, userID, resourceID) => {
+  return db.query(`DELETE FROM ratings WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
+    .catch((err) => err.message);
+};
+
 
 ////////// Likes Table Queries /////////
 
@@ -233,7 +248,11 @@ module.exports = {
   getMyCreatedResources,
   getAllMyResources,
   addComment,
+  searchResources,
+  hasRated,
+  addRating,
+  removeRating,
+  getRatings,
   getComments,
   getCommentsInfo,
-  searchResources
 };
