@@ -19,7 +19,6 @@ module.exports = (db) => {
         const id = req.session.userId;
         helperFunctions.getTemplateVars(db, id)
           .then(data => {
-
             const templateVars = { resources, ...data, id };
             return res.render("resources", templateVars);
           });
@@ -69,7 +68,17 @@ module.exports = (db) => {
       });
   });
 
-  //change name to not objects
+  router.get("/search", (req, res) => {
+    const searchInput = req.query.query;
+
+    helperFunctions.searchResources(db, searchInput)
+      .then(data => {
+        const templateVars = { data };
+        return res.render('resources', templateVars);
+      });
+  });
+
+
   router.get("/create", (req, res) => {
     const id = req.session.userId;
     let name = null;
@@ -156,7 +165,7 @@ module.exports = (db) => {
 
   router.post("/comment", (req, res) => {
 
-  })
+  });
 
 
   // need to also get likes, comments, ratings
@@ -220,6 +229,8 @@ const makeTemplateVarsforResource = (data, resourceID) => {
   };
   return templateVars;
 };
+
+
 
 // console.log("Old info", resourceInfoObj);
 // console.log("Ratings", ratingsObjArr);

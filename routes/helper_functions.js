@@ -120,8 +120,7 @@ const getMyCreatedResources = (db, userId) => {
   return db.query(`
   SELECT * FROM resources
   JOIN users ON user_id = users.id
-  WHERE user_id = $1
-  `, [userId])
+  WHERE user_id = $1`, [userId])
     .then(data => {
       return data.rows;
     });
@@ -132,10 +131,25 @@ const getMyLikedResources = (db, userId) => {
   SELECT * FROM resources
   JOIN likes ON resource_id = resources.id
   WHERE likes.user_id = $1`, [userId])
-  .then(data => {
-    return data.rows
-  })
+    .then(data => {
+      return data.rows;
+    });
 }
+
+
+const searchResources = (db, searchInput) => {
+  return db.query(`
+  SELECT * FROM resources
+  JOIN categories ON category_id = categories.id
+  WHERE resources.title LIKE %$1%`, [searchInput])
+    .then(data => {
+      console.log("data: ", data);
+      console.log("data.rows: ", data.rows);
+      return data.rows;
+    });
+};
+
+
 
 const hasLiked = (db, userID, resourceID) => {
   return db.query(`SELECT * FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
@@ -179,6 +193,7 @@ module.exports = {
   addUser,
   getUserNameById,
   getTemplateVars,
+<<<<<<< HEAD
   addLike,
   removeLike,
   getMyLikedResources,
@@ -187,4 +202,9 @@ module.exports = {
   getMyCreatedResources,
   getMyLikedResources,
   getAllMyResources
+=======
+  getMyResources,
+  getMyLikedResources,
+  searchResources
+>>>>>>> feature_search
 };
