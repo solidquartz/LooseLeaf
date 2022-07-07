@@ -138,16 +138,11 @@ module.exports = (db) => {
     const id = req.session.userId;
     helperFunctions.hasLiked(db, id, resourceID)
      .then((data) => {
-        console.log(data);
-        // if user has liked
         if(data.rows.length > 0) {
           helperFunctions.removeLike(db, id, resourceID)
            .then((data) => {
-            // console.log('removeLike');
               helperFunctions.getLikes(db, resourceID)
                 .then((likesData) => {
-                  // console.log('getLike');
-                  console.log('likesdata', likesData);
                   res.json({likesData})
                 })
            })
@@ -156,7 +151,6 @@ module.exports = (db) => {
            .then((data) => {
             helperFunctions.getLikes(db, resourceID)
             .then((likesData) => {
-              // console.log(likesData);
               res.json({likesData})
             })
            })
