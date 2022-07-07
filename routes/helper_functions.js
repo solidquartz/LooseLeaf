@@ -265,5 +265,5 @@ module.exports = {
   removeRating,
   getRatings,
   getComments,
-  getCommentsInfo,
+  getCommentsInfo
 };

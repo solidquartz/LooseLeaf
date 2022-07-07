@@ -58,11 +58,11 @@
         </header>
 
         <div class="resource-url">
-          <a href="/external"><i class="bi bi-box-arrow-up-right"></i>
+          <a href="<%= resourceInfo.url %>"><i class="bi bi-box-arrow-up-right"></i>
             <%= resourceInfo.url %>
           </a>
         </div>
-        <div>Created by: <%= resourceInfo.name %>
+        <div>Created by: <%= name %>
         </div>
 
         <div>Leaf created on <%= resourceInfo.date %>
@@ -80,13 +80,14 @@
           <span class="comments"><i class="bi bi-chat-text"></i>
             <%= resourceInfo.numOfComments %>
           </span>
+          <!-- Add Like -->
           <button type="submit" class="like"  data-resource-id="<%= resourceInfo.resourceID %>">
             <i class="bi bi-heart-fill"></i>
           </button>
           <span class="likes"><i class="bi bi-heart-fill"></i>
             <%= resourceInfo.numOfLikes %>
           </span>
-          <span class="rating" data-numOfRatings="<%= resourceInfo.numOfRatings %>"><i class="bi bi-star-fill"></i>
+          <span class="rating"><i class="bi bi-star-fill"></i>
             <%= resourceInfo.avgRating %>
           </span>
         </div>
@@ -94,10 +95,8 @@
         <!-- Comments -->
         <!-- This is a dead button that does nothing -->
 
-            <!-- Add Like -->
-            <!-- <button type="submit" class="like" data-resource-id="<%= resourceInfo.resourceID %>">
-              <i class="bi bi-heart-fill"></i>
-            </button> -->
+
+
 
             <!-- Add Rating -->
             <div class="star-ratings">
@@ -119,11 +118,21 @@
               </button>
             </div>
 
-            <section>
-              <form class="comment-container"action="/resources/comment" method="POST">
-                <textarea type="submit" placeholder="comment"></textarea>
+            <section class="resources-comments-container">
+              <form class="comment-input" action="/resources/comment/<%= resourceInfo.resourceID%>" method="POST">
+                <textarea class="comment-textarea" type="text" name="comment" placeholder="comment"></textarea>
                 <button class="comment-button" type="submit">comment</button>
               </form>
+              <section>
+                <span class="resource-comments">
+                  <% for(let i = comments.length - 1 ; i >= 0; i--) { %>
+                    <article class="user-comment">
+                      <%= comments[i].name %>:
+                      <%= comments[i].comment %>
+                    </article>
+                <%  } %>
+                </span>
+              </section>
             </section>
 
       </div>
