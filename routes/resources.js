@@ -132,8 +132,6 @@ module.exports = (db) => {
           helperFunctions.getCommentsInfo(db, resourceID)
             .then(results => {
               const comments = results
-
-              console.log("HERE", comments.length)
               const resourceInfo = makeTemplateVarsforResource(info, resourceID);
               const templateVars = { ...data, comments, resourceInfo, id, userLiked: false };
 

@@ -115,6 +115,11 @@ const addComment = (db, userId, comment, resourceID) => {
   return db.query(`INSERT INTO comments (user_id, comment, resource_id)
   VALUES ($1, $2, $3)
   RETURNING *;`, [userId, comment, resourceID])
+    .then(response => {
+      return db.query(`UPDATE resources
+      SET total_comments = total_comments + 1
+      WHERE id = $1;`, [resourceID])
+    })
     .catch((err) => err.message);
 };
 
@@ -194,8 +199,13 @@ const getTemplateVars = (db, userId) => {
       }
       return { categories: data[0], name };
     });
-
 };
+
+const getAllResourcesAndStats = (db, resources) => {
+  return db.query (
+
+  )
+}
 
 //////// Search ////////
 const searchResources = (db, searchInput) => {
@@ -211,6 +221,7 @@ const searchResources = (db, searchInput) => {
     return res.rows;
   })
 };
+
 
 
 

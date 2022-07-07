@@ -68,9 +68,9 @@
           </p>
         </div>
         <div class="leaf-footer">
-          <a href="/resources/<%= resource.id %>"><span class="comments"><i class="bi bi-chat-text"></i> 23</span></a>
-          <a href="/resources/<%= resource.id %>"><span class="likes"><i class="bi bi-heart-fill"></i> 130</span></a>
-          <a href="/resources/<%= resource.id %>"><span class="rating"><i class="bi bi-star-fill"></i> 4.5</span></a>
+          <a href="/resources/<%= resource.id %>"><span class="comments"><i class="bi bi-chat-text"></i> <%= resource.total_comments %> </span></a>
+          <a href="/resources/<%= resource.id %>"><span class="likes"><i class="bi bi-heart-fill"></i> <%= resource.total_likes %></span></a>
+          <a href="/resources/<%= resource.id %>"><span class="rating"><i class="bi bi-star-fill"></i> <%= resource.average_ratings %></span></a>
 
         </div>
       </div>
