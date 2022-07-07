@@ -89,7 +89,7 @@ module.exports = (db) => {
     const url = req.body.urlLink;
     const description = req.body.description;
     const imgURL = req.body.imageURL;
-    const date = getDate();
+    const date = helperFunctions.getDate();
     const category = req.body.category;
 
     const queryString = `
@@ -118,10 +118,7 @@ module.exports = (db) => {
           helperFunctions.getCommentsInfo(db, resourceID)
             .then(results => {
               const comments = results
-
-
-              const resourceInfo = makeTemplateVarsforResource(info, resourceID);
-              console.log("HERE", resourceInfo)
+              const resourceInfo = helperFunctions.makeTemplateVarsforResource(info, resourceID);
               const templateVars = { ...data, comments, resourceInfo, id, userLiked: false };
 
               res.render("resource", templateVars);
@@ -136,12 +133,12 @@ module.exports = (db) => {
     const resourceID = req.params.resourceID;
     const id = req.session.userId;
     helperFunctions.hasLiked(db, id, resourceID)
-      .then((data) => {
+      .then(data => {
         if (data.rows.length > 0) {
           helperFunctions.removeLike(db, id, resourceID)
-            .then((data) => {
+            .then(data => {
               helperFunctions.getLikes(db, resourceID)
-                .then((likesData) => {
+                .then(likesData => {
                   res.json({ likesData });
                 });
             });
@@ -169,7 +166,7 @@ module.exports = (db) => {
           .then((data) => {
             helperFunctions.getRatings(db, resourceID)
               .then((ratingsData) => {
-                const avgRating = getAvgRating(ratingsData)
+                const avgRating = helperFunctions.getAvgRating(ratingsData)
                 return res.json({ avgRating });
               });
           });
@@ -178,7 +175,7 @@ module.exports = (db) => {
           .then((data) => {
             helperFunctions.getRatings(db, resourceID)
               .then((ratingsData) => {
-                const avgRating = getAvgRating(ratingsData)
+                const avgRating = helperFunctions.getAvgRating(ratingsData)
                 return res.json({ avgRating });
               });
           });
@@ -202,72 +199,6 @@ module.exports = (db) => {
   return router;
 };
 
-const getAvgRating = (ratingsArr) => {
-  if(ratingsArr.length === 0) {
-    return 0;
-  }
-
-  let sum = 0;
-  for (const ratingObj of ratingsArr) {
-    sum += ratingObj.rating;
-  }
-  return sum / ratingsArr.length;
-};
-
-const getCommentsArr = (commentsArr) => {
-  let arr = [];
-  for (const commentObj of commentsArr) {
-    arr.push(commentObj.comment);
-  }
-  return arr;
-};
-
-const getDate = () => {
-  const today = new Date();
-  const day = String(today.getDate()).padStart(2, '0');
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const year = today.getFullYear();
-  const date = `${year}-${month}-${day}`;
-  return date;
-};
-
-const makeTemplateVarsforResource = (data, resourceID) => {
-  const resourceInfoObj = data[0][0];
-  const ratingsObjArr = data[1];
-  const likesObjArr = data[2];
-  const commentsObjArr = data[3];
-
-
-
-  const title = resourceInfoObj.title;
-  const url = resourceInfoObj.url;
-  const description = resourceInfoObj.description;
-  const imgURL = resourceInfoObj.image_url;
-  const date = resourceInfoObj.date_created;
-  const numOfLikes = likesObjArr.length;
-  const avgRating = getAvgRating(ratingsObjArr);
-  const numOfRatings = ratingsObjArr.length;
-  const commentsArr = getCommentsArr(commentsObjArr);
-  const numOfComments = commentsArr.length;
-  const name = resourceInfoObj.name;
-
-
-  const templateVars = {
-    title,
-    url,
-    description,
-    imgURL,
-    date,
-    numOfLikes,
-    avgRating,
-    numOfRatings,
-    commentsArr,
-    numOfComments,
-    resourceID,
-    name
-  };
-  return templateVars;
-};
 
 
 
