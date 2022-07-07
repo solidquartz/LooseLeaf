@@ -207,10 +207,10 @@ const makeTemplateVarsforResource = (data, resourceID) => {
   return templateVars;
 };
 
-      // console.log("Old info", resourceInfoObj)
-      // console.log("Ratings", ratingsObjArr)
-      // console.log("Likes", likesObjArr)
-      // console.log("Comments", commentsObjArr)
-      // console.log('avg rating', avgRating);
-      // console.log('numOfLikes', numOfLikes)
-      // console.log('commentsArr', commentsArr);
+// console.log("Old info", resourceInfoObj);
+// console.log("Ratings", ratingsObjArr);
+// console.log("Likes", likesObjArr);
+// console.log("Comments", commentsObjArr);
+// console.log('avg rating', avgRating);
+// console.log('numOfLikes', numOfLikes);
+// console.log('commentsArr', commentsArr);
