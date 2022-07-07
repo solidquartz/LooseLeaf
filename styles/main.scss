@@ -29,7 +29,6 @@ a:active {
 }
 
 
-
 /////////header navbar/////////
 
 
@@ -38,7 +37,7 @@ a:active {
   position: fixed;
   top: 0px;
   justify-content: space-between;
-  align-items: center;
+  align-content: center;
   flex-direction: row;
   height: 100px;
   width: 100%;
@@ -51,7 +50,13 @@ a:active {
 .header-title a {
   font-family: 'Nothing You Could Do', cursive;
   color: #540b0e;
-  font-size: 4em;
+  font-size: 1.5em;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-menu a {
@@ -60,6 +65,7 @@ a:active {
 
 .header-menu {
   font-size: 1.3em;
+  padding-left: 1em;
 }
 
 .header-user {
@@ -69,6 +75,21 @@ a:active {
 
 .header-user a {
   color: #540b0e;
+}
+
+.header-search {
+  padding-left: 1em;
+}
+
+.search {
+  display: flex;
+  align-content: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  justify-items: center
 }
 
 ////////Resource Containers///////
