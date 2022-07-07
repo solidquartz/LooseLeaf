@@ -59,7 +59,7 @@ module.exports = (db) => {
     helperFunctions.getAllMyResources(db, id)
       .then(results => {
         const resources = results.resources;
-        console.log(resources)
+        console.log(resources);
 
         helperFunctions.getTemplateVars(db, id)
           .then(data => {
@@ -69,13 +69,19 @@ module.exports = (db) => {
       });
   });
 
+
   router.get("/search", (req, res) => {
     const searchInput = req.query.query;
+    const id = req.session.userId;
+    helperFunctions.getTemplateVars(db, id)
+      .then(results => {
+        console.log(results);
+        helperFunctions.searchResources(db, searchInput)
+          .then(data => {
 
-    helperFunctions.searchResources(db, searchInput)
-      .then(data => {
-        const templateVars = { data };
-        return res.render('resources', templateVars);
+            const templateVars = { ...data, ...results, id };
+            return res.render('resources', templateVars);
+          });
       });
   });
 
@@ -126,7 +132,7 @@ module.exports = (db) => {
         helperFunctions.getAllResourceInfo(db, resourceID)
           .then((info) => {
 
-            console.log(info)
+            console.log(info);
             const resourceInfo = makeTemplateVarsforResource(info, resourceID);
 
             const templateVars = { ...data, resourceInfo, id, userLiked: false };

@@ -169,18 +169,6 @@ const getResourceInfo = (db, resourceID) => {
 };
 
 
-const searchResources = (db, searchInput) => {
-  return db.query(`
-  SELECT * FROM resources
-  JOIN categories ON category_id = categories.id
-  WHERE resources.title LIKE %$1%`, [searchInput])
-    .then(data => {
-      console.log("data: ", data);
-      console.log("data.rows: ", data.rows);
-      return data.rows;
-    });
-};
-
 
 const getAllResourceInfo = (db, resourceID) => {
   const queries = [getResourceInfo(db, resourceID), getRatings(db, resourceID), getLikes(db, resourceID), getComments(db, resourceID)];
@@ -200,6 +188,21 @@ const getTemplateVars = (db, userId) => {
     });
 
 };
+
+//////// Search ////////
+const searchResources = (db, searchInput) => {
+  return db.query(`
+  SELECT * FROM resources
+  JOIN categories ON category_id = categories.id
+  WHERE resources.title LIKE '%$1%';`, [searchInput])
+    .then(data => {
+      console.log("data: ", data);
+      return data;
+    })
+    .catch((err) => err.message);
+};
+
+
 
 module.exports = {
   getAllCategories,
