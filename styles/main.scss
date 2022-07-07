@@ -364,3 +364,44 @@ a:active {
   margin-left: auto;
   margin-top: 20px;
 }
+
+
+
+////////// create resource page ////////////////
+
+.create-resource-container {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 300px;
+  background-color: #e09f3e;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 200px
+}
+
+.create-resource-button {
+  display: flex;
+  margin-left: auto;
+  margin-top: 30px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  font-family: 'Work Sans', sans-serif;
+  background-color: #9e2a2b;
+  color: #e09f3e;
+  font-weight: bold;
+  border: none;
+}
+
+.create-resource-text {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.create-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
