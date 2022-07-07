@@ -56,8 +56,11 @@ module.exports = (db) => {
 
   router.get("/my_resources/:id", (req, res) => {
     const id = req.session.userId;
-    helperFunctions.getMyResources(db, id)
-      .then(resources => {
+    
+    helperFunctions.getAllMyResources(db, id)
+      .then(results => {
+        const resources = results.resources
+
         helperFunctions.getTemplateVars(db, id)
           .then(data => {
             const templateVars = { resources, ...data, id };
@@ -109,20 +112,11 @@ module.exports = (db) => {
 
     helperFunctions.getTemplateVars(db, id)
       .then(data => {
-        // const categories = data[0][0];
-        // const name = data[1];
 
         helperFunctions.getAllResourceInfo(db, resourceID)
           .then((info) => {
-
-
-            // console.log(info)
             const resourceInfo = makeTemplateVarsforResource(info, resourceID);
-
             const templateVars = { ...data, resourceInfo, id };
-
-            // console.log(resourceID);
-            console.log('templateVars-----------------', templateVars);
             res.render("resource", templateVars);
           });
       });
