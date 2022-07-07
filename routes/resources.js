@@ -66,13 +66,11 @@ module.exports = (db) => {
   });
 
   router.get("/search", (req, res) => {
-    const searchQuery = req.query.query;
-    console.log("req.query.query: ", req.query.query);
-    const searchInput = req.body;
+    const searchInput = req.query.query;
 
     helperFunctions.searchResources(db, searchInput)
       .then(data => {
-        const templateVars = { ...data };
+        const templateVars = { data };
         return res.render('resources', templateVars);
       });
   });

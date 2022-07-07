@@ -141,7 +141,7 @@ const searchResources = (db, searchInput) => {
   return db.query(`
   SELECT * FROM resources
   JOIN categories ON category_id = categories.id
-  WHERE description LIKE %$1%`, [searchInput])
+  WHERE resources.title LIKE %$1%`, [searchInput])
     .then(data => {
       console.log("data: ", data);
       console.log("data.rows: ", data.rows);
