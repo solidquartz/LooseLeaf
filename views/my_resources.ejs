@@ -45,7 +45,7 @@
   <!-----------------------------Body----------------------------------->
 
   <main class="leaves-container">
-
+  <% if (resources.length > 0) { %>
     <% for (const resource of resources) { %>
 
       <div class="leaf-contents">
@@ -77,6 +77,11 @@
       </div>
 
       <% } %>
+
+      <% } else { %>
+
+        <article> No resources found </article>
+      <% }%>
 
 
   </main>
