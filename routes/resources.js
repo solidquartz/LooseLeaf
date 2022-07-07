@@ -75,11 +75,10 @@ module.exports = (db) => {
     const id = req.session.userId;
     helperFunctions.getTemplateVars(db, id)
       .then(results => {
-        console.log(results);
         helperFunctions.searchResources(db, searchInput)
-          .then(data => {
-
-            const templateVars = { ...data, ...results, id };
+          .then(rows => {
+            const resources = rows;
+            const templateVars = { resources, ...results, id };
             return res.render('resources', templateVars);
           });
       });

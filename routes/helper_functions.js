@@ -178,8 +178,6 @@ const getResourceInfo = (db, resourceID) => {
     });
 };
 
-
-
 const getAllResourceInfo = (db, resourceID) => {
   const queries = [getResourceInfo(db, resourceID), getRatings(db, resourceID), getLikes(db, resourceID), getComments(db, resourceID)];
   return Promise.all(queries).catch(err =>
@@ -201,15 +199,17 @@ const getTemplateVars = (db, userId) => {
 
 //////// Search ////////
 const searchResources = (db, searchInput) => {
-  return db.query(`
-  SELECT * FROM resources
+  const lowerSearchInput = searchInput.toLowerCase();
+  return db.query(
+    {
+      text: `SELECT * FROM resources
   JOIN categories ON category_id = categories.id
-  WHERE resources.title LIKE '%$1%';`, [searchInput])
-    .then(data => {
-      console.log("data: ", data);
-      return data;
-    })
-    .catch((err) => err.message);
+  WHERE LOWER(resources.title) LIKE $1 OR LOWER(resources.description) LIKE $1 OR LOWER(categories.name) LIKE $1 OR LOWER(resources.url) LIKE $1;`,
+    values: ['%' + lowerSearchInput + '%']
+  })
+    .then(res => {
+    return res.rows;
+  })
 };
 
 
