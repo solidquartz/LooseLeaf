@@ -45,26 +45,26 @@
   <!-----------------------------Body----------------------------------->
 
   <main class="leaves-container">
-
-    <% for (const resource of resources) { %>
+  <% if (resources[0].length > 0) { %>
+    <% for (const resource of resources[0]) { %>
 
       <div class="leaf-contents">
-        <a href="/resources/<%= resource[0].id %>"><img src="<%= resource[0].image_url %>" width="390" height="260">
+        <a href="/resources/<%= resource.id %>"><img src="<%= resource.image_url %>" width="390" height="260">
           <div class="leaf-text">
             <header class="title">
               <h2>
-                <%= resource[0].title %>
+                <%= resource.title %>
               </h2>
             </header>
         </a>
         <div class="resource-url">
           <a href="/external"><i class="bi bi-box-arrow-up-right"></i>
-            <%= resource[0].url %>
+            <%= resource.url %>
           </a>
         </div>
         <div class="description">
           <p>
-            <%= resource[0].description %>
+            <%= resource.description %>
           </p>
         </div>
         <div class="leaf-footer">
@@ -76,6 +76,11 @@
       </div>
       </div>
 
+      <% } %>
+
+      <% } else { %>
+
+        <article> No resources found </article>
       <% } %>
 
 

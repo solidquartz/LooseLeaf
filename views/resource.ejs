@@ -80,7 +80,6 @@
           <span class="comments"><i class="bi bi-chat-text"></i>
             <%= resourceInfo.numOfComments %>
           </span>
-          <!-- Add Like -->
           <button type="submit" class="like"  data-resource-id="<%= resourceInfo.resourceID %>">
             <i class="bi bi-heart-fill"></i>
           </button>
@@ -125,6 +124,7 @@
               </form>
               <section>
                 <span class="resource-comments">
+
                   <% for(let i = comments.length - 1 ; i >= 0; i--) { %>
                     <article class="user-comment">
                       <%= comments[i].name %>:

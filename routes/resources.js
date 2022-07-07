@@ -25,20 +25,6 @@ module.exports = (db) => {
       });
   });
 
-  //needs fixing to include id (addTemplateVars)
-  router.get("/category/:id", (req, res) => {
-    const id = req.session.userId;
-    const promises = [helperFunctions.getFilteredResourcesByCategory(db, req.params.id), helperFunctions.getTemplateVars(db, id)];
-    Promise.all(promises)
-      .then((data => {
-        const resources = data[0];
-        const categories = data[1].categories;
-        const name = data[1].name;
-        const templateVars = { categories, resources, name, id };
-        res.render("resources", templateVars);
-      }));
-  });
-
 
   router.get("/category/:id", (req, res) => {
     const id = req.session.userId;
@@ -54,12 +40,12 @@ module.exports = (db) => {
   });
 
   router.get("/my_resources/:id", (req, res) => {
-    const id = req.session.userId;
-
+    const id = req.params.id;
     helperFunctions.getAllMyResources(db, id)
       .then(results => {
         const resources = results.resources;
-        console.log(resources);
+
+        console.log(resources)
 
         helperFunctions.getTemplateVars(db, id)
           .then(data => {
