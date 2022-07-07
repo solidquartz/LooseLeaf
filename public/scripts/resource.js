@@ -1,26 +1,44 @@
 $(document).ready(() => {
   let userLikes = 0;
 
+  const userID = $('.user').attr('data-user-id')
+
 
   $('.like').on('click', function() {
     const resourceID = $(this).attr('data-resource-id');
     // console.log(this, resourceID)
 
-
-    $.ajax({
-      type: "POST",
-      url: `/resources/like/${resourceID}`,
-      success: () => {
-        let numOfLikes = Number($('.likes').text())
-        if(!userLikes) {
-          // console.log('es')
-          userLikes++;
-          numOfLikes++;
+    // alert(userID)
+    if (userLikes) {
+      //delete
+      $.ajax({
+        type: "POST",
+        url: `/resources/like/${resourceID}/delete`,
+        success: () => {
+          let numOfLikes = Number($('.likes').text())
+            // console.log('es')
+            userLikes++;
+            numOfLikes++;
+          $('.likes').text(numOfLikes)
+          console.log('Updated')
+          console.log(userLikes)
         }
-        $('.likes').text(numOfLikes)
-        console.log('Updated')
-      }
-    })
+      })
+    } else {
+      $.ajax({
+        type: "POST",
+        url: `/resources/like/${resourceID}`,
+        success: () => {
+          let numOfLikes = Number($('.likes').text())
+            // console.log('es')
+            userLikes++;
+            numOfLikes++;
+          $('.likes').text(numOfLikes)
+          console.log('Updated')
+          console.log(userLikes)
+        }
+      })
+    }
   })
 })
 

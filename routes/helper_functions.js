@@ -122,6 +122,11 @@ const addLike = (db, userID, resourceID) => {
     .catch((err) => err.message);
 }
 
+const removeLike = (db, userID, resourceID) => {
+  return db.query(`DELETE FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
+    .catch((err) => err.message);
+}
+
 module.exports = {
   getAllCategories,
   getFilteredResourcesByCategory,
@@ -133,5 +138,6 @@ module.exports = {
   addUser,
   getUserNameById,
   getTemplateVars,
-  addLike
+  addLike,
+  removeLike
 };

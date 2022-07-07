@@ -136,14 +136,18 @@ module.exports = (db) => {
   router.post("/like/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
     const id = req.session.userId;
-
-    // helperFunctions.getAllResourceInfo(db, resourceID)
-    // .then((data) => {
-    //   res.send('worked')
-    // })
     helperFunctions.addLike(db, id, resourceID)
      .then((data) => {
       res.send("Add Like");
+     })
+  });
+
+  router.post("/like/:resourceID/delete", (req, res) => {
+    const resourceID = req.params.resourceID;
+    const id = req.session.userId;
+    helperFunctions.addLike(db, id, resourceID)
+     .then((data) => {
+      res.send("Delete Like");
      })
   });
 
