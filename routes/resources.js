@@ -59,7 +59,7 @@ module.exports = (db) => {
     helperFunctions.getAllMyResources(db, id)
       .then(results => {
         const resources = results.resources;
-        console.log(resources)
+        console.log(resources);
 
         helperFunctions.getTemplateVars(db, id)
           .then(data => {
@@ -69,13 +69,18 @@ module.exports = (db) => {
       });
   });
 
+
   router.get("/search", (req, res) => {
     const searchInput = req.query.query;
-
-    helperFunctions.searchResources(db, searchInput)
-      .then(data => {
-        const templateVars = { data };
-        return res.render('resources', templateVars);
+    const id = req.session.userId;
+    helperFunctions.getTemplateVars(db, id)
+      .then(results => {
+        helperFunctions.searchResources(db, searchInput)
+          .then(rows => {
+            const resources = rows;
+            const templateVars = { resources, ...results, id };
+            return res.render('resources', templateVars);
+          });
       });
   });
 
@@ -138,7 +143,6 @@ module.exports = (db) => {
       });
   });
 
-
   router.post("/like/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
     const id = req.session.userId;
@@ -172,7 +176,6 @@ module.exports = (db) => {
 
     helperFunctions.addComment(db, id, comment, resourceID)
     .then(data => {
-
       res.redirect(`/resources/${resourceID}`)
     })
   });

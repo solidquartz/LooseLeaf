@@ -14,26 +14,26 @@
     rel="stylesheet">
 
 
-<!-- CSS -->
-<link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-<link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-<link rel="stylesheet" href="/styles/main.css" type="text/css" />
-<link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <!-- CSS -->
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
-<!-- Scripts -->
-<script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-<script type="text/javascript" src="/scripts/app.js"></script>
-<script src="https://unpkg.com/@popperjs/core@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  <!-- Scripts -->
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
 
   <title>LooseLeaf</title>
 </head>
 
-<!-------------------------------Header--------------------------------->
 
 <body>
 
@@ -42,34 +42,40 @@
   </nav>
 
 
-  <div class="resource-container">
-    <form action="/resources/create", method="POST">
-      <!-- Title -->
-      <label for="title">Title</label>
-      <input type="text" name="title">
-      <!-- URL link -->
-      <label for="urlLink">URL link</label>
-      <input type="text" name="urlLink">
-      <!-- Description -->
-      <label for="description">Description</label>
-      <input type="text" name="description">
-      <!-- Image URL -->
-      <label for="imageURL">Image URL</label>
-      <input type="text" name="imageURL">
-      <!-- Categories -->
-      <label for="category">Categories</label>
-      <select name="category">
-        <option disabled selected value>Select An Option</option>
-        <% for(let category in categories) { %>
-        <option value="<%= categories[category].id %>"><%= categories[category].name %></option>
-        <% } %>
-      </select>
-      <!-- Create Button -->
-      <button type="submit">Submit</button>
+  <div class="create-resource-container">
+    <form action="/resources/create" , method="POST">
+
+      <div class="create-resource-text">
+
+        <div class="create-input">
+          Title
+          <input name="title" type="text" placeholder="title"></input>
+          Link to Resource
+          <input name="urlLink" type="text" placeholder="URL link"></input>
+          Description
+          <input name="description" type="text" placeholder="description"></input>
+          Image URL
+          <input name="imageURL" type="text" placeholder="imageURL"></input>
+        </div>
+
+        <label for="category">Select a category</label>
+        <select name="category">
+          <option disabled selected value>Select An Option</option>
+          <% for(let category in categories) { %>
+            <option value="<%= categories[category].id %>">
+              <%= categories[category].name %>
+            </option>
+            <% } %>
+        </select>
+
+        <button class="create-resource-button" type="submit">Submit</button>
+
+      </div>
+
+
     </form>
   </div>
 
-  <!-----------------------------Body----------------------------------->
 
 
 </body>

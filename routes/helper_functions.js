@@ -184,8 +184,7 @@ const getResourceInfo = (db, resourceID) => {
 };
 
 const getAllResourceInfo = (db, resourceID) => {
-  const queries = [getResourceInfo(db, resourceID), getRatings(db, resourceID),
-     getLikes(db, resourceID), getComments(db, resourceID)];
+  const queries = [getResourceInfo(db, resourceID), getRatings(db, resourceID), getLikes(db, resourceID), getComments(db, resourceID)];
   return Promise.all(queries).catch(err =>
     console.log("getAllResourceInfo: ", err.message));
 };
@@ -222,6 +221,7 @@ const searchResources = (db, searchInput) => {
     return res.rows;
   })
 };
+
 
 
 
