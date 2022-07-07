@@ -19,7 +19,6 @@ module.exports = (db) => {
         const id = req.session.userId;
         helperFunctions.getTemplateVars(db, id)
           .then(data => {
-
             const templateVars = { resources, ...data, id };
             return res.render("resources", templateVars);
           });
@@ -56,10 +55,11 @@ module.exports = (db) => {
 
   router.get("/my_resources/:id", (req, res) => {
     const id = req.session.userId;
-    
+
     helperFunctions.getAllMyResources(db, id)
       .then(results => {
-        const resources = results.resources
+        const resources = results.resources;
+        console.log(resources)
 
         helperFunctions.getTemplateVars(db, id)
           .then(data => {
@@ -69,7 +69,17 @@ module.exports = (db) => {
       });
   });
 
-  //change name to not objects
+  router.get("/search", (req, res) => {
+    const searchInput = req.query.query;
+
+    helperFunctions.searchResources(db, searchInput)
+      .then(data => {
+        const templateVars = { data };
+        return res.render('resources', templateVars);
+      });
+  });
+
+
   router.get("/create", (req, res) => {
     const id = req.session.userId;
     let name = null;
@@ -83,7 +93,7 @@ module.exports = (db) => {
 
   router.post("/create", (req, res) => {
     // STILL NEED TO GET userID/category somehow
-    const userID = 1;
+    const id = req.session.userId;
     const title = req.body.title;
     const url = req.body.urlLink;
     const description = req.body.description;
@@ -97,7 +107,7 @@ module.exports = (db) => {
     RETURNING id;
     `;
 
-    db.query(queryString, [userID, title, url, description, imgURL, date, category])
+    db.query(queryString, [id, title, url, description, imgURL, date, category])
       .then(data => {
         const resourceID = data.rows[0].id;
         return res.redirect(`/resources/${resourceID}`);
@@ -106,18 +116,24 @@ module.exports = (db) => {
 
   router.get("/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
-    // User id
     const id = req.session.userId;
-    // const userID = 1;
 
     helperFunctions.getTemplateVars(db, id)
       .then(data => {
 
         helperFunctions.getAllResourceInfo(db, resourceID)
           .then((info) => {
-            const resourceInfo = makeTemplateVarsforResource(info, resourceID);
-            const templateVars = { ...data, resourceInfo, id };
-            res.render("resource", templateVars);
+
+          helperFunctions.getCommentsInfo(db, resourceID)
+            .then(results => {
+              const comments = results
+              const resourceInfo = makeTemplateVarsforResource(info, resourceID);
+              const templateVars = { ...data, comments, resourceInfo, id, userLiked: false };
+
+              res.render("resource", templateVars);
+
+            })
+
           });
       });
   });
@@ -125,22 +141,41 @@ module.exports = (db) => {
 
   router.post("/like/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
-    // User id
-    // const userID = req.session.userId
-    const userID = 1;
-    helperFunctions.getAllResourceInfo(db, resourceID)
+    const id = req.session.userId;
+    helperFunctions.hasLiked(db, id, resourceID)
       .then((data) => {
-
-        res.send('worked');
-
-
+        if (data.rows.length > 0) {
+          helperFunctions.removeLike(db, id, resourceID)
+            .then((data) => {
+              helperFunctions.getLikes(db, resourceID)
+                .then((likesData) => {
+                  res.json({ likesData });
+                });
+            });
+        } else {
+          helperFunctions.addLike(db, id, resourceID)
+            .then((data) => {
+              helperFunctions.getLikes(db, resourceID)
+                .then((likesData) => {
+                  res.json({ likesData });
+                });
+            });
+        }
       });
   });
 
 
-  router.post("/comment", (req, res) => {
+  router.post("/comment/:resourceID", (req, res) => {
+    const id = req.session.userId
+    const comment = req.body.comment
+    const resourceID = req.params.resourceID
 
-  })
+    helperFunctions.addComment(db, id, comment, resourceID)
+    .then(data => {
+
+      res.redirect(`/resources/${resourceID}`)
+    })
+  });
 
 
   // need to also get likes, comments, ratings
@@ -178,6 +213,8 @@ const makeTemplateVarsforResource = (data, resourceID) => {
   const likesObjArr = data[2];
   const commentsObjArr = data[3];
 
+  // console.log("Old info", resourceInfoObj);
+
   const title = resourceInfoObj.title;
   const url = resourceInfoObj.url;
   const description = resourceInfoObj.description;
@@ -202,6 +239,8 @@ const makeTemplateVarsforResource = (data, resourceID) => {
   };
   return templateVars;
 };
+
+
 
 // console.log("Old info", resourceInfoObj);
 // console.log("Ratings", ratingsObjArr);
