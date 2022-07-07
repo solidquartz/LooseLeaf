@@ -6,6 +6,7 @@
 */
 
 const express = require('express');
+const res = require('express/lib/response');
 const router = express.Router();
 const helperFunctions = require('./helper_functions');
 
@@ -13,73 +14,67 @@ const helperFunctions = require('./helper_functions');
 module.exports = (db) => {
 
   router.get("/", (req, res) => {
-    helperFunctions.getAllResourcesAndCategories(db)
-      .then((all) => {
-        const resources = all[0];
-        const categories = all[1];
+    helperFunctions.getAllResources(db)
+      .then((resources) => {
         const id = req.session.userId;
-        let name = null;
-
-        helperFunctions.getUserNameById(db, id)
+        helperFunctions.getTemplateVars(db, id)
           .then(data => {
-            if (data.rows.length !== 0) {
-              name = data.rows[0].name;
-            }
-            const templateVars = { resources, categories, id, name };
+
+            const templateVars = { resources, ...data, id };
             return res.render("resources", templateVars);
           });
       });
+  });
 
-    //needs fixing to include id (addTemplateVars)
-    router.get("/category/:id", (req, res) => {
-      const promises = [helperFunctions.getFilteredResourcesByCategory(db, req.params.id), helperFunctions.getAllCategories(db)];
-      Promise.all(promises)
-        .then((data => {
-          const resources = data[0];
-          const categories = data[1];
-          const templateVars = { resources, categories };
-          res.render("resources", templateVars);
-        }));
-    });
+  //needs fixing to include id (addTemplateVars)
+  router.get("/category/:id", (req, res) => {
+    const id = req.session.userId;
+    const promises = [helperFunctions.getFilteredResourcesByCategory(db, req.params.id), helperFunctions.getTemplateVars(db, id)];
+    Promise.all(promises)
+      .then((data => {
+        const resources = data[0];
+        const categories = data[1].categories;
+        const name = data[1].name;
+        const templateVars = { categories, resources, name, id };
+        res.render("resources", templateVars);
+      }));
   });
 
 
+  router.get("/category/:id", (req, res) => {
+    const id = req.session.userId;
+    const promises = [helperFunctions.getFilteredResourcesByCategory(db, req.params.id), helperFunctions.getTemplateVars(db, id)];
+    Promise.all(promises)
+      .then((data => {
+        const resources = data[0];
+        const categories = data[1].categories;
+        const name = data[1].name;
+        const templateVars = { categories, resources, name, id };
+        res.render("resources", templateVars);
+      }));
+  });
+
   router.get("/my_resources/:id", (req, res) => {
     const id = req.session.userId;
-    let name = null;
-
-    helperFunctions.getAllResourcesAndCategories(db)
-      .then((all) => {
-        const resources = all[0];
-        const categories = all[1];
-
-        helperFunctions.getUserNameById(db, id)
+    helperFunctions.getMyResources(db, id)
+      .then(resources => {
+        helperFunctions.getTemplateVars(db, id)
           .then(data => {
-            if (data.rows.length !== 0) {
-              name = data.rows[0].name;
-            }
-            const templateVars = { resources, categories, id, name };
-            res.render('my_resources', templateVars);
-            return;
+            const templateVars = { resources, ...data, id };
+            return res.render('my_resources', templateVars);
           });
       });
   });
 
   //change name to not objects
   router.get("/create", (req, res) => {
-    helperFunctions.getAllCategories(db)
-      .then((categories) => {
-        const id = req.session.userId;
-        let name = null;
+    const id = req.session.userId;
+    let name = null;
 
-        helperFunctions.getUserNameById(db, id)
-          .then(data => {
-            if (data.rows.length !== 0) {
-              name = data.rows[0].name;
-            }
-            const templateVars = { categories, id, name };
-            return res.render("create-resource", templateVars);
-          });
+    helperFunctions.getTemplateVars(db, id)
+      .then(results => {
+        const templateVars = { ...results, id };
+        return res.render('create-resource', templateVars);
       });
   });
 
@@ -113,17 +108,17 @@ module.exports = (db) => {
     // const userID = 1;
 
     helperFunctions.getTemplateVars(db, id)
-    .then(data => {
-      // const categories = data[0][0];
-      // const name = data[1];
+      .then(data => {
+        // const categories = data[0][0];
+        // const name = data[1];
 
-      helperFunctions.getAllResourceInfo(db, resourceID)
-      .then((info) => {
+        helperFunctions.getAllResourceInfo(db, resourceID)
+          .then((info) => {
 
         // console.log(info)
         const resourceInfo = makeTemplateVarsforResource(info, resourceID)
 
-        const templateVars = {...data, resourceInfo, id};
+            const templateVars = { ...data, resourceInfo, id };
 
         console.log(resourceID);
         console.log('templateVars-----------------', templateVars)
@@ -150,6 +145,11 @@ module.exports = (db) => {
       res.send("Delete Like");
      })
   });
+
+
+  router.post("/comment", (req, res) => {
+
+  })
 
 
   // need to also get likes, comments, ratings
@@ -198,24 +198,24 @@ const makeTemplateVarsforResource = (data, resourceID) => {
   const numOfComments = commentsArr.length;
 
   const templateVars = {
-                        title,
-                        url,
-                        description,
-                        imgURL,
-                        date,
-                        numOfLikes,
-                        avgRating,
-                        commentsArr,
-                        numOfComments,
-                        resourceID,
-                       };
+    title,
+    url,
+    description,
+    imgURL,
+    date,
+    numOfLikes,
+    avgRating,
+    commentsArr,
+    numOfComments,
+    resourceID,
+  };
   return templateVars;
-}
+};
 
-      // console.log("Old info", resourceInfoObj)
-      // console.log("Ratings", ratingsObjArr)
-      // console.log("Likes", likesObjArr)
-      // console.log("Comments", commentsObjArr)
-      // console.log('avg rating', avgRating);
-      // console.log('numOfLikes', numOfLikes)
-      // console.log('commentsArr', commentsArr);
+// console.log("Old info", resourceInfoObj);
+// console.log("Ratings", ratingsObjArr);
+// console.log("Likes", likesObjArr);
+// console.log("Comments", commentsObjArr);
+// console.log('avg rating', avgRating);
+// console.log('numOfLikes', numOfLikes);
+// console.log('commentsArr', commentsArr);

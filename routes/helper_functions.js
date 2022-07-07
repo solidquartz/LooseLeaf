@@ -19,7 +19,6 @@ const getFilteredResourcesByCategory = (db, id) => {
   WHERE category_id = $1
 `, [id])
     .then(data => {
-      console.log(id);
       return data.rows;
     });
 };
@@ -105,16 +104,37 @@ const getUserNameById = (db, id) => {
 };
 
 const getTemplateVars = (db, userId) => {
-  const promises = [ getAllCategories(db), getUserNameById(db, userId)]
+  const promises = [getAllCategories(db), getUserNameById(db, userId)];
   return Promise.all(promises)
-  .then(data => {
-    let name = null
-    if(data[1].rows.length !== 0) {
-        name = data[1].rows[0].name
+    .then(data => {
+      let name = null;
+      if (data[1].rows.length !== 0) {
+        name = data[1].rows[0].name;
       }
-      return { categories: data[0], name }
-   })
+      return { categories: data[0], name };
+    });
 
+};
+
+const getMyResources = (db, userId) => {
+  return db.query(`
+  SELECT * FROM resources
+  JOIN users ON user_id = users.id
+  WHERE user_id = $1
+  `, [userId])
+    .then(data => {
+      return data.rows;
+    });
+};
+
+const getMyLikedResources = (db, userId) => {
+  return db.quuery(`
+  SELECT * FROM resources
+  JOIN users ON user_id = users.id
+  WHERE user_id = $1`, [userId])
+  .then(data => {
+    return data.rows
+  })
 }
 
 const addLike = (db, userID, resourceID) => {
@@ -139,5 +159,7 @@ module.exports = {
   getUserNameById,
   getTemplateVars,
   addLike,
-  removeLike
+  removeLike,
+  getMyResources,
+  getMyLikedResources
 };
