@@ -116,9 +116,7 @@ module.exports = (db) => {
 
   router.get("/:resourceID", (req, res) => {
     const resourceID = req.params.resourceID;
-    // User id
     const id = req.session.userId;
-    // const userID = 1;
 
     helperFunctions.getTemplateVars(db, id)
       .then(data => {
@@ -126,14 +124,18 @@ module.exports = (db) => {
         helperFunctions.getAllResourceInfo(db, resourceID)
           .then((info) => {
 
-            console.log(info)
-            const resourceInfo = makeTemplateVarsforResource(info, resourceID);
+          helperFunctions.getCommentsInfo(db, resourceID)
+            .then(results => {
+              const comments = results
 
-            const templateVars = { ...data, resourceInfo, id, userLiked: false };
+              console.log("HERE", comments.length)
+              const resourceInfo = makeTemplateVarsforResource(info, resourceID);
+              const templateVars = { ...data, comments, resourceInfo, id, userLiked: false };
 
-            // console.log(resourceID);
-            // console.log('templateVars-----------------', templateVars)
-            res.render("resource", templateVars);
+              res.render("resource", templateVars);
+
+            })
+
           });
       });
   });
@@ -164,8 +166,15 @@ module.exports = (db) => {
   });
 
 
-  router.post("/comment", (req, res) => {
+  router.post("/comment/:resourceID", (req, res) => {
+    const id = req.session.userId
+    const comment = req.body.comment
+    const resourceID = req.params.resourceID
 
+    helperFunctions.addComment(db, id, comment, resourceID)
+    .then(data => {
+      res.redirect(`/resources/${resourceID}`)
+    })
   });
 
 
