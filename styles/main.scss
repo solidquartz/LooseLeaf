@@ -150,206 +150,206 @@ a:active {
   top: 250px;
 }
 
-  /////////login container/////////
+/////////login container/////////
 
-  .login-container {
-    display: flex;
-    flex-direction: column;
-    height: 300px;
-    width: 200px;
-    background-color: #e09f3e;
-    margin-right: 80px;
-    align-items: center;
-  }
+.login-container {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 200px;
+  background-color: #e09f3e;
+  margin-right: 80px;
+  align-items: center;
+}
 
-  header.login {
-    font-family: 'Work Sans', sans-serif;
-    color: #9e2a2b;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 10px;
-  }
+header.login {
+  font-family: 'Work Sans', sans-serif;
+  color: #9e2a2b;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
+}
 
-  #login-email {
-    height: 25px;
-    width: 90%;
-    margin: auto;
-    font-family: 'Work Sans', sans-serif;
-    color: #540b0e;
-    margin-bottom: 25px;
-    white-space: nowrap;
-    overflow-x: hidden;
-  }
+#login-email {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+  margin-bottom: 25px;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
 
-  #login-password {
-    height: 25px;
-    width: 90%;
-    margin: auto;
-    font-family: 'Work Sans', sans-serif;
-    color: #540b0e;
-    white-space: nowrap;
-    overflow-x: hidden;
-  }
+#login-password {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
 
-  .login-button {
-    display: flex;
-    margin-left: auto;
-    margin-top: auto;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    font-family: 'Work Sans', sans-serif;
-    background-color: #9e2a2b;
-    color: #e09f3e;
-    font-weight: bold;
-    border: none;
-  }
+.login-button {
+  display: flex;
+  margin-left: auto;
+  margin-top: auto;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  font-family: 'Work Sans', sans-serif;
+  background-color: #9e2a2b;
+  color: #e09f3e;
+  font-weight: bold;
+  border: none;
+}
 
-  .login-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-  }
-
-
-  // register container//
-
-  .register-container {
-    display: flex;
-    flex-direction: column;
-    height: 300px;
-    width: 200px;
-    background-color: #e09f3e;
-    align-items: center;
-  }
-
-  header.register {
-    font-family: 'Work Sans', sans-serif;
-    color: #9e2a2b;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 10px;
-  }
-
-  #name {
-    height: 25px;
-    width: 90%;
-    margin: auto;
-    font-family: 'Work Sans', sans-serif;
-    color: #540b0e;
-    white-space: nowrap;
-    overflow-x: hidden;
-  }
-
-  #register-email {
-    height: 25px;
-    width: 90%;
-    margin: auto;
-    font-family: 'Work Sans', sans-serif;
-    color: #540b0e;
-    margin: 10px
-  }
-
-  #register-password {
-    height: 25px;
-    width: 90%;
-    margin: auto;
-    font-family: 'Work Sans', sans-serif;
-    color: #540b0e;
-    white-space: nowrap;
-    overflow-x: hidden;
-  }
-
-  .register-button {
-    display: flex;
-    margin-left: auto;
-    margin-top: auto;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    font-family: 'Work Sans', sans-serif;
-    background-color: #9e2a2b;
-    color: #e09f3e;
-    font-weight: bold;
-    border: none;
-  }
-
-  .register-text {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-  }
-
-  .navbar-brand {
-    font-family: 'Nothing You Could Do', cursive;
-    color: #540b0e;
-    font-size: 4em;
-  }
-
-  // resource page
-  .resource-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    // flex-wrap: wrap;
-    width: 90%;
-    position: absolute;
-    top: 120px;
-  }
+.login-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+}
 
 
-  //// update account/////////
+// register container//
 
-  .account-container {
-    display: flex;
-    flex-direction: column;
-    height: 300px;
-    width: 300px;
-    background-color: #e09f3e;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    margin-top: 200px
-  }
+.register-container {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 200px;
+  background-color: #e09f3e;
+  align-items: center;
+}
 
-  .account-text {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-  }
+header.register {
+  font-family: 'Work Sans', sans-serif;
+  color: #9e2a2b;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+#name {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+#register-email {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+  margin: 10px
+}
+
+#register-password {
+  height: 25px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Work Sans', sans-serif;
+  color: #540b0e;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.register-button {
+  display: flex;
+  margin-left: auto;
+  margin-top: auto;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  font-family: 'Work Sans', sans-serif;
+  background-color: #9e2a2b;
+  color: #e09f3e;
+  font-weight: bold;
+  border: none;
+}
+
+.register-text {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.navbar-brand {
+  font-family: 'Nothing You Could Do', cursive;
+  color: #540b0e;
+  font-size: 4em;
+}
+
+// resource page
+.resource-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // flex-wrap: wrap;
+  width: 90%;
+  position: absolute;
+  top: 120px;
+}
+
+
+//// update account/////////
+
+.account-container {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 300px;
+  background-color: #e09f3e;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 200px
+}
+
+.account-text {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
 
 .account {
-    font-family: 'Work Sans', sans-serif;
-    color: #9e2a2b;
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 40px;
-  }
+  font-family: 'Work Sans', sans-serif;
+  color: #9e2a2b;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 40px;
+}
 
-  #update-email {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
+#update-email {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
-  .update-button {
-    display: flex;
-    margin-left: auto;
-    margin-top: auto;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    font-family: 'Work Sans', sans-serif;
-    background-color: #9e2a2b;
-    color: #e09f3e;
-    font-weight: bold;
-    border: none;
-  }
-
-
+.update-button {
+  display: flex;
+  margin-left: auto;
+  margin-top: auto;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  font-family: 'Work Sans', sans-serif;
+  background-color: #9e2a2b;
+  color: #e09f3e;
+  font-weight: bold;
+  border: none;
+}
 
 
 
 
 
-  //////////// comments ////////////
+
+
+//////////// comments ////////////
 
 .resources-comments-container {
   display: flex;
@@ -367,7 +367,6 @@ a:active {
   border: none;
   border-bottom: black 2px solid;
   text-align: left
-
 }
 
 .comment-button {
@@ -423,24 +422,22 @@ a:active {
   font-family: 'Work Sans', sans-serif;
   background-color: #9e2a2b;
   color: #e09f3e;
-  font-weight: bold;
+  font-weight: 600;
   border: none;
 }
 
 .create-resource-text {
   display: flex;
+  color: #e09f3e;
+  font-weight: 300;
+  font-size: 1.2em;
+  font-family: "Work Sans", sans-serif;
   flex-direction: column;
-  justify-items: center;
 }
 
 .create-input {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-items: space-around;
 }
 
-h3 {
-  font-size: 1em;
-  font-family: "Work Sans", sans-serif;
-  font-weight: 600;
-}

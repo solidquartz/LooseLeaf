@@ -48,13 +48,17 @@
       <div class="create-resource-text">
 
         <div class="create-input">
+          Title
           <input name="title" type="text" placeholder="title"></input>
+          Link to Resource
           <input name="urlLink" type="text" placeholder="URL link"></input>
+          Description
           <input name="description" type="text" placeholder="description"></input>
+          Image URL
           <input name="imageURL" type="text" placeholder="imageURL"></input>
         </div>
 
-        <label for="category"><h3>Select a category</h3></label>
+        <label for="category">Select a category</label>
         <select name="category">
           <option disabled selected value>Select An Option</option>
           <% for(let category in categories) { %>
