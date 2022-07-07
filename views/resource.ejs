@@ -80,6 +80,9 @@
           <span class="comments"><i class="bi bi-chat-text"></i>
             <%= resourceInfo.numOfComments %>
           </span>
+          <button type="submit" class="like"  data-resource-id="<%= resourceInfo.resourceID %>">
+            <i class="bi bi-heart-fill"></i>
+          </button>
           <span class="likes"><i class="bi bi-heart-fill"></i>
             <%= resourceInfo.numOfLikes %>
           </span>
@@ -92,9 +95,9 @@
         <!-- This is a dead button that does nothing -->
 
             <!-- Add Like -->
-            <button type="submit" class="like" data-resource-id="<%= resourceInfo.resourceID %>">
+            <!-- <button type="submit" class="like" data-resource-id="<%= resourceInfo.resourceID %>">
               <i class="bi bi-heart-fill"></i>
-            </button>
+            </button> -->
 
             <!-- Add Rating -->
             <div class="star-ratings">
