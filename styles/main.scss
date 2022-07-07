@@ -29,6 +29,7 @@ a:active {
 }
 
 
+
 /////////header navbar/////////
 
 
@@ -404,9 +405,9 @@ a:active {
 .create-resource-container {
   display: flex;
   flex-direction: column;
-  height: 300px;
-  width: 300px;
-  background-color: #e09f3e;
+  height: 500px;
+  width: 600px;
+  background-color: #335c67;
   align-items: center;
   justify-content: center;
   margin: auto;
@@ -436,4 +437,10 @@ a:active {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+h3 {
+  font-size: 1em;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 600;
 }
