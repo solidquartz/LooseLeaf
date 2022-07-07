@@ -1,8 +1,3 @@
-// // PG database client/connection setup
-// const { Pool } = require("pg");
-// const dbParams = require("../lib/db.js");
-// const db = new Pool(dbParams);
-// db.connect();
 
 ////////// Categories Table Queries /////////
 const getAllCategories = (db) => {
@@ -57,8 +52,6 @@ const getAllMyResources = (db, userId) => {
         resources.push(resourceInfo);
       }
 
-
-
       return { resources };
     });
 
@@ -80,12 +73,32 @@ const hasRated = (db, userID, resourceID) => {
 
 const addRating = (db, userID, resourceID, rating) => {
   return db.query(`INSERT INTO ratings (user_id, rating, resource_id) VALUES ($1, $2, $3);`, [userID, rating, resourceID])
-    .catch((err) => err.message);
+  .then(data => {
+    getRatings(db, resourceID)
+    .then(allRatings => {
+      console.log(allRatings)
+      const resourceAverage = getAvgRating(allRatings)
+      return db.query(`UPDATE resources
+      SET average_rating = $2
+      WHERE id = $1`, [resourceID, resourceAverage])
+    })
+
+  })
+
 };
 
 const removeRating = (db, userID, resourceID) => {
   return db.query(`DELETE FROM ratings WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
-    .catch((err) => err.message);
+  .then(data => {
+    getRatings(db, resourceID)
+    .then(allRatings => {
+      console.log(allRatings)
+      const resourceAverage = getAvgRating(allRatings)
+      return db.query(`UPDATE resources
+      SET average_rating = $2
+      WHERE id = $1`, [resourceID, resourceAverage])
+    })
+  })
 };
 
 
@@ -94,26 +107,32 @@ const removeRating = (db, userID, resourceID) => {
 const getLikes = (db, resourceID) => {
   return db.query(`SELECT * FROM likes WHERE resource_id = $1;`, [resourceID])
     .then(data => {
-      const likes = data.rows;
-      return db.query(`UPDATE resources
-      SET total_likes = total_likes + 1
-      WHERE id = $1`, [resourceID])
+      return data.rows;
+
     });
-};
+  };
 
 const hasLiked = (db, userID, resourceID) => {
-  return db.query(`SELECT * FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
+      return db.query(`SELECT * FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
     .catch((err) => err.message);
 };
 
 const addLike = (db, userID, resourceID) => {
   return db.query(`INSERT INTO likes (user_id, resource_id) VALUES ($1, $2);`, [userID, resourceID])
-    .catch((err) => err.message);
+    .then(data => {
+      return db.query(`UPDATE resources
+      SET total_likes = total_likes + 1
+      WHERE id = $1`, [resourceID])
+    })
 };
 
 const removeLike = (db, userID, resourceID) => {
   return db.query(`DELETE FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
-    .c
+  .then(data => {
+    return db.query(`UPDATE resources
+    SET total_likes = total_likes - 1
+    WHERE id = $1`, [resourceID])
+  })
 };
 
 ////////// Comments Table Queries /////////
@@ -242,6 +261,73 @@ const searchResources = (db, searchInput) => {
 };
 
 
+const getAvgRating = (ratingsArr) => {
+  if(ratingsArr.length === 0) {
+    return 0;
+  }
+
+  let sum = 0;
+  for (const ratingObj of ratingsArr) {
+    sum += ratingObj.rating;
+  }
+  return sum / ratingsArr.length;
+};
+
+const getCommentsArr = (commentsArr) => {
+  let arr = [];
+  for (const commentObj of commentsArr) {
+    arr.push(commentObj.comment);
+  }
+  return arr;
+};
+
+const getDate = () => {
+  const today = new Date();
+  const day = String(today.getDate()).padStart(2, '0');
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const year = today.getFullYear();
+  const date = `${year}-${month}-${day}`;
+  return date;
+};
+
+const makeTemplateVarsforResource = (data, resourceID) => {
+  const resourceInfoObj = data[0][0];
+  const ratingsObjArr = data[1];
+  const likesObjArr = data[2];
+  const commentsObjArr = data[3];
+
+
+
+  const title = resourceInfoObj.title;
+  const url = resourceInfoObj.url;
+  const description = resourceInfoObj.description;
+  const imgURL = resourceInfoObj.image_url;
+  const date = resourceInfoObj.date_created;
+  const numOfLikes = likesObjArr.length;
+  const avgRating = getAvgRating(ratingsObjArr);
+  const numOfRatings = ratingsObjArr.length;
+  const commentsArr = getCommentsArr(commentsObjArr);
+  const numOfComments = commentsArr.length;
+  const name = resourceInfoObj.name;
+
+
+
+  const templateVars = {
+    title,
+    url,
+    description,
+    imgURL,
+    date,
+    numOfLikes,
+    avgRating,
+    numOfRatings,
+    commentsArr,
+    numOfComments,
+    resourceID,
+    name
+  };
+  return templateVars;
+};
 
 
 module.exports = {
@@ -269,5 +355,10 @@ module.exports = {
   removeRating,
   getRatings,
   getComments,
-  getCommentsInfo
+  getCommentsInfo,
+  makeTemplateVarsforResource,
+  getDate,
+  getCommentsArr,
+  getAvgRating
+
 };
