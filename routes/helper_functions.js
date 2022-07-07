@@ -38,19 +38,19 @@ const getMyLikedResources = (db, userId) => {
   SELECT * FROM resources
   JOIN likes ON resource_id = resources.id
   WHERE likes.user_id = $1`, [userId])
-  .then(data => {
-    return data.rows
-  })
-}
+    .then(data => {
+      return data.rows;
+    });
+};
 
 
 const getAllMyResources = (db, userId) => {
   const promises = [getMyCreatedResources(db, userId), getMyLikedResources(db, userId)];
   return Promise.all(promises)
     .then(data => {
-      let resources = []
-      for(const resourceInfo of data) {
-        resources.push(resourceInfo)
+      let resources = [];
+      for (const resourceInfo of data) {
+        resources.push(resourceInfo);
       }
       return { resources };
     });
@@ -79,17 +79,17 @@ const getLikes = (db, resourceID) => {
 const hasLiked = (db, userID, resourceID) => {
   return db.query(`SELECT * FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
     .catch((err) => err.message);
-}
+};
 
 const addLike = (db, userID, resourceID) => {
   return db.query(`INSERT INTO likes (user_id, resource_id) VALUES ($1, $2);`, [userID, resourceID])
     .catch((err) => err.message);
-}
+};
 
 const removeLike = (db, userID, resourceID) => {
   return db.query(`DELETE FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
     .catch((err) => err.message);
-}
+};
 
 ////////// Comments Table Queries /////////
 
@@ -105,8 +105,8 @@ const addComment = (db, userId, comment, resource_id) => {
   return db.query(`INSERT INTO comments (user_id, comment, resource_id)
   VALUES ($1, $2, $3)
   RETURNING *;`, [userId, comment, resource_id]
-  .catch((err) => err.message));
-}
+    .catch((err) => err.message));
+};
 
 ////////// Users Table Queries /////////
 const updateUserInfo = (db, name, email, password, id) => {
@@ -129,7 +129,7 @@ const addUser = (db, name, email, password) => {
   return db.query(`INSERT INTO users (name, email, password)
   VALUES ($1, $2, $3)
   RETURNING *;`, [name, email, password])
-  .catch((err) => err.message);
+    .catch((err) => err.message);
 };
 
 const getUserNameById = (db, id) => {
@@ -164,7 +164,7 @@ const getResourceInfo = (db, resourceID) => {
     .then(data => {
       return data.rows;
     });
-}
+};
 
 
 const searchResources = (db, searchInput) => {
@@ -178,23 +178,6 @@ const searchResources = (db, searchInput) => {
       return data.rows;
     });
 };
-
-
-
-const hasLiked = (db, userID, resourceID) => {
-  return db.query(`SELECT * FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
-    .catch((err) => err.message);
-}
-
-const addLike = (db, userID, resourceID) => {
-  return db.query(`INSERT INTO likes (user_id, resource_id) VALUES ($1, $2);`, [userID, resourceID])
-    .catch((err) => err.message);
-}
-
-const removeLike = (db, userID, resourceID) => {
-  return db.query(`DELETE FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
-    .catch((err) => err.message);
-}
 
 
 const getAllResourceInfo = (db, resourceID) => {
@@ -227,23 +210,13 @@ module.exports = {
   addUser,
   getUserNameById,
   getTemplateVars,
-<<<<<<< HEAD
   addLike,
   removeLike,
   getMyLikedResources,
   hasLiked,
   getLikes,
   getMyCreatedResources,
-  getMyLikedResources,
-<<<<<<< HEAD
-  getAllMyResources
-=======
-  getMyResources,
-  getMyLikedResources,
-  searchResources
->>>>>>> feature_search
-=======
   getAllMyResources,
-  addComment
->>>>>>> 6fa0ad06bc986e624b5f92d810db7871983149ce
+  addComment,
+  searchResources
 };
