@@ -133,8 +133,9 @@ module.exports = (db) => {
             .then(results => {
               const comments = results
 
-              console.log("HERE", comments.length)
+
               const resourceInfo = makeTemplateVarsforResource(info, resourceID);
+              console.log("HERE", resourceInfo)
               const templateVars = { ...data, comments, resourceInfo, id, userLiked: false };
 
               res.render("resource", templateVars);
@@ -263,7 +264,6 @@ const makeTemplateVarsforResource = (data, resourceID) => {
   const commentsArr = getCommentsArr(commentsObjArr);
   const numOfComments = commentsArr.length;
   const name = resourceInfoObj.name;
-
 
 
   const templateVars = {
