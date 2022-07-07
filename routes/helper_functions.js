@@ -120,22 +120,36 @@ const getMyResources = (db, userId) => {
   return db.query(`
   SELECT * FROM resources
   JOIN users ON user_id = users.id
-  WHERE user_id = $1
-  `, [userId])
+  WHERE user_id = $1`, [userId])
     .then(data => {
       return data.rows;
     });
 };
 
 const getMyLikedResources = (db, userId) => {
-  return db.quuery(`
+  return db.query(`
   SELECT * FROM resources
   JOIN users ON user_id = users.id
   WHERE user_id = $1`, [userId])
-  .then(data => {
-    return data.rows
-  })
-}
+    .then(data => {
+      return data.rows;
+    });
+};
+
+
+const searchResources = (db, searchInput) => {
+  return db.query(`
+  SELECT * FROM resources
+  JOIN categories ON category_id = categories.id
+  WHERE description LIKE %$1%`, [searchInput])
+    .then(data => {
+      console.log("data: ", data);
+      console.log("data.rows: ", data.rows);
+      return data.rows;
+    });
+};
+
+
 
 module.exports = {
   getAllCategories,
@@ -149,5 +163,6 @@ module.exports = {
   getUserNameById,
   getTemplateVars,
   getMyResources,
-  getMyLikedResources
+  getMyLikedResources,
+  searchResources
 };
