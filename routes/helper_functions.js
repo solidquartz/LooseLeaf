@@ -101,11 +101,21 @@ const getComments = (db, resourceID) => {
 };
 
 
-const addComment = (db, userId, comment, resource_id) => {
+const getCommentsInfo = (db, resourceID) => {
+  return db.query(`SELECT * FROM comments
+  JOIN users ON user_id = users.id
+  WHERE resource_id = $1;`, [resourceID])
+    .then(data => {
+      return data.rows;
+    });
+};
+
+
+const addComment = (db, userId, comment, resourceID) => {
   return db.query(`INSERT INTO comments (user_id, comment, resource_id)
   VALUES ($1, $2, $3)
-  RETURNING *;`, [userId, comment, resource_id]
-    .catch((err) => err.message));
+  RETURNING *;`, [userId, comment, resourceID])
+    .catch((err) => err.message);
 };
 
 ////////// Users Table Queries /////////
@@ -223,5 +233,7 @@ module.exports = {
   getMyCreatedResources,
   getAllMyResources,
   addComment,
+  getComments,
+  getCommentsInfo,
   searchResources
 };
