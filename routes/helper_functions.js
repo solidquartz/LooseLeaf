@@ -48,7 +48,7 @@ const getAllMyResources = (db, userId) => {
   const promises = [getMyCreatedResources(db, userId), getMyLikedResources(db, userId)];
   return Promise.all(promises)
     .then(data => {
-      if(data[0] && data[1]) {
+      if(!data[0] && !data[1]) {
         return { resources: [] };
       }
 
@@ -94,7 +94,10 @@ const removeRating = (db, userID, resourceID) => {
 const getLikes = (db, resourceID) => {
   return db.query(`SELECT * FROM likes WHERE resource_id = $1;`, [resourceID])
     .then(data => {
-      return data.rows;
+      const likes = data.rows;
+      return db.query(`UPDATE resources
+      SET total_likes = total_likes + 1
+      WHERE id = $1`, [resourceID])
     });
 };
 
@@ -110,7 +113,7 @@ const addLike = (db, userID, resourceID) => {
 
 const removeLike = (db, userID, resourceID) => {
   return db.query(`DELETE FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
-    .catch((err) => err.message);
+    .c
 };
 
 ////////// Comments Table Queries /////////
@@ -142,7 +145,6 @@ const addComment = (db, userId, comment, resourceID) => {
       SET total_comments = total_comments + 1
       WHERE id = $1;`, [resourceID])
     })
-    .catch((err) => err.message);
 };
 
 ////////// Users Table Queries /////////
@@ -223,11 +225,6 @@ const getTemplateVars = (db, userId) => {
     });
 };
 
-const getAllResourcesAndStats = (db, resources) => {
-  return db.query (
-
-  )
-}
 
 //////// Search ////////
 const searchResources = (db, searchInput) => {
