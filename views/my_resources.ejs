@@ -49,22 +49,22 @@
     <% for (const resource of resources) { %>
 
       <div class="leaf-contents">
-        <a href="/resources/<%= resource.id %>"><img src="<%= resource.image_url %>" width="390" height="260">
+        <a href="/resources/<%= resource[0].id %>"><img src="<%= resource[0].image_url %>" width="390" height="260">
           <div class="leaf-text">
             <header class="title">
               <h2>
-                <%= resource.title %>
+                <%= resource[0].title %>
               </h2>
             </header>
         </a>
         <div class="resource-url">
           <a href="/external"><i class="bi bi-box-arrow-up-right"></i>
-            <%= resource.url %>
+            <%= resource[0].url %>
           </a>
         </div>
         <div class="description">
           <p>
-            <%= resource.description %>
+            <%= resource[0].description %>
           </p>
         </div>
         <div class="leaf-footer">

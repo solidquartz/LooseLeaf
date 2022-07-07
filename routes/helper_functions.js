@@ -116,7 +116,7 @@ const getTemplateVars = (db, userId) => {
 
 };
 
-const getMyResources = (db, userId) => {
+const getMyCreatedResources = (db, userId) => {
   return db.query(`
   SELECT * FROM resources
   JOIN users ON user_id = users.id
@@ -128,10 +128,10 @@ const getMyResources = (db, userId) => {
 };
 
 const getMyLikedResources = (db, userId) => {
-  return db.quuery(`
+  return db.query(`
   SELECT * FROM resources
-  JOIN users ON user_id = users.id
-  WHERE user_id = $1`, [userId])
+  JOIN likes ON resource_id = resources.id
+  WHERE likes.user_id = $1`, [userId])
   .then(data => {
     return data.rows
   })
@@ -154,6 +154,20 @@ const removeLike = (db, userID, resourceID) => {
 
 
 
+const getAllMyResources = (db, userId) => {
+  const promises = [getMyCreatedResources(db, userId), getMyLikedResources(db, userId)];
+  return Promise.all(promises)
+    .then(data => {
+      let resources = []
+      for(const resourceInfo of data) {
+        resources.push(resourceInfo)
+      }
+      return { resources };
+    });
+
+};
+
+
 module.exports = {
   getAllCategories,
   getFilteredResourcesByCategory,
@@ -167,8 +181,10 @@ module.exports = {
   getTemplateVars,
   addLike,
   removeLike,
-  getMyResources,
   getMyLikedResources,
   hasLiked,
-  getLikes
+  getLikes,
+  getMyCreatedResources,
+  getMyLikedResources,
+  getAllMyResources
 };
