@@ -65,15 +65,16 @@ module.exports = (db) => {
       });
   });
 
-  router.get("/search_results", (req, res) => {
-    console.log("req.body: ", req.query.search);
-    // const searchInput = req.body;
+  router.get("/search", (req, res) => {
+    const searchQuery = req.query.query;
+    console.log("req.query.query: ", req.query.query);
+    const searchInput = req.body;
 
-    // helperFunctions.searchResources(db, searchInput)
-    //   .then(data => {
-    //     const templateVars = { ...data };
-    //     return res.render('resources', templateVars);
-    //   });
+    helperFunctions.searchResources(db, searchInput)
+      .then(data => {
+        const templateVars = { ...data };
+        return res.render('resources', templateVars);
+      });
   });
 
 

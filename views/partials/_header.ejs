@@ -1,82 +1,41 @@
-<nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">LooseLeaf</a>
+<div class="header-title">
+  <a href="/index">
+    <h1>LooseLeaf</h1>
+  </a>
+</div>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="header-menu">
+<div class="btn-group">
+  <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    Search Categories
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <% for (const category of categories) { %>
+      <li>
+        <a class="dropdown-item" href="/resources/category/<%= category.id %>">
+          <%= category.name %>
+        </a>
+      </li>
+      <% } %>
+  </ul>
+  </li>
+  </ul>
+</div>
+</nav>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!-- <li class="nav-item">
-          <a
-            class="nav-link active"
-            aria-current="page"
-            href="/resources/my_resources/<%= id %>"
-            >My Leaves</a
-          >
-        </li> -->
+<nav class="header-search">
+<form class="search" action="/resources/search" method="GET">
+    <input name="query" type="text" id="search" placeholder="Search..."></input>
+  <button type="submit" class="btn btn-light"><i class="bi bi-search"></i></button>
+</form>
 
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="/resources/create">Create Leaf</a>
-        </li> -->
-
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Categories
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <% for (const category of categories) { %>
-            <li>
-              <a
-                class="dropdown-item"
-                href="/resources/category/<%= category.id %>"
-              >
-                <%= category.name %>
-              </a>
-            </li>
-            <% } %>
-          </ul>
-        </li>
-      </ul>
-
-      <form class="d-flex" role="search"           method="GET" action="/resources/search_results">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
 </nav>
 
 <div class="header-user">
-  <% if (id) { %>
+<% if (id) { %>
   <div class="btn-group">
-    <button
-      type="button"
-      class="btn btn-outline-success dropdown-toggle"
-      data-bs-toggle="dropdown"
-      aria-expanded="false"
-    >
+    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+      aria-expanded="false">
       <%= name %>
     </button>
     <ul class="dropdown-menu">
@@ -98,13 +57,13 @@
     </ul>
   </div>
   <%} else { %>
-  <div class="login-register">
-    <a href="/login_register">
-      <button type="button" class="btn btn-light">Register</button>
-    </a>
-    <a href="/login_register">
-      <button type="button" class="btn btn-outline-light">Log In</button>
-    </a>
-  </div>
-  <% } %>
+    <div class="login-register">
+      <a href="/login_register">
+        <button type="button" class="btn btn-light">Register</button>
+      </a>
+      <a href="/login_register">
+        <button type="button" class="btn btn-outline-light">Log In</button>
+      </a>
+    </div>
+    <% } %>
 </div>
