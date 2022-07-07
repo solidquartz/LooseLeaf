@@ -59,6 +59,7 @@ module.exports = (db) => {
     helperFunctions.getAllMyResources(db, id)
       .then(results => {
         const resources = results.resources;
+        console.log(resources)
 
         helperFunctions.getTemplateVars(db, id)
           .then(data => {
@@ -125,7 +126,7 @@ module.exports = (db) => {
         helperFunctions.getAllResourceInfo(db, resourceID)
           .then((info) => {
 
-            // console.log(info)
+            console.log(info)
             const resourceInfo = makeTemplateVarsforResource(info, resourceID);
 
             const templateVars = { ...data, resourceInfo, id, userLiked: false };

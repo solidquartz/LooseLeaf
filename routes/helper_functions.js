@@ -158,9 +158,11 @@ const getFilteredResourcesByCategory = (db, id) => {
 
 const getResourceInfo = (db, resourceID) => {
   return db.query(`
-  SELECT * FROM resources
-  JOIN likes ON resource_id = resources.id
-  WHERE likes.user_id = $1`, [userId])
+  SELECT *
+  FROM resources
+  JOIN categories ON category_id = categories.id
+  JOIN users ON user_id = users.id
+  WHERE resources.id = $1;`, [resourceID])
     .then(data => {
       return data.rows;
     });
