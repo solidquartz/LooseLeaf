@@ -43,7 +43,7 @@ const getAllMyResources = (db, userId) => {
   const promises = [getMyCreatedResources(db, userId), getMyLikedResources(db, userId)];
   return Promise.all(promises)
     .then(data => {
-      if(!data[0] && !data[1]) {
+      if (!data[0] && !data[1]) {
         return { resources: [] };
       }
 
@@ -73,32 +73,30 @@ const hasRated = (db, userID, resourceID) => {
 
 const addRating = (db, userID, resourceID, rating) => {
   return db.query(`INSERT INTO ratings (user_id, rating, resource_id) VALUES ($1, $2, $3);`, [userID, rating, resourceID])
-  .then(data => {
-    getRatings(db, resourceID)
-    .then(allRatings => {
-      console.log(allRatings)
-      const resourceAverage = getAvgRating(allRatings)
-      return db.query(`UPDATE resources
+    .then(data => {
+      getRatings(db, resourceID)
+        .then(allRatings => {
+          const resourceAverage = getAvgRating(allRatings);
+          return db.query(`UPDATE resources
       SET average_rating = $2
-      WHERE id = $1`, [resourceID, resourceAverage])
-    })
+      WHERE id = $1`, [resourceID, resourceAverage]);
+        });
 
-  })
+    });
 
 };
 
 const removeRating = (db, userID, resourceID) => {
   return db.query(`DELETE FROM ratings WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
-  .then(data => {
-    getRatings(db, resourceID)
-    .then(allRatings => {
-      console.log(allRatings)
-      const resourceAverage = getAvgRating(allRatings)
-      return db.query(`UPDATE resources
+    .then(data => {
+      getRatings(db, resourceID)
+        .then(allRatings => {
+          const resourceAverage = getAvgRating(allRatings);
+          return db.query(`UPDATE resources
       SET average_rating = $2
-      WHERE id = $1`, [resourceID, resourceAverage])
-    })
-  })
+      WHERE id = $1`, [resourceID, resourceAverage]);
+        });
+    });
 };
 
 
@@ -110,10 +108,10 @@ const getLikes = (db, resourceID) => {
       return data.rows;
 
     });
-  };
+};
 
 const hasLiked = (db, userID, resourceID) => {
-      return db.query(`SELECT * FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
+  return db.query(`SELECT * FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
     .catch((err) => err.message);
 };
 
@@ -122,17 +120,17 @@ const addLike = (db, userID, resourceID) => {
     .then(data => {
       return db.query(`UPDATE resources
       SET total_likes = total_likes + 1
-      WHERE id = $1`, [resourceID])
-    })
+      WHERE id = $1`, [resourceID]);
+    });
 };
 
 const removeLike = (db, userID, resourceID) => {
   return db.query(`DELETE FROM likes WHERE user_id = $1 AND resource_id = $2;`, [userID, resourceID])
-  .then(data => {
-    return db.query(`UPDATE resources
+    .then(data => {
+      return db.query(`UPDATE resources
     SET total_likes = total_likes - 1
-    WHERE id = $1`, [resourceID])
-  })
+    WHERE id = $1`, [resourceID]);
+    });
 };
 
 ////////// Comments Table Queries /////////
@@ -162,8 +160,8 @@ const addComment = (db, userId, comment, resourceID) => {
     .then(response => {
       return db.query(`UPDATE resources
       SET total_comments = total_comments + 1
-      WHERE id = $1;`, [resourceID])
-    })
+      WHERE id = $1;`, [resourceID]);
+    });
 };
 
 ////////// Users Table Queries /////////
@@ -253,16 +251,16 @@ const searchResources = (db, searchInput) => {
       text: `SELECT * FROM resources
   JOIN categories ON category_id = categories.id
   WHERE LOWER(resources.title) LIKE $1 OR LOWER(resources.description) LIKE $1 OR LOWER(categories.name) LIKE $1 OR LOWER(resources.url) LIKE $1;`,
-    values: ['%' + lowerSearchInput + '%']
-  })
+      values: ['%' + lowerSearchInput + '%']
+    })
     .then(res => {
-    return res.rows;
-  })
+      return res.rows;
+    });
 };
 
 
 const getAvgRating = (ratingsArr) => {
-  if(ratingsArr.length === 0) {
+  if (ratingsArr.length === 0) {
     return 0;
   }
 

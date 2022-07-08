@@ -1,4 +1,5 @@
 $(document).ready(() => {
+
   // Likes
   $('.like').on('click', function() {
     const resourceID = $(this).attr('data-resource-id');
@@ -6,11 +7,10 @@ $(document).ready(() => {
       type: "POST",
       url: `/resources/like/${resourceID}`,
       success: (data) => {
-        // console.log('ajax', data);
-        $('.likes').text(data.likesData.length)
+        $('.likes').text(data.likesData.length);
       }
-    })
-  })
+    });
+  });
 
   // Ratings
   $('.ratingButton').on('click', function() {
@@ -19,14 +19,13 @@ $(document).ready(() => {
     $.ajax({
       type: "POST",
       url: `/resources/rating/${resourceID}`,
-      data: {newRating},
-      success: ({avgRating}) => {
-        // console.log('ajax', avgRating);
+      data: { newRating },
+      success: ({ avgRating }) => {
         $('.rating').text(avgRating);
       }
-    })
-  })
-})
+    });
+  });
+});
 
 
 

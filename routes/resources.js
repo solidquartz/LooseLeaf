@@ -13,10 +13,13 @@ const helperFunctions = require('./helper_functions');
 
 module.exports = (db) => {
 
+
+  // Home Page
   router.get("/", (req, res) => {
     helperFunctions.getAllResources(db)
       .then((resources) => {
         const id = req.session.userId;
+
         helperFunctions.getTemplateVars(db, id)
           .then(data => {
             const templateVars = { resources, ...data, id };
@@ -26,6 +29,7 @@ module.exports = (db) => {
   });
 
 
+  // Categories page
   router.get("/category/:id", (req, res) => {
     const id = req.session.userId;
     const promises = [helperFunctions.getFilteredResourcesByCategory(db, req.params.id), helperFunctions.getTemplateVars(db, id)];
@@ -39,13 +43,13 @@ module.exports = (db) => {
       }));
   });
 
+
+  // Users resources page
   router.get("/my_resources/:id", (req, res) => {
     const id = req.params.id;
     helperFunctions.getAllMyResources(db, id)
       .then(results => {
         const resources = results.resources;
-
-        console.log(resources)
 
         helperFunctions.getTemplateVars(db, id)
           .then(data => {
@@ -55,12 +59,13 @@ module.exports = (db) => {
       });
   });
 
-
   router.get("/search", (req, res) => {
     const searchInput = req.query.query;
     const id = req.session.userId;
+
     helperFunctions.getTemplateVars(db, id)
       .then(results => {
+
         helperFunctions.searchResources(db, searchInput)
           .then(rows => {
             const resources = rows;
@@ -69,6 +74,7 @@ module.exports = (db) => {
           });
       });
   });
+
 
 
   router.get("/create", (req, res) => {
@@ -83,7 +89,6 @@ module.exports = (db) => {
   });
 
   router.post("/create", (req, res) => {
-    // STILL NEED TO GET userID/category somehow
     const id = req.session.userId;
     const title = req.body.title;
     const url = req.body.urlLink;
@@ -110,22 +115,18 @@ module.exports = (db) => {
     const id = req.session.userId;
 
     helperFunctions.getTemplateVars(db, id)
-    .then(data => {
+      .then(data => {
 
         helperFunctions.getAllResourceInfo(db, resourceID)
           .then((info) => {
+
             helperFunctions.getCommentsInfo(db, resourceID)
-            .then(results => {
-              const comments = results
-              const resourceInfo = helperFunctions.makeTemplateVarsforResource(info, resourceID);
-
-              console.log(resourceInfo)
-              const templateVars = { ...data, comments, resourceInfo, id, userLiked: false };
-
-              res.render("resource", templateVars);
-
-            })
-
+              .then(results => {
+                const comments = results;
+                const resourceInfo = helperFunctions.makeTemplateVarsforResource(info, resourceID);
+                const templateVars = { ...data, comments, resourceInfo, id, userLiked: false };
+                res.render("resource", templateVars);
+              });
           });
       });
   });
@@ -135,17 +136,21 @@ module.exports = (db) => {
     const id = req.session.userId;
     helperFunctions.hasLiked(db, id, resourceID)
       .then(data => {
+
         if (data.rows.length > 0) {
           helperFunctions.removeLike(db, id, resourceID)
             .then(data => {
+
               helperFunctions.getLikes(db, resourceID)
                 .then(likesData => {
                   res.json({ likesData });
                 });
             });
+
         } else {
           helperFunctions.addLike(db, id, resourceID)
             .then((data) => {
+
               helperFunctions.getLikes(db, resourceID)
                 .then((likesData) => {
                   res.json({ likesData });
@@ -161,52 +166,39 @@ module.exports = (db) => {
     const newRating = Number(req.body.newRating);
 
     helperFunctions.hasRated(db, id, resourceID)
-    .then((data) => {
-      if (data.rows.length > 0) {
-        helperFunctions.removeRating(db, id, resourceID)
-          .then((data) => {
-            helperFunctions.getRatings(db, resourceID)
-              .then((ratingsData) => {
-                const avgRating = helperFunctions.getAvgRating(ratingsData)
-                return res.json({ avgRating });
-              });
-          });
-      } else {
-        helperFunctions.addRating(db, id, resourceID, newRating)
-          .then((data) => {
-            helperFunctions.getRatings(db, resourceID)
-              .then((ratingsData) => {
-                const avgRating = helperFunctions.getAvgRating(ratingsData)
-                return res.json({ avgRating });
-              });
-          });
-      }
-    });
-  })
-
-  router.post("/comment/:resourceID", (req, res) => {
-    const id = req.session.userId
-    const comment = req.body.comment
-    const resourceID = req.params.resourceID
-
-    helperFunctions.addComment(db, id, comment, resourceID)
-    .then(data => {
-      res.redirect(`/resources/${resourceID}`)
-    })
+      .then((data) => {
+        if (data.rows.length > 0) {
+          helperFunctions.removeRating(db, id, resourceID)
+            .then((data) => {
+              helperFunctions.getRatings(db, resourceID)
+                .then((ratingsData) => {
+                  const avgRating = helperFunctions.getAvgRating(ratingsData);
+                  return res.json({ avgRating });
+                });
+            });
+        } else {
+          helperFunctions.addRating(db, id, resourceID, newRating)
+            .then((data) => {
+              helperFunctions.getRatings(db, resourceID)
+                .then((ratingsData) => {
+                  const avgRating = helperFunctions.getAvgRating(ratingsData);
+                  return res.json({ avgRating });
+                });
+            });
+        }
+      });
   });
 
+  router.post("/comment/:resourceID", (req, res) => {
+    const id = req.session.userId;
+    const comment = req.body.comment;
+    const resourceID = req.params.resourceID;
 
-  // need to also get likes, comments, ratings
+    helperFunctions.addComment(db, id, comment, resourceID)
+      .then(data => {
+        res.redirect(`/resources/${resourceID}`);
+      });
+  });
+
   return router;
 };
-
-
-
-
-// console.log("Old info", resourceInfoObj);
-// console.log("Ratings", ratingsObjArr);
-// console.log("Likes", likesObjArr);
-// console.log("Comments", commentsObjArr);
-// console.log('avg rating', avgRating);
-// console.log('numOfLikes', numOfLikes);
-// console.log('commentsArr', commentsArr);

@@ -8,8 +8,8 @@ module.exports = (db) => {
 
   // login/register page get
   router.get("/", (req, res) => {
-    const id = req.session.userId
-    const name = null
+    const id = req.session.userId;
+    const name = null;
 
     helperFunctions.getAllCategories(db)
       .then((categories) => {
@@ -32,7 +32,7 @@ module.exports = (db) => {
         let userData = user.rows[0];
         if (userData.password === password) {
           req.session.userId = userData.id;
-          const id = req.session.userId
+          const id = req.session.userId;
           return res.redirect(`/resources/my_resources/${id}`);
         }
         res.send({ error: "Invalid email or password" });
@@ -59,7 +59,7 @@ module.exports = (db) => {
           .then(user => {
             let userData = user.rows[0];
             req.session.userId = userData.id;
-            const id = req.session.userId
+            const id = req.session.userId;
             return res.redirect(`/resources/my_resources/${id}`);
           });
 
