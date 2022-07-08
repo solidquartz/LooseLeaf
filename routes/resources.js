@@ -110,15 +110,16 @@ module.exports = (db) => {
     const id = req.session.userId;
 
     helperFunctions.getTemplateVars(db, id)
-      .then(data => {
+    .then(data => {
 
         helperFunctions.getAllResourceInfo(db, resourceID)
           .then((info) => {
-
-          helperFunctions.getCommentsInfo(db, resourceID)
+            helperFunctions.getCommentsInfo(db, resourceID)
             .then(results => {
               const comments = results
               const resourceInfo = helperFunctions.makeTemplateVarsforResource(info, resourceID);
+
+              console.log(resourceInfo)
               const templateVars = { ...data, comments, resourceInfo, id, userLiked: false };
 
               res.render("resource", templateVars);
